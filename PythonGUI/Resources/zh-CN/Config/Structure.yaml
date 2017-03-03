@@ -1,0 +1,45 @@
+Program:
+    Tsk:
+        Bin:
+            TskMainExe: tsk_yamei.exe
+        Config:
+            TskMainIni: tsk.ini
+        Templates:
+            TskMainIni: Templates\Tsk_MainConfig.template
+        
+    TskNet:
+        RelativePath: tsk_report-Intl-zhCN-AIO
+        
+        Bin:
+            TskNetMainExe: tsk_report.exe
+            TskNetLauncherScript: tsk_report.cmd
+            TskNetProgramScript: tsk_report-obfs4.cmd
+            
+        Config:
+            Account: config.yaml
+        Templates:
+            Account: Templates\TskNet_Account.template
+            TskNetLauncherScript: Templates\TskNet_LauncherScript.template
+            TskNetProgramScript: Templates\TskNet_ProgramScript.template
+Shortcuts:
+    TskMainLnk: 天则观2017
+    StartupMenuGroup: 天则观开始菜单快捷方式组
+    Config:
+        # Tsk main shortcut do not actually need a file name...
+        # It provide by other config and change able by user.
+        - TskMainLnk:
+            Action: TskMainLnk
+            FileName: 天则观2017.lnk
+            Args: null
+        - UploadNowLnk:
+            Action: UploadNow
+            FileName: 上传最近数据.lnk
+            Args: null
+        - UploadAllLnk:
+            Action: DoNothing
+            FileName: 重新上传全部数据.lnk
+            Args: null
+        - UninstallLnk:
+            Action: DoNothing
+            FileName: 卸载天则观.lnk
+            Args: null

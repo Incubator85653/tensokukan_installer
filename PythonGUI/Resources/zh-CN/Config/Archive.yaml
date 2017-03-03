@@ -1,0 +1,10 @@
+Tsk:
+    Main: TskMain.7z
+    Templates: TskTemplates.7z
+TskUpload:
+    Main: TskUploadMain.7z
+
+Collection:
+- 'TskMain.7z'
+- 'TskTemplates.7z'
+- 'TskUploadMain.7z'

@@ -1,0 +1,159 @@
+Basic:
+  DesktopShortcut: 天则观2017.lnk
+  GameExePath: C:\th123.exe
+  InstallPath: C:\TensokukanI18N
+  StartMenuGroup: 天则观开始菜单快捷方式
+  TempPath: C:\TensokukanI18N\TensokukanTemp
+Installer:
+  Archive:
+    Collection:
+    - TskMain.7z
+    - TskTemplates.7z
+    - TskUploadMain.7z
+    Source: C:\Visual Studio\PythonGUI\PythonGUI\Resources\zh-CN\Archive
+  Bin:
+    7-zip: C:\Visual Studio\PythonGUI\PythonGUI\Resources\en-US\Bin\7za.exe
+  ConfigPath:
+    Archive: C:\Visual Studio\PythonGUI\PythonGUI\Resources\zh-CN\Config\Archive.yaml
+    Games: C:\Visual Studio\PythonGUI\PythonGUI\Resources\zh-CN\Config\Games.yaml
+    Path: null
+    String: C:\Visual Studio\PythonGUI\PythonGUI\Resources\zh-CN\Config\String.yaml
+    Structure: C:\Visual Studio\PythonGUI\PythonGUI\Resources\zh-CN\Config\Structure.yaml
+    Templates: C:\Visual Studio\PythonGUI\PythonGUI\Resources\zh-CN\Config\Templates.yaml
+    Tkinter: C:\Visual Studio\PythonGUI\PythonGUI\Resources\zh-CN\Config\Tkinter.yaml
+  Optional:
+    ProgramStructure:
+      Tsk:
+        Bin:
+          TskMainExe: tsk_yamei.exe
+        Config:
+          TskMainIni: tsk.ini
+        Templates:
+          TskMainIni: Templates\Tsk_MainConfig.template
+      TskNet:
+        Bin:
+          TskNetLauncherScript: tsk_report.cmd
+          TskNetMainExe: tsk_report.exe
+          TskNetProgramScript: tsk_report-obfs4.cmd
+        Config:
+          Account: config.yaml
+        RelativePath: tsk_report-Intl-zhCN-AIO
+        Templates:
+          Account: Templates\TskNet_Account.template
+          TskNetLauncherScript: Templates\TskNet_LauncherScript.template
+          TskNetProgramScript: Templates\TskNet_ProgramScript.template
+    Templates:
+      TskNet_Account:
+        Config:
+        - TencoAccount:
+            Group: TencoAccount
+            Mark: ___Account
+            Option: '  name: '
+            Value: null
+        - TencoPassword:
+            Group: TencoPassword
+            Mark: ___Password
+            Option: '  password: '
+            Value: null
+        - Comment:
+            Group: Comment
+            Mark: ___Comment
+            Option: ''
+            Value: ''
+        Encoding: utf8
+        FullOutput: null
+        FullSource: null
+        RelativeOutput: tsk_report-Intl-zhCN-AIO\config.yaml
+        RelativeSource: Templates\TskNet_Account.template
+      TskNet_LauncherScript:
+        Config:
+        - AskDNS:
+            Group: Combined
+            Mark: ___nslookup
+            Option: '@'
+            Value: nslookup tenco.info.americansdyg.com>nul 2>nul
+        - SetTempPath:
+            Group: SetTempPath
+            Mark: ___tskDrive
+            Option: '@set tskDrive='
+            Value: null
+        - OptionalHint:
+            Group: Combined
+            Mark: ___optionalHint
+            Option: ''
+            Value: ''
+        - TskNetScriptName:
+            Group: Combined
+            Mark: ___subScript
+            Option: '@'
+            Value: tsk_report-obfs4.cmd
+        - Comment:
+            Group: Comment
+            Mark: ___Comment
+            Option: ''
+            Value: ''
+        Encoding: mbcs
+        FullOutput: null
+        FullSource: null
+        RelativeOutput: tsk_report-Intl-zhCN-AIO\tsk_report.cmd
+        RelativeSource: Templates\TskNet_LauncherScript.template
+      TskNet_ProgramScript:
+        Config:
+        - EncodingConvert:
+            Group: Combined
+            Mark: ___EncodingConvert
+            Option: ''
+            Value: ''
+        - Comment:
+            Group: Comment
+            Mark: ___Comment
+            Option: ''
+            Value: ''
+        Encoding: mbcs
+        FullOutput: null
+        FullSource: null
+        RelativeOutput: tsk_report-Intl-zhCN-AIO\tsk_report-obfs4.cmd
+        RelativeSource: Templates\TskNet_ProgramScript.template
+      Tsk_MainConfig:
+        Config:
+        - GameExePath:
+            Group: GameExePath
+            Mark: ___GamePath
+            Option: Hisoutensoku.FileName=
+            Value: null
+        - TskNetExePath:
+            Group: TskNetExePath
+            Mark: ___TskNetPath
+            Option: Houkokutool.FileName=
+            Value: null
+        - Comment:
+            Group: Comment
+            Mark: ___Comment
+            Option: ''
+            Value: ''
+        Encoding: mbcs
+        FullOutput: null
+        FullSource: null
+        RelativeOutput: tsk.ini
+        RelativeSource: Templates\Tsk_MainConfig.template
+Unattended:
+  ManageDesktopShortcut: true
+  ManageGameExePath: true
+  ManageId: false
+  ManageSWRSAddr: true
+  ManageStartMenuShortcut: true
+  UnattendedMode: 1
+  UpgradeDatabase: null
+  UpgradeIdYaml: null
+  UpgradeSWRSAddr: null
+  UpgradeTskIni: null
+Upgrade:
+  DatabasePath: null
+  ReportYamlPath: null
+  SwrsPath: null
+  SwrsUpgradeMode: null
+  TskIniPath: null
+UserData:
+  SWRSAddr7z: SWRSAddr(936Cn110beta).7z
+  TencoID: null
+  TencoPassword: null

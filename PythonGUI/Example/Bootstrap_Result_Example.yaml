@@ -1,0 +1,14 @@
+Files:
+  Bin:
+    7zipBin: C:\Visual Studio\PythonGUI\PythonGUI\Resources\en-US\Bin\7za.exe
+  Config:
+    Archive: C:\Visual Studio\PythonGUI\PythonGUI\Resources\en-US\Config\Archive.yaml
+    Games: C:\Visual Studio\PythonGUI\PythonGUI\Resources\en-US\Config\Games.yaml
+    Gui: C:\Visual Studio\PythonGUI\PythonGUI\Resources\en-US\Config\Gui.yaml
+    Path: C:\Visual Studio\PythonGUI\PythonGUI\Resources\en-US\Config\Path.yaml
+    String: C:\Visual Studio\PythonGUI\PythonGUI\Resources\en-US\Config\String.yaml
+    Tkinter: C:\Visual Studio\PythonGUI\PythonGUI\Resources\en-US\Config\Tkinter.yaml
+Folders:
+  Archive: C:\Visual Studio\PythonGUI\PythonGUI\Resources\zh-CN\Archive
+  Bin: C:\Visual Studio\PythonGUI\PythonGUI\Resources\en-US\Bin
+  Config: C:\Visual Studio\PythonGUI\PythonGUI\Resources\en-US\Config

@@ -1,0 +1,44 @@
+Basic:
+  DesktopShortcut: null
+  GameExePath: null
+  InstallPath: null
+  StartMenuGroup: null
+  TempPath: null
+Installer:
+  Archive:
+    Collection:
+    - null
+    Source: null
+  Bin:
+    7-zip: null
+  ConfigPath:
+    Archive: null
+    Games: null
+    Templates: null
+    Path: null
+    String: null
+    Tkinter: null
+  Optional:
+    ProgramStructure: null
+    Templates: null
+Unattended:
+  ManageDesktopShortcut: null
+  ManageGameExePath: null
+  ManageId: null
+  ManageSWRSAddr: null
+  ManageStartMenuShortcut: null
+  UnattendedMode: null
+  UpgradeDatabase: null
+  UpgradeIdYaml: null
+  UpgradeSWRSAddr: null
+  UpgradeTskIni: null
+Upgrade:
+  DatabasePath: null
+  ReportYamlPath: null
+  SwrsPath: null
+  SwrsUpgradeMode: null
+  TskIniPath: null
+UserData:
+  SWRSAddr7z: null
+  TencoID: null
+  TencoPassword: null

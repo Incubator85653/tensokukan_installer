@@ -1,0 +1,177 @@
+TskInstTheWizard:
+    Title: 'Tensokukan Installer / Test Version / build 7'
+    Geometry: '640x480'
+    Exit: 'Exit'
+    Debug_InstProfileDump: 'Tensokukan install log.yaml'
+#
+LibTskInstStepWizardMode:
+    labelTextStartInstall: 'Install Tensokukan on your computer.'
+    labelTextWizardModeSelect: 'I am:'
+    labelTextNovice: "Novice, I don't understand how it works."
+    labelTextAdvanced: 'Advanced, show all changeable options for me.'
+    labelTextDebugWarn:
+    - 'Invaid settings in advanced mode will make program error!'
+    - 'Be careful with that.'
+    buttonTextNextStep: 'Next Step'
+    errorUseDebugMode:
+    - 'Novice mode unavailable right now...'
+    - 'Please use another mode to start.'
+LibTskInstStringStepId:
+    labelTextTencoID: 'Tenco account:'
+    radioTextTypeIn: 'Type in account and password manually.'
+    radioTextFromYaml: 'Import from an exist yaml file. (Unavailable)'
+    radioTextRegister: 'Create an new account. (Unavailable)'
+    radioTextSkipId: 'Skip account settings.'
+
+    buttonTextBrowseYaml: 'Browse'
+    buttonTextNextStep: 'Next Step'
+    
+    errorIdTypeNotSelected:
+    - 'You must select a method to set account.'
+    - ''
+    errorRegisterUnavailable:
+    - 'Test version is not support create account,'
+    - 'use another method.'
+    errorIdInstallYamlEmpty: 
+    - "You're trying to import account and password from file,"
+    - "But you're not select anything."
+    errorImportYamlUnavailable:
+    - 'Test version is not support data import,'
+    - 'use another method.'
+    
+    tutorialDialog:
+    - 'Test version is not support create account or import data.'
+    - ' '
+    - 'If you have an account, select first one'
+    - "If you don't have an account, select fourth."
+#
+TskInstStepBasic:
+    labelTextSelectedAdvancedMode: '选择了Debug Mode。'
+    labelTextTskInstallPath: '安装到这:'
+    # TEMP location MUST NOT contains CJK characters like "C:\假猪套天下第一\tsk".
+    labelTextTskTempPath: 'Temp文件夹:'
+    radioTextNewInstall: '新的安装'
+    radioTextUpgrade: "升级"
+    buttonTextBrowseTskInstallPath: 'Browse'
+    buttonTextBrowseTskTempPath: 'Browse'
+    dialogTitleBrowseTskInstallPath: '选择天则观安装目录'
+    dialogTitleBrowseTskTempPath: '选择天则观Temp目录'
+    
+    buttonTextNextStep: 'Next Step'
+    buttonTextExit: '退出'
+    
+    labelTextSelectedNewInstall: '选择了“新的安装”。'
+    labelTextSelectedUpgrade2: '选择了“升级”。'
+    
+    errorCancelledSelectTemp:
+    - '你尝试修改Temp，但取消了操作。'
+    - 'Temp将会恢复为默认设置。'
+    - '你可以稍后再尝试修改。'
+    errorInstallPathEmpty: '还没选择天则观安装位置。'
+    errorTempPathEmpty: '还没选择TEMP位置。'
+    errorInstallTypeNotSelected: '还没选择安装类型。'
+    errorUpgradeNotAvailable: '现在不能升级，只能新安装。'
+    
+    tutorialDialog:
+    - '现在不支持升级，只能新安装。'
+    - 'Temp目录如果有中文，就得选一个不含有中文的路径。'
+TskInstStepId:
+    TypeIn:
+        labelTextTitle: '登陆天则观:'
+        labelTextId: '帐号:'
+        labelTextPassword: '密码:'
+        labelTextSuggest:
+        - '推荐Next Step以前检查下密码对不对，'
+        - '输入帐号以后点这个检查按钮，或者直接Next Step。'
+        - '确认帐号密码正确后再Next Step！'
+        - ' '
+        - '在密码框里Ctrl+A可以全选，'
+        - '然后Ctrl+C复制，粘贴到网页上检查密码。'
+        - ' '
+        - '没有帐号选错了的话，右下关闭安装程序重来……'
+
+        buttonTextCheck: '检查'
+        buttonTextNextStep: 'Next Step'
+
+        idFirst: '检查以前先输入ID。'
+        beforeSave: '两个都输入了才能Next Step。'
+        
+        tutorialDialog:
+        - '输入ID以后点检查会打开Browse器，'
+        - '密码框里输入密码以后右边的日语按钮是检查密码对不对，'
+        - '如果网页打开是404代表ID不存在。'
+        - ' '
+        - '如果密码错了会显示 アカウント認証失敗！'
+
+TskInstStepGame:
+    entryTextConnectGame: '选择最常用的游戏版本。'
+
+    entryTextGameInstalledPath: '游戏exe(th123.exe):'
+    buttonTextBrowseGameExec: 'Browse'
+
+    entryTextGameVersion: '游戏版本（标题栏）:'
+
+    buttonTextNextStep: 'Next Step'
+    
+    errorTextGameExecPathEmpty: '还没选择游戏（th123.exe）。'
+    errorTextGameVersionEmpty: '还没选择游戏的版本。'
+    
+    tutorialDialog:
+    - '第一个是选择你游戏的exe，'
+    - '第二个是选游戏版本，如果你的游戏不在列表里就选 跳过。'
+    - '即使跳过，之后也必须提供一个SWRSAddr.ini才能正常使用天则观。'
+    - ' '
+    - '你不知道什么是SWRSAddr你就别跳过！'
+    - '建议你选择之前打开你的游戏看看标题栏到底是哪个！'
+    - ' '
+    - '你不会连标题栏是什么也不知道吧！游戏窗口最顶上那条带字的！'
+    - '什么？你游戏全屏的？按Alt+Enter快捷键切成窗口啊！'
+    - ' '
+    - 'Alt+Enter是什么？？？'
+    - '    先生，请退群。'
+TskInstStepShortcuts:
+    labelTitleCreateShortcuts: '制造快捷方式。'
+    labelTextCreateStartMenu: '开始菜单:'
+    labelTextCreateDesktop: '桌面:'
+
+    checkbuttonTextDntstartMenu: '不要制造开始菜单快捷方式'
+    checkbuttonTextDntDesktop: '不要制造桌面快捷方式'
+
+    buttonSave: 'Next Step'
+    buttonResetDefaultNames: '恢复默认的快捷方式名字'
+    
+    errorStartMenuDirEmpty: '还没填写开始菜单文件夹名。'
+    errorDesktopNameEmpty: '还没填写桌面快捷方式名。'
+TskInstStepInstall:
+    readyToInstallHint: '设置完了，点击“开始安装”。'
+    buttonStartInstall: '开始安装'
+    
+    
+    labelTextInstalling: '安装中……未响应是正常现象。'
+    labelTextDone: '安装完了。点退出。（别点标题栏上那个关闭按钮）'
+    buttonTextExit: '退出'
+TskInstStepDataImport:
+    labelTextImportDataPart1: 'Import old version Tensokukan user data(1/2).'
+    labelTextImportDataPart2: 'Import old version Tensokukan user data(2/2)'
+
+    labelTextTskIni: 'Tensokukan main ini config file(tsk.ini):'
+    buttonTextBrowseTskIni: 'Not this one?'
+    checkbuttonTextDntManageTskIni: 'Do not import main config.'
+
+    labelTextTskDatabase: 'Database(default.db):'
+    buttonTextBrowseDb: 'Browse'
+    checkbuttonTextDntManageDb: 'Do not import database:'
+
+    labelTextIdYaml: 'Saved Tenco ID and password(config.yaml):'
+    buttonTextBrowseYaml: 'Not this one?'
+    checkbuttonTextDntManageId: 'Do not import Tenco ID settings.'
+    
+    labelTextSWRSAddr: 'Connected game version(SWRSAddr.ini):'
+    buttonTextBrowseSWRSAddr: 'Not this one?'
+    checkbuttonTextDntSWRSAddr: 'Do not import connected game version settings.'
+    checkbuttonTextChooseFromGameList: 'I want select a supported game version from the list.'
+
+    buttonTextNextStep: 'Next Step'
+    buttonTextSave: 'Save'
+    buttonTextExit: 'Exit'
+#

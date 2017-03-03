@@ -1,0 +1,26 @@
+BrowseIdYaml:
+    defaultextension: .yaml
+    filetypes:
+    - !!python/tuple
+        - 所有文件
+        - .*
+    - !!python/tuple
+        - 上传工具配置
+        - .yaml
+    initialfile: config.yaml
+    title: Select your ID yaml
+BrowseGameExec:
+    defaultextension: .exe
+    filetypes:
+    - !!python/tuple
+        - 所有文件
+        - .*
+    - !!python/tuple
+        - 非想天则
+        - .exe
+    initialfile: th123.exe
+    title: 选择非想天则游戏exe。
+BrowseTskInstallPath:
+    title: 选择在哪里安装天则观。
+BrowseTskTempPath:
+    title: 选择一个符合条件的临时文件目录。

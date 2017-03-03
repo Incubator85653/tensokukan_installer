@@ -1,0 +1,45 @@
+Program:
+    Tsk:
+        Bin:
+            TskMainExe: tsk_yamei.exe
+        Config:
+            TskMainIni: tsk.ini
+        Templates:
+            TskMainIni: Templates\Tsk_MainConfig.template
+        
+    TskNet:
+        RelativePath: tsk_report-Intl-zhCN-AIO
+        
+        Bin:
+            TskNetMainExe: tsk_report.exe
+            TskNetLauncherScript: tsk_report.cmd
+            TskNetProgramScript: tsk_report-obfs4.cmd
+            
+        Config:
+            Account: config.yaml
+        Templates:
+            Account: Templates\TskNet_Account.template
+            TskNetLauncherScript: Templates\TskNet_LauncherScript.template
+            TskNetProgramScript: Templates\TskNet_ProgramScript.template
+Shortcuts:
+    TskMainLnk: TSK 2017
+    StartupMenuGroup: Tensokukan
+    Config:
+        # Tsk main shortcut do not actually need a file name...
+        # It provide by other config and change able by user.
+        - TskMainLnk:
+            Action: TskMainLnk
+            FileName: null
+            Args: null
+        - UploadNowLnk:
+            Action: UploadNow
+            FileName: Upload TSK Data.lnk
+            Args: null
+        - UploadAllLnk:
+            Action: DoNothing
+            FileName: Re-upload all TSK data.lnk
+            Args: null
+        - UninstallLnk:
+            Action: DoNothing
+            FileName: Uninstall Tensokukan.lnk
+            Args: null

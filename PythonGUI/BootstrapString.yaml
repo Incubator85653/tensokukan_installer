@@ -1,0 +1,31 @@
+Universal:
+    InstallerVersion: '0.8'
+    Title: 'Tensokukan Installer / Test Version / Build 8'
+    Geometry: '640x480'
+zh-CN:
+    programName: '天则观'
+    labelWizardLang: '选择安装程序的语言：'
+    labelWizardLangIntro:
+    - '这选项只选安装程序语言，天则观的语言在底下选。'
+    labelTskLang: '选择天则观语言：'
+    labelTskLangIntro: 
+    - "这选项决定接下来安装的天则观的显示语言。"
+    - "不推荐安装和系统语言不同的天则观版本，除非是英文版。"
+    errorWizardLangEmpty: '还没有选择安装程序界面语言。'
+    errorTskLangEmpty: '还没有选择天则观语言。'
+    nextStepButton: '下一步'
+    exitButton: '直接退出'
+en-US:
+    programName: 'Tensokukan'
+    labelWizardLang: 'Select installer interface language:'
+    labelWizardLangIntro:
+    - 'The option only affect installer interface, but not the program.'
+    labelTskLang: 'Select Tensokukan language:'
+    labelTskLangIntro:
+    - 'The option affect Tensokukan language.'
+    - "It's not recommended to install a language that mismatch with your system language,"
+    - "Unless you're trying to install the English version."
+    errorWizardLangEmpty: 'You have not select a installer language.'
+    errorTskLangEmpty: 'You have not select a Tensokukan language.'
+    nextStepButton: 'Next Step'
+    exitButton: 'Exit'

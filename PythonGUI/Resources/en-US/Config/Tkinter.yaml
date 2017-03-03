@@ -1,0 +1,26 @@
+BrowseIdYaml:
+    defaultextension: .yaml
+    filetypes:
+    - !!python/tuple
+        - All files
+        - .*
+    - !!python/tuple
+        - Tsk Net config
+        - .yaml
+    initialfile: config.yaml
+    title: Select your account yaml
+BrowseGameExec:
+    defaultextension: .exe
+    filetypes:
+    - !!python/tuple
+        - All files
+        - .*
+    - !!python/tuple
+        - Hisoutensoku
+        - .exe
+    initialfile: th123.exe
+    title: Select game exe file
+BrowseTskInstallPath:
+    title: Select where to install Tensokukan
+BrowseTskTempPath:
+    title: Select a temp folder for Tensokukan
