@@ -21,7 +21,6 @@ import tkinter.ttk
 import yaml
 import sys
 import os
-import tempfile
 # Process
 import subprocess
 # Shortcuts

@@ -9,7 +9,6 @@ import tkinter.ttk
 import yaml
 import sys
 import os
-import tempfile
 # Shortcuts
 import winshell
 import win32com

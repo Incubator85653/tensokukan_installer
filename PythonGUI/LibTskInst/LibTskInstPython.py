@@ -22,9 +22,12 @@ class Process:
 class Environment:
     class System:
         def GetSysTempPath():
-            import tempfile
+            import os
             from os.path import normpath
-            return normpath(tempfile.gettempdir())
+            # A user reported that "default temp" is mismatched with cmd %TEMP% environment variable.
+            # To avoid it, get this variable directly is better than use "import tempfile".
+
+            return normpath(os.environ['TEMP'])
         def GetSysShortLang(ShortLangDict):
             # Return a short language.
             # This is a system information.
