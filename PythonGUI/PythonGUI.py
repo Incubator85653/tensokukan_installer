@@ -29,14 +29,15 @@ import win32com
 
 def AddSearchPaths():
     from os import path
+    from LibTskInstPython import Environment
     # pwd come from a Linux CLI command.
     pwd = os.getcwd()
     # define some library path and add them to system.path.
     pathImport = {}
-    pathImport['pathTheInstallWizard'] = path.join(pwd, 'TskInstTheWizard')
-    pathImport['pathTskInstModules'] = path.join(pathImport.get('pathTheInstallWizard'), 'TskInstWizardModules')
-    pathImport['pathLibTskInstModules'] = path.join(pathImport.get('pathTheInstallWizard'), 'LibTskInstWizardModules')
-    pathImport['pathLibTskInst'] = path.join(pwd, 'LibTskInst')
+    pathImport['pathTheInstallWizard'] = Environment.Path.OsPathJoinSimulator(pwd, 'TskInstTheWizard')
+    pathImport['pathTskInstModules'] = Environment.Path.OsPathJoinSimulator(pathImport.get('pathTheInstallWizard'), 'TskInstWizardModules')
+    pathImport['pathLibTskInstModules'] = Environment.Path.OsPathJoinSimulator(pathImport.get('pathTheInstallWizard'), 'LibTskInstWizardModules')
+    pathImport['pathLibTskInst'] = Environment.Path.OsPathJoinSimulator(pwd, 'LibTskInst')
 
     sys.path.append(pathImport.get('pathTheInstallWizard'))
     sys.path.append(pathImport.get('pathTskInstModules'))

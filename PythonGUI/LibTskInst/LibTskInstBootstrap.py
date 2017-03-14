@@ -100,28 +100,28 @@ class Methods:
 
             # Get root resources directory name.
             resourcesDirName = foldersDict.get('Resources')
-            workingResourcesPath = os.path.join(os.getcwd(), resourcesDirName)
+            workingResourcesPath = LibPy.Environment.Path.OsPathJoinSimulator(os.getcwd(), resourcesDirName)
 
             # Generage language based root resource path(full path).
-            langBasedRootResourcesPath = os.path.join(workingResourcesPath, LibRes.Language.WizardDevLanguage)
+            langBasedRootResourcesPath = LibPy.Environment.Path.OsPathJoinSimulator(workingResourcesPath, LibRes.Language.WizardDevLanguage)
 
-            langBasedWizardResPath = os.path.join(workingResourcesPath, LibRes.Language.WizardDevLanguage)
-            langBasedWizardBinPath = os.path.join(workingResourcesPath, LibRes.Language.WizardBinLanguage)
-            langBasedTskResPath = os.path.join(workingResourcesPath, LibRes.Language.TskDevLanguage)
+            langBasedWizardResPath = LibPy.Environment.Path.OsPathJoinSimulator(workingResourcesPath, LibRes.Language.WizardDevLanguage)
+            langBasedWizardBinPath = LibPy.Environment.Path.OsPathJoinSimulator(workingResourcesPath, LibRes.Language.WizardBinLanguage)
+            langBasedTskResPath = LibPy.Environment.Path.OsPathJoinSimulator(workingResourcesPath, LibRes.Language.TskDevLanguage)
 
             # Generate language based sub resource folder name and path by root resource path(full path).
             archiveDirName = foldersDict.get('Archive')
             binDirName = foldersDict.get('Bin')
             configDirName = foldersDict.get('Config')
         
-            langBasedArchiveDirPath = os.path.join(langBasedTskResPath, archiveDirName)
-            langBasedBinDirPath = os.path.join(langBasedWizardBinPath, binDirName)
-            langBasedConfigDirPath = os.path.join(langBasedWizardResPath, configDirName)
+            langBasedArchiveDirPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedTskResPath, archiveDirName)
+            langBasedBinDirPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedWizardBinPath, binDirName)
+            langBasedConfigDirPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedWizardResPath, configDirName)
 
             # Generate binary file path by language based sub resource path(full path).
             zipBinName = filesDict.get('Bin').get('7za')
 
-            langBasedzipBinName = os.path.join(langBasedBinDirPath, zipBinName)
+            langBasedzipBinName = LibPy.Environment.Path.OsPathJoinSimulator(langBasedBinDirPath, zipBinName)
 
             # Generate installer configs file path by language based...
             archiveYamlName = filesDict.get('Config').get('Archive')
@@ -131,12 +131,12 @@ class Methods:
             stringYamlName = filesDict.get('Config').get('String')
             tkinterYamlName = filesDict.get('Config').get('Tkinter')
 
-            langBasedArchiveYamlPath = os.path.join(langBasedConfigDirPath, archiveYamlName)
-            langBasedGamesYamlPath = os.path.join(langBasedConfigDirPath, gamesYamlName)
-            langBasedTemplatesYamlPath = os.path.join(langBasedConfigDirPath, templatesYamlName)
-            langBasedStructureYamlPath = os.path.join(langBasedConfigDirPath, structureYamlName)
-            langBasedStringYamlPath = os.path.join(langBasedConfigDirPath, stringYamlName)
-            langBasedTkinterYamlPath = os.path.join(langBasedConfigDirPath, tkinterYamlName)
+            langBasedArchiveYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, archiveYamlName)
+            langBasedGamesYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, gamesYamlName)
+            langBasedTemplatesYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, templatesYamlName)
+            langBasedStructureYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, structureYamlName)
+            langBasedStringYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, stringYamlName)
+            langBasedTkinterYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, tkinterYamlName)
 
             # Fill final results back to LibRes.
 

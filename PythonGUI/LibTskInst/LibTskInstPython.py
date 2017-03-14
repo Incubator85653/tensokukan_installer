@@ -54,9 +54,11 @@ class Environment:
     class Path:
         def AddWorkingDirToRelativePath(RelativePath):
             import os
+            from LibTskInstPython import Environment
+            
             # pwd come from a Linux CLI command.
             pwd = os.getcwd()
-            return os.path.join(pwd, RelativePath)
+            return Environment.Path.OsPathJoinSimulator(pwd, RelativePath)
         def GetWorkingDirectory():
             # Please use os.getcwd() in code.
             # This is just a sample, do not use in the code.
@@ -65,6 +67,16 @@ class Environment:
         def GetInstallPath():
             from LibTskInstResources import InstallationProfile
             return InstallationProfile['Basic']['InstallPath']
+        def OsPathJoinSimulator(first, second):
+            # This method is prevent a crash on some Ghost systems.
+            # On these systems, os.path.join will fail.
+
+            # It almost do the same thing just like os.path.join, but Windows platform specified.
+
+            # first path must be "slash removed" path.
+            # the second one can be a folder or a file with extension.
+            result = r"{0}\{1}".format(first, second)
+            return result
 class InputOutput:
     class Yaml:
         def ReadYaml(filePath):
@@ -99,7 +111,7 @@ class InputOutput:
     class Templates:
         def DoModify(perFileDict):
             from LibTskInstResources import Methods as wizardCfg
-            from os import path
+            from LibTskInstPython import Environment
 
             # UTF-8: utf8
             # ANSI: mbcs
@@ -108,8 +120,8 @@ class InputOutput:
             # Decode basic object properties
 
             installPath = wizardCfg.Basic.InstallPath()
-            perFileDict['FullSource'] = path.join(installPath, perFileDict['RelativeSource'])
-            perFileDict['FullOutput'] = path.join(installPath, perFileDict['RelativeOutput'])
+            perFileDict['FullSource'] = Environment.Path.OsPathJoinSimulator(installPath, perFileDict['RelativeSource'])
+            perFileDict['FullOutput'] = Environment.Path.OsPathJoinSimulator(installPath, perFileDict['RelativeOutput'])
 
             # Get replace information.
 
