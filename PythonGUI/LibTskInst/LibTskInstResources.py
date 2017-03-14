@@ -275,7 +275,12 @@ class Methods:
             archiveSource = Methods.Installer.Archive.Source()
             swrsaddr = Methods.UserData.GetDict()['SWRSAddr7z']
 
-            return Environment.Path.OsPathJoinSimulator(archiveSource, swrsaddr)
+            if swrsaddr == False:
+                result = False
+            else:
+                result = Environment.Path.OsPathJoinSimulator(archiveSource, swrsaddr)
+
+            return result
         def TencoAccount():
 
             return Methods.UserData.GetDict()['TencoID']
