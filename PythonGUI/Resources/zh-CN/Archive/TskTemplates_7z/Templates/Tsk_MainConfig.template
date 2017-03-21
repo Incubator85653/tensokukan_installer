@@ -1,0 +1,9 @@
+# This is the template of "tsk.ini" ___Comment
+[Autorun]
+Hisoutensoku.Enabled=1
+___GamePath
+Tensokukan.Enabled=1
+___TskNetPath
+Houkokutool.Enabled=1
+[General]
+Profile=Default.db
