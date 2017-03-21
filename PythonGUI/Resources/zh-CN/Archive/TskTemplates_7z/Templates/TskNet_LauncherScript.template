@@ -7,13 +7,7 @@ ___nslookup
 @REM set a backup for env temp.
 @set tempBak=%TEMP%
 
-@REM Modify "tskDrive" as your perferred location, like "D:\" .
-@REM Do not include quotation marks, full path is available.
-
-@REM set tskDrive=%Public%
-___tskDrive
-
-@set tskTemp=%tskDrive%\tskTempZPOw05AHZSCQ
+@set tskTemp=%TEMP%\tskTempZPOw05AHZSCQ
 
 @set TEMP=%tskTemp%
 @set TMP=%tskTemp%
