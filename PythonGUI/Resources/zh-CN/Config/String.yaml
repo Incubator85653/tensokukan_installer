@@ -78,7 +78,8 @@ TskInstStepBasic:
     
     tutorialDialog:
     - '现在不支持升级，只能新安装。'
-    - 'Temp目录如果有中文，就得选一个不含有中文的路径。'
+    - '将会自动在你选择的文件夹里再新建一个天则观文件夹，'
+    - '不要修改这个。'
 TskInstStepId:
     TypeIn:
         labelTextTitle: '登陆天则观：'
