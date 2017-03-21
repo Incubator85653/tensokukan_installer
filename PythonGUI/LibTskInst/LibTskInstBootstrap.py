@@ -124,6 +124,7 @@ class Methods:
             langBasedzipBinName = LibPy.Environment.Path.OsPathJoinSimulator(langBasedBinDirPath, zipBinName)
 
             # Generate installer configs file path by language based...
+            debugOptionsName = filesDict.get('Config').get('DebugOptions')
             archiveYamlName = filesDict.get('Config').get('Archive')
             gamesYamlName = filesDict.get('Config').get('Games')
             templatesYamlName = filesDict.get('Config').get('Templates')
@@ -131,6 +132,7 @@ class Methods:
             stringYamlName = filesDict.get('Config').get('String')
             tkinterYamlName = filesDict.get('Config').get('Tkinter')
 
+            langBasedDebugOptionsYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, debugOptionsName)
             langBasedArchiveYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, archiveYamlName)
             langBasedGamesYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, gamesYamlName)
             langBasedTemplatesYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, templatesYamlName)
@@ -144,6 +146,7 @@ class Methods:
 
             LibRes.InstallationProfile['Installer']['Bin']['7-zip'] = langBasedzipBinName
 
+            LibRes.InstallationProfile['Installer']['ConfigPath']['DebugOptions'] = langBasedDebugOptionsYamlPath
             LibRes.InstallationProfile['Installer']['ConfigPath']['Archive'] = langBasedArchiveYamlPath
             LibRes.InstallationProfile['Installer']['ConfigPath']['Games'] = langBasedGamesYamlPath
             LibRes.InstallationProfile['Installer']['ConfigPath']['Templates'] = langBasedTemplatesYamlPath
@@ -256,6 +259,7 @@ class Methods:
             from LibTskInstResources import Resources
 
             # ConfigInRam
+            Resources.Config.DebugYaml = IO.Yaml.ReadYaml(Profile['Installer']['ConfigPath']['DebugOptions'])
             Resources.Config.ArchiveYaml = IO.Yaml.ReadYaml(Profile['Installer']['ConfigPath']['Archive'])
             Resources.Config.GamesYaml = IO.Yaml.ReadYaml(Profile['Installer']['ConfigPath']['Games'])
             Resources.Config.TemplatesYaml = IO.Yaml.ReadYaml(Profile['Installer']['ConfigPath']['Templates'])
@@ -278,8 +282,10 @@ class Methods:
             InstallationProfile['Installer']['Optional']['Templates'] = Resources.Config.TemplatesYaml
             return
         def DoLoadConfig(window):
+            import LibTskInstResources as LibRes
             Methods.LoadingScreen.ReadConfigFromDisk()
             Methods.LoadingScreen.FillVarFromConfig()
+            LibRes.Resources.Methods.DebugOptions.LoadDebugOptions()
 
             # End bootstrap and loading screen.
             from LibTskInstTkinter import Window as LibTkWin
