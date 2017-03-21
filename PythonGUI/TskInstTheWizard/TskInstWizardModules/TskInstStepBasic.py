@@ -171,9 +171,12 @@ class Methods():
         Widgets.entryDisplayTskInstallPath.place(x = 125, y = 105)
         Widgets.buttonDisplayBrowseTskInstallPath.place(x = 500, y = 105)
 
-        Widgets.labelDisplayTskTempPath.place(x = 25, y = 140)
-        Widgets.entryDisplayTskTempPath.place(x = 125, y = 140)
-        Widgets.buttonDisplayBrowseTskTempPath.place(x = 500, y = 140)
+        # Do not show the Temp option.
+        # After Tsk Network 2017 Build2, ANSI-only-characters temp path is not required anymore.
+
+        #Widgets.labelDisplayTskTempPath.place(x = 25, y = 140)
+        #Widgets.entryDisplayTskTempPath.place(x = 125, y = 140)
+        #Widgets.buttonDisplayBrowseTskTempPath.place(x = 500, y = 140)
 
         Widgets.radioDisplayNewInstall.place(x = 25, y = 175)
         Widgets.radioDisplayUpgrade.place(x = 160, y = 175)

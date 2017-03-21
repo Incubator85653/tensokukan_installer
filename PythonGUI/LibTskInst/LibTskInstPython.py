@@ -165,14 +165,6 @@ class InputOutput:
                 if groupName == 'TskNetExePath':
                     result = AddOption(wizardCfg.Installer.Optional.ProgramStructure.TskNet.Bin.TskNetMainExe())
 
-                # TskNet_LauncherScript
-                if groupName == 'SetTempPath':
-                    result = AddOption(wizardCfg.Basic.TempPath())
-
-                # TskNet_ProgramScript
-
-                # No action available / required.
-
                 # TskNet_Account
                 if groupName == 'TencoAccount':
                     if wizardCfg.Unattended.ManageId() == True:
