@@ -2,6 +2,7 @@ import TskInstTheWizard as Wizard
 import LibTskInstTkinter as LibTk
 import LibTskInstPython as LibPy
 import LibTskInstResources as LibRes
+import LibTskInstDebug as LibBug
 from tkinter import *
 
 wizardCfg = LibRes.Resources.Config.StringYaml.get('TskInstStepBasic')
@@ -171,12 +172,13 @@ class Methods():
         Widgets.entryDisplayTskInstallPath.place(x = 125, y = 105)
         Widgets.buttonDisplayBrowseTskInstallPath.place(x = 500, y = 105)
 
-        # Do not show the Temp option.
+        # Do not show the Temp option unless the user specified.
         # After Tsk Network 2017 Build2, ANSI-only-characters temp path is not required anymore.
 
-        #Widgets.labelDisplayTskTempPath.place(x = 25, y = 140)
-        #Widgets.entryDisplayTskTempPath.place(x = 125, y = 140)
-        #Widgets.buttonDisplayBrowseTskTempPath.place(x = 500, y = 140)
+        if LibBug.StepBasic_ShowTempOption:
+            Widgets.labelDisplayTskTempPath.place(x = 25, y = 140)
+            Widgets.entryDisplayTskTempPath.place(x = 125, y = 140)
+            Widgets.buttonDisplayBrowseTskTempPath.place(x = 500, y = 140)
 
         Widgets.radioDisplayNewInstall.place(x = 25, y = 175)
         Widgets.radioDisplayUpgrade.place(x = 160, y = 175)
