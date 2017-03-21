@@ -1,4 +1,4 @@
-from os import path
+from LibTskInstPython import Environment
 
 # Fill these lovely yaml at very beginning...
 BootstrapLanguage = None
@@ -142,7 +142,7 @@ class Methods:
                             installedPath = Methods.Basic.InstallPath()
                             exePath = Methods.Installer.Optional.ProgramStructure.Tsk.Bin.GetDict()['TskMainExe']
 
-                            result = path.join(installedPath, exePath)
+                            result = Environment.Path.OsPathJoinSimulator(installedPath, exePath)
 
                             return result
                     class Config:
@@ -151,7 +151,7 @@ class Methods:
                             return Methods.Installer.Optional.ProgramStructure.Tsk.GetDict()['Config']
                         
                         def TskMainIni():
-                            result = path.join(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.Tsk.Config.GetDict()['TskMainIni'])
+                            result = Environment.Path.OsPathJoinSimulator(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.Tsk.Config.GetDict()['TskMainIni'])
                             return result
                     class Templates:
                         def GetDict():
@@ -159,7 +159,7 @@ class Methods:
                             return Methods.Installer.Optional.ProgramStructure.Tsk.GetDict()['Templates']
 
                         def TskMainIniTemplate():
-                            result = path.join(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.Tsk.Templates.GetDict()['TskMainIni'])
+                            result = Environment.Path.OsPathJoinSimulator(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.Tsk.Templates.GetDict()['TskMainIni'])
                             return result
                 class TskNet:
                     def GetDict():
@@ -171,7 +171,7 @@ class Methods:
                         return Methods.Installer.Optional.ProgramStructure.TskNet.GetDict()['RelativePath']
                     def FullPath():
                         installPath = Methods.Basic.InstallPath()
-                        result = path.join(installPath, Methods.Installer.Optional.ProgramStructure.TskNet.RelativePath())
+                        result = Environment.Path.OsPathJoinSimulator(installPath, Methods.Installer.Optional.ProgramStructure.TskNet.RelativePath())
                         
                         return result
                     class Bin:
@@ -180,13 +180,13 @@ class Methods:
                             return Methods.Installer.Optional.ProgramStructure.TskNet.GetDict()['Bin']
 
                         def TskNetMainExe():
-                            result = path.join(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Bin.GetDict()['TskNetMainExe'])
+                            result = Environment.Path.OsPathJoinSimulator(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Bin.GetDict()['TskNetMainExe'])
                             return result
                         def TskNetLauncherScript():
-                            result = path.join(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Bin.GetDict()['TskNetLauncherScript'])
+                            result = Environment.Path.OsPathJoinSimulator(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Bin.GetDict()['TskNetLauncherScript'])
                             return result
                         def TskNetProgramScript():
-                            result = path.join(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Bin.GetDict()['TskNetProgramScript'])
+                            result = Environment.Path.OsPathJoinSimulator(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Bin.GetDict()['TskNetProgramScript'])
                             return result
                     class Config:
                         def GetDict():
@@ -194,17 +194,17 @@ class Methods:
                             return Methods.Installer.Optional.ProgramStructure.TskNet.GetDict()['Config']
 
                         def Account():
-                            result = path.join(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Config.GetDict()['Account'])
+                            result = Environment.Path.OsPathJoinSimulator(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Config.GetDict()['Account'])
                             return result
                     class Templates:
                         def GetDict():
 
                             return Methods.Installer.Optional.ProgramStructure.TskNet.GetDict()['Templates']
                         def TskNetLauncherScript():
-                            result = path.join(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Templates.GetDict()['TskNetLauncherScript'])
+                            result = Environment.Path.OsPathJoinSimulator(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Templates.GetDict()['TskNetLauncherScript'])
                             return result
                         def TskNetProgramScript():
-                            result = path.join(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Templates.GetDict()['TskNetProgramScript'])
+                            result = Environment.Path.OsPathJoinSimulator(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Templates.GetDict()['TskNetProgramScript'])
                             return result
             def Templates():
 
@@ -270,12 +270,17 @@ class Methods:
             return InstallationProfile['UserData']
 
         def SWRSAddr7z():
-            from os import path
+            from LibTskInstPython import Environment
 
             archiveSource = Methods.Installer.Archive.Source()
             swrsaddr = Methods.UserData.GetDict()['SWRSAddr7z']
 
-            return path.join(archiveSource, swrsaddr)
+            if swrsaddr == False:
+                result = False
+            else:
+                result = Environment.Path.OsPathJoinSimulator(archiveSource, swrsaddr)
+
+            return result
         def TencoAccount():
 
             return Methods.UserData.GetDict()['TencoID']

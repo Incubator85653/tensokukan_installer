@@ -73,11 +73,12 @@ class TimeLine():
             import os
             from LibTskInstResources import InstallationProfile
             from LibTskInstPython import InputOutput
+            from LibTskInstPython import Environment
 
             desktop = winshell.desktop()
             yamlName = RootVar.wizardCfg['Debug_InstProfileDump']
 
-            writeOutPath = os.path.join(desktop, yamlName)
+            writeOutPath = Environment.Path.OsPathJoinSimulator(desktop, yamlName)
             InputOutput.Yaml.WriteYaml(InstallationProfile, writeOutPath)
 
             # Display ReadyToInstall interface.

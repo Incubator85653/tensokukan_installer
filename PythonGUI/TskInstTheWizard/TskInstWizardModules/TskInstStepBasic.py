@@ -87,7 +87,7 @@ class Methods():
         LibTk.Window.ArrayNotice(wizardCfg.get('tutorialDialog'))
         return
     def GetDefaultTskTempPath():
-        # Remove this comment you may can't hide code anymore lol.
+
         return LibPy.Environment.System.GetSysTempPath() + r'\TensokukanTemp'
     def AskTskInstallDirName():
         from os.path import normpath

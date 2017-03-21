@@ -1,4 +1,5 @@
 from LibTskInstPython import InputOutput
+from LibTskInstPython import Environment
 from LibTskInstResources import Methods as wizardCfg
 from LibTskInstResources import Resources
 
@@ -6,6 +7,7 @@ class Methods:
     class CopyFiles:
         def UnpackArchives():
             import os
+            from LibTskInstPython import Environment
 
             archivesPath = wizardCfg.Installer.Archive.Source()
             archivesCollection = wizardCfg.Installer.Archive.Collection()
@@ -13,7 +15,7 @@ class Methods:
             installPath = wizardCfg.Basic.InstallPath()
 
             for archiveName in archivesCollection:
-                archiveFullPath = os.path.join(archivesPath, archiveName)
+                archiveFullPath = Environment.Path.OsPathJoinSimulator(archivesPath, archiveName)
                 InputOutput.Zip.DoUnpack(archiveFullPath, installPath)
 
             return
@@ -51,6 +53,7 @@ class Methods:
         def ShortcutRules(Action, FileName, Args):
             import winshell
             import os
+            from LibTskInstPython import Environment
 
             # These codes used python sequential execution characteristics.
 
@@ -79,7 +82,7 @@ class Methods:
                 if manageDesktop:
                     environmentPath = winshell.desktop()
                     
-                    lnkFileLocation = os.path.join(environmentPath, lnkName)
+                    lnkFileLocation = Environment.Path.OsPathJoinSimulator(environmentPath, lnkName)
 
                     createSwitch = False
                     InputOutput.Shortcut.CreateShortcut(lnkFileLocation, targetFullPath,targetWorkingDir)
@@ -87,9 +90,9 @@ class Methods:
                     environmentPath = winshell.programs()
 
                     tskSmGroupName = wizardCfg.Basic.StartMenuGroup()
-                    tskSmGroupPath = os.path.join(environmentPath, tskSmGroupName)
-   
-                    lnkFileLocation = os.path.join(tskSmGroupPath, lnkName)
+                    tskSmGroupPath = Environment.Path.OsPathJoinSimulator(environmentPath, tskSmGroupName)
+
+                    lnkFileLocation = Environment.Path.OsPathJoinSimulator(tskSmGroupPath, lnkName)
 
                     # Create shortcut menu for base library.
                     if not os.path.exists(tskSmGroupPath):
