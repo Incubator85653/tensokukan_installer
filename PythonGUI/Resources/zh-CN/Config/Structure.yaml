@@ -4,6 +4,8 @@ Program:
             TskMainExe: tsk_yamei.exe
         Config:
             TskMainIni: tsk.ini
+        Database:
+            Db: Default.db
         Templates:
             TskMainIni: Templates\Tsk_MainConfig.template
         

@@ -1,11 +1,14 @@
 from tkinter import *
 from LibTskInstString import TskInstStringStepDataImport as wizardCfg
-import LibTskInstResources
+import LibTskInstResources as LibRes
 import TskInstTheWizard as wizard
 
-DataImportYaml = LibTskInstResources.GuiYaml.get('TskInstStepUpgrade')
+DataImportYaml = LibRes.GuiYaml.get('TskInstStepUpgrade')
 Part1Yaml = DataImportYaml.get('Part1')
 Part2Yaml = DataImportYaml.get('Part2')
+class ConstVars:
+    installedPath = LibRes.Methods.Basic.InstallPath()
+
 class Widgets:
     # Local variable
     entryStorageTskDbPath = StringVar()
@@ -46,6 +49,7 @@ class Widgets:
     buttonDisplayExit = None
 class Methods:
     def InitialzieUpgradeProcess():
+
         return
     def MarkAsDone():
         wizard.WizardConditions.Modules.TskInstStepUpgrade = True
@@ -88,7 +92,7 @@ class Methods:
         return
 
     def PlaceWidgetsPart2():
-        import LibTskInstResources as cfg
+        import LibRes as cfg
         Widgets.labelDisplayImportDataPart2.place(x = Part2Yaml.get('labelDisplayImportData').get('x'),
                                              y = Part2Yaml.get('labelDisplayImportData').get('y'))
 
