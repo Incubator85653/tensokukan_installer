@@ -142,6 +142,8 @@ Unattended:
   ManageId: false
   ManageSWRSAddr: true
   ManageStartMenuShortcut: true
+  # 1 = new install
+  # 2 = upgrade
   UnattendedMode: 1
   UpgradeDatabase: null
   UpgradeIdYaml: null
