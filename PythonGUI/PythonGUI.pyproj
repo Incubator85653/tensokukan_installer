@@ -59,7 +59,7 @@
     <Compile Include="TskInstTheWizard\TskInstWizardModules\TskInstStepBasic.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TskInstTheWizard\TskInstWizardModules\TskInstStepDataImport.py">
+    <Compile Include="TskInstTheWizard\TskInstWizardModules\TskInstStepUpgrade.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TskInstTheWizard\TskInstWizardModules\TskInstStepGame.py">

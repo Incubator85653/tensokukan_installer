@@ -65,7 +65,8 @@ TskInstStepBasic:
     buttonTutorial: '显示教程'
     
     labelTextSelectedNewInstall: '选择了“新的安装”。'
-    labelTextSelectedUpgrade2: '选择了“升级”。'
+    # 0 = \n
+    labelTextSelectedUpgrade2: '选择了“升级”。 {0}安装路径要选择已经安装天则观的位置。'
     
     errorCancelledSelectTemp:
     - '你尝试修改Temp，但取消了操作。'

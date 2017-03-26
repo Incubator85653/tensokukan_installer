@@ -4,6 +4,7 @@ import LibTskInstPython as LibPy
 import LibTskInstResources as LibRes
 import LibTskInstDebug as LibBug
 from tkinter import *
+from LibTskInstPython import UnitConversion as unit
 
 wizardCfg = LibRes.Resources.Config.StringYaml.get('TskInstStepBasic')
 
@@ -46,11 +47,12 @@ class Methods():
 
         # if is upgrade mode, in upgrade mode don't need these steps.
         if(Widgets.radioStorageTskInstallType.get() == 2):
-            LibTk.Window.StrNotice('Feature not available.')
+            doNothing = None
             #TODO
+            Wizard.WizardConditions.Modules.TskInstStepUpgrade = False
         # if is new install, disable data import.
         else:
-            Wizard.WizardConditions.Modules.TskInstStepDataImport = True
+            Wizard.WizardConditions.Modules.TskInstStepUpgrade = True
 
         Methods.MarkAsDone()
         Wizard.TimeLine.BackFromAnyModule()
@@ -67,8 +69,6 @@ class Methods():
             LibTk.Window.StrNotice(wizardCfg.get('errorTempPathEmpty'))
         elif(installTypeBool is False) :
             LibTk.Window.StrNotice(wizardCfg.get('errorInstallTypeNotSelected'))
-        elif(Widgets.radioStorageTskInstallType.get() == 2):
-            LibTk.Window.StrNotice(wizardCfg.get('errorUpgradeNotAvailable'))
         else:
             Methods.CopyBack()
         return
@@ -78,10 +78,12 @@ class Methods():
         Widgets.labelDisplaySelectedInstallMethod.place_forget()
         if result == 1 :
             Widgets.labelDisplaySelectedInstallMethod = Label(window,
-                                                  text = wizardCfg.get('labelTextSelectedNewInstall'))
+                                                  text = unit.StrAddNextLine(wizardCfg['labelTextSelectedNewInstall']),
+                                                  justify = LEFT)
         elif result == 2 :
             Widgets.labelDisplaySelectedInstallMethod = Label(window,
-                                                  text = wizardCfg.get('labelTextSelectedUpgrade2'))
+                                                  text = unit.StrAddNextLine(wizardCfg['labelTextSelectedUpgrade2']),
+                                                  justify = LEFT)
         Widgets.labelDisplaySelectedInstallMethod.place(x = 25, y = 210)
         return
     def DisplayTutorial():
@@ -168,9 +170,12 @@ class Methods():
         # place GUI objects
         Widgets.labelDisplaySelectedAdvancedMode.place(x = 25, y = 25)
 
-        Widgets.labelDisplayTskInstallPath.place(x = 25, y = 105)
-        Widgets.entryDisplayTskInstallPath.place(x = 125, y = 105)
-        Widgets.buttonDisplayBrowseTskInstallPath.place(x = 500, y = 105)
+        Widgets.radioDisplayNewInstall.place(x = 25, y = 105)
+        Widgets.radioDisplayUpgrade.place(x = 160, y = 105)
+
+        Widgets.labelDisplayTskInstallPath.place(x = 25, y = 175)
+        Widgets.entryDisplayTskInstallPath.place(x = 125, y = 175)
+        Widgets.buttonDisplayBrowseTskInstallPath.place(x = 500, y = 175)
 
         # Do not show the Temp option unless the user specified.
         # After Tsk Network 2017 Build2, ANSI-only-characters temp path is not required anymore.
@@ -179,9 +184,6 @@ class Methods():
             Widgets.labelDisplayTskTempPath.place(x = 25, y = 140)
             Widgets.entryDisplayTskTempPath.place(x = 125, y = 140)
             Widgets.buttonDisplayBrowseTskTempPath.place(x = 500, y = 140)
-
-        Widgets.radioDisplayNewInstall.place(x = 25, y = 175)
-        Widgets.radioDisplayUpgrade.place(x = 160, y = 175)
 
         LibTk.Window.UnivWizardController_Place(window, Widgets.buttonDisplayNextStep)
         LibTk.Window.UnivWizardHint_Place(window, Widgets.buttonTutorial)

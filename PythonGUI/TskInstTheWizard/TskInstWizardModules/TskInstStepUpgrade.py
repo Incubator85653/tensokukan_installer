@@ -3,7 +3,7 @@ from LibTskInstString import TskInstStringStepDataImport as wizardCfg
 import LibTskInstResources
 import TskInstTheWizard as wizard
 
-DataImportYaml = LibTskInstResources.GuiYaml.get('TskInstStepDataImport')
+DataImportYaml = LibTskInstResources.GuiYaml.get('TskInstStepUpgrade')
 Part1Yaml = DataImportYaml.get('Part1')
 Part2Yaml = DataImportYaml.get('Part2')
 class Widgets:
@@ -45,8 +45,10 @@ class Widgets:
     buttonDisplayNextStep = None
     buttonDisplayExit = None
 class Methods:
+    def InitialzieUpgradeProcess():
+        return
     def MarkAsDone():
-        wizard.WizardConditions.Modules.TskInstStepDataImport = True
+        wizard.WizardConditions.Modules.TskInstStepUpgrade = True
         return
 
     def PlaceWidgetsPart1():
