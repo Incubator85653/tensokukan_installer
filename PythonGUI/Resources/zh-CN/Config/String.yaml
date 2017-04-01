@@ -51,14 +51,10 @@ LibTskInstStringStepId:
 TskInstStepBasic:
     labelTextSelectedAdvancedMode: '选择了Debug Mode。'
     labelTextTskInstallPath: '安装到这:'
-    # TEMP location MUST NOT contains CJK characters like "C:\假猪套天下第一\tsk".
-    labelTextTskTempPath: 'Temp文件夹:'
     radioTextNewInstall: '新的安装'
     radioTextUpgrade: "升级"
     buttonTextBrowseTskInstallPath: '浏览'
-    buttonTextBrowseTskTempPath: '浏览'
     dialogTitleBrowseTskInstallPath: '选择天则观安装目录'
-    dialogTitleBrowseTskTempPath: '选择天则观Temp目录'
     
     buttonTextNextStep: '下一步'
     buttonTextExit: '退出'
@@ -68,12 +64,7 @@ TskInstStepBasic:
     # 0 = \n
     labelTextSelectedUpgrade2: '选择了“升级”。 {0}安装路径要选择已经安装天则观的位置。'
     
-    errorCancelledSelectTemp:
-    - '你尝试修改Temp，但取消了操作。'
-    - 'Temp将会恢复为默认设置。'
-    - '你可以稍后再尝试修改。'
     errorInstallPathEmpty: '还没选择天则观安装位置。'
-    errorTempPathEmpty: '还没选择TEMP位置。'
     errorInstallTypeNotSelected: '还没选择安装类型。'
     errorUpgradeNotAvailable: '现在不能升级，只能新安装。'
     

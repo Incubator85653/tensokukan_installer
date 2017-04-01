@@ -17,16 +17,13 @@ class Widgets():
     # Widgets
     labelDisplaySelectedAdvancedMode = None
     labelDisplayTskInstallPath = None
-    labelDisplayTskTempPath = None
 
     radioDisplayNewInstall = None
     radioDisplayUpgrade = None
 
     entryDisplayTskInstallPath = None
-    entryDisplayTskTempPath = None
 
     buttonDisplayBrowseTskInstallPath = None
-    buttonDisplayBrowseTskTempPath = None
 
     buttonTutorial = None
     buttonDisplayNextStep = None
@@ -101,26 +98,12 @@ class Methods():
         if bool(result):
             Widgets.entryStorageTskInstallPath.set(normpath(result + '/TensokukanI18N'))
         return
-    def AskTempDirName():
-        from os.path import normpath
-
-        options = LibRes.Resources.Config.TkinterYaml.get('BrowseTskTempPath')
-        result = LibTk.FileDialog.AskDirectoryName(options)
-
-        if bool(result):
-            Widgets.entryStorageTskTempPath.set(normpath(result + '/TensokukanTemp'))
-        else:
-            LibTk.Window.StrNotice(LibPy.UnitConversion.FormatArray2String(wizardCfg.get('errorCancelledSelectTemp')))
-            Widgets.entryStorageTskTempPath.set(Methods.GetDefaultTskTempPath())
-        return
     def ConfigureWidgets(window):
         # lables
         Widgets.labelDisplaySelectedAdvancedMode = Label(window,
                                      text = wizardCfg.get('labelTextSelectedAdvancedMode'))
         Widgets.labelDisplayTskInstallPath = Label(window,
                                         text = wizardCfg.get('labelTextTskInstallPath'))
-        Widgets.labelDisplayTskTempPath = Label(window,
-                                     text = wizardCfg.get('labelTextTskTempPath'))
     
         # radio
         Widgets.radioDisplayNewInstall = Radiobutton(window,
@@ -137,17 +120,11 @@ class Methods():
         Widgets.entryDisplayTskInstallPath = Entry(window,
                                              textvariable = Widgets.entryStorageTskInstallPath,
                                              width = 50)
-        Widgets.entryDisplayTskTempPath = Entry(window,
-                                          textvariable = Widgets.entryStorageTskTempPath,
-                                          width = 50)
         Widgets.entryStorageTskTempPath.set(Methods.GetDefaultTskTempPath())
         # button, two browse
         Widgets.buttonDisplayBrowseTskInstallPath = Button(window,
                                                text = wizardCfg.get('buttonTextBrowseTskInstallPath'),
                                                command = lambda : Methods.AskTskInstallDirName())
-        Widgets.buttonDisplayBrowseTskTempPath = Button(window,
-                                            text = wizardCfg.get('buttonTextBrowseTskTempPath'),
-                                            command = lambda : Methods.AskTempDirName())
         # button, next step and tutorial
         Widgets.buttonDisplayNextStep = Button(window,
                                 text = wizardCfg.get('buttonTextNextStep'),
@@ -176,14 +153,6 @@ class Methods():
         Widgets.labelDisplayTskInstallPath.place(x = 25, y = 175)
         Widgets.entryDisplayTskInstallPath.place(x = 125, y = 175)
         Widgets.buttonDisplayBrowseTskInstallPath.place(x = 500, y = 175)
-
-        # Do not show the Temp option unless the user specified.
-        # After Tsk Network 2017 Build2, ANSI-only-characters temp path is not required anymore.
-
-        if LibBug.StepBasic_ShowTempOption:
-            Widgets.labelDisplayTskTempPath.place(x = 25, y = 140)
-            Widgets.entryDisplayTskTempPath.place(x = 125, y = 140)
-            Widgets.buttonDisplayBrowseTskTempPath.place(x = 500, y = 140)
 
         LibTk.Window.UnivWizardController_Place(window, Widgets.buttonDisplayNextStep)
         LibTk.Window.UnivWizardHint_Place(window, Widgets.buttonTutorial)
