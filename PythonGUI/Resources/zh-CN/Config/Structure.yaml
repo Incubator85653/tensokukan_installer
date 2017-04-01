@@ -10,7 +10,7 @@ Program:
             TskMainIni: Templates\Tsk_MainConfig.template
         
     TskNet:
-        RelativePath: tsk_report-Intl-zhCN-AIO
+        RelativePath: tsk_net
         
         Bin:
             TskNetMainExe: tsk_report.exe
