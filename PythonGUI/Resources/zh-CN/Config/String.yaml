@@ -71,7 +71,7 @@ TskInstStepBasic:
     tutorialDialog:
     - '现在不支持升级，只能新安装。'
     - '将会自动在你选择的文件夹里再新建一个天则观文件夹，'
-    - '不要修改这个新文件夹的名字（一般是TensokukanI18N）。'
+    - '不要修改这个新文件夹的名字（一般是Tensokukan2017）。'
 TskInstStepId:
     TypeIn:
         labelTextTitle: '登陆天则观：'
