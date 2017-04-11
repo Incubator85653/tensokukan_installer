@@ -1,8 +1,8 @@
 Program:
     Tsk:
         Bin:
-            TskMainExe: tsk_yamei.exe
             DefaultInstallFolder: Tensokukan2017
+            TskMainExe: 启动天则观.exe
         Config:
             TskMainIni: tsk.ini
         Database:
@@ -15,15 +15,12 @@ Program:
         
         Bin:
             TskNetMainExe: tsk_report.exe
-            TskNetLauncherScript: tsk_report.cmd
-            TskNetProgramScript: tsk_report-obfs4.cmd
+            TskNetLauncherScript: tsk_net.cmd
             
         Config:
             Account: config.yaml
         Templates:
             Account: Templates\TskNet_Account.template
-            TskNetLauncherScript: Templates\TskNet_LauncherScript.template
-            TskNetProgramScript: Templates\TskNet_ProgramScript.template
 Shortcuts:
     TskMainLnk: 天则观2017
     StartupMenuGroup: 天则观开始菜单快捷方式组
