@@ -36,8 +36,23 @@ class Resources:
                 return Resources.Config.StructureYaml
 
             class Program:
+                def GetDict():
 
-                doNothing = None#TODO
+                    return Resources.Methods.Structure.GetDict()['Program']
+
+                class Tsk:
+                    def GetDict():
+
+                        return Resources.Methods.Structure.Program.GetDict()['Tsk']
+
+                    class Bin:
+                        def GetDict():
+
+                            return Resources.Methods.Structure.Program.Tsk.GetDict()['Bin']
+
+                        def DefaultInstallFolder():
+
+                            return Resources.Methods.Structure.Program.Tsk.Bin.GetDict()['DefaultInstallFolder']
             class Shortcuts:
                 def GetDict():
 

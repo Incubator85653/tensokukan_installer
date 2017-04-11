@@ -96,7 +96,7 @@ class Methods():
         result = LibTk.FileDialog.AskDirectoryName(options)
 
         if bool(result):
-            Widgets.entryStorageTskInstallPath.set(normpath(result + '/TensokukanI18N'))
+            Widgets.entryStorageTskInstallPath.set(normpath(result + '\\' + LibRes.Resources.Methods.Structure.Program.Tsk.Bin.DefaultInstallFolder()))
         return
     def ConfigureWidgets(window):
         # lables
