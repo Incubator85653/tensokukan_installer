@@ -106,16 +106,22 @@ class Environment:
 class InputOutput:
     class Yaml:
         def ReadYaml(filePath):
-            with open(filePath, 'r', encoding = 'utf8') as file:
-                dict = yaml.load(file)
+            try:
+                with open(filePath, 'r', encoding = 'utf8') as file:
+                    dict = yaml.load(file)
+            except:
+                dict = False
+                LibErr.YamlLoadFailed(filePath)
+            
             return dict
         def WriteYaml(dict, filePath):
-            with open(filePath, 'w', encoding = 'utf8') as file:
-                yaml.dump(dict, file, default_flow_style = False, allow_unicode = True)
-            return
+            try:
+                with open(filePath, 'w', encoding = 'utf8') as file:
+                    yaml.dump(dict, file, default_flow_style = False, allow_unicode = True)
+            except:
+                LibErr.YamlWriteFailed(filePath)
     class Zip:
-        def DoUnpack(file, targetPath):
-            def GenerateCommand(file, targetPath):
+        def GenerateCommand(file, targetPath):
                 from LibTskInstResources import Methods as binCfg
 
                 # Example:
@@ -130,10 +136,12 @@ class InputOutput:
                 command = r'{0} {1} -o{2} -y'.format(binArg, fileArg, targetPathArg)
 
                 return command
-
+        def DoUnpack(file, targetPath):
             command = GenerateCommand(file, targetPath)
-            Process.DoLaunchAndWait(command, True)
-            return
+            try:
+                Process.DoLaunchAndWait(command, True)
+            except:
+                LibErr.ZipUnpackError(command)
     class Templates:
         def DoModify(perFileDict):
             from LibTskInstResources import Methods as wizardCfg
