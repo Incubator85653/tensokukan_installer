@@ -35,9 +35,9 @@ class WizardSteps():
         import TskInstStepGame as TheStep
         TheStep.Wrapper(window)
         return
-    def TskInstStepDataImport(window):
+    def TskInstStepUpgrade(window):
         LibTkWin.CleanWidgets(window)
-        import TskInstStepDataImport as TheStep
+        import TskInstStepUpgrade as TheStep
         TheStep.Wrapper(window)
         return
     def TskInstStepShortcuts(window):
@@ -59,8 +59,8 @@ class TimeLine():
             WizardSteps.LibTskInstStepWizardMode(RootVar.TheInstaller)
         elif(WizardConditions.Modules.TskInstStepBasic is False):
             WizardSteps.TskInstStepBasic(RootVar.TheInstaller)
-        elif(WizardConditions.Modules.TskInstStepDataImport is False):
-            WizardSteps.TskInstStepDataImport(RootVar.TheInstaller)
+        elif(WizardConditions.Modules.TskInstStepUpgrade is False):
+            WizardSteps.TskInstStepUpgrade(RootVar.TheInstaller)
         elif(WizardConditions.Modules.TskInstStepId is False):
             WizardSteps.TskInstStepId(RootVar.TheInstaller)
         elif(WizardConditions.Modules.TskInstStepGame is False):
@@ -122,7 +122,7 @@ class WizardConditions():
         TskInstStepBasic = False
         TskInstStepId = False
         TskInstStepGame = False
-        TskInstStepDataImport = False
+        TskInstStepUpgrade = False
         TskInstStepShortcuts = False
         TskInstStepInstall = False
     # Witch mode to install, novice mode = 1, debug mode = 2

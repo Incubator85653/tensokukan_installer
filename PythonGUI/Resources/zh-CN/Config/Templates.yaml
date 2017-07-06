@@ -2,10 +2,8 @@
 
 # FullSource
 # FullOutput
-# SetTempPath
 # Fill Account and password
 # Value
-# TskNetScriptOption
 
 Tsk_MainConfig:
     Encoding: 'mbcs'
@@ -30,63 +28,11 @@ Tsk_MainConfig:
         Option: ''
         Value: ''
 #
-TskNet_LauncherScript:
-    Encoding: 'mbcs'
-    RelativeSource: 'Templates\TskNet_LauncherScript.template'
-    FullSource: null
-    RelativeOutput: 'tsk_report-Intl-zhCN-AIO\tsk_report.cmd'
-    FullOutput: null
-    Config:
-    - AskDNS:
-        Group: 'Combined'
-        Mark: '___nslookup'
-        Option: '@'
-        Value: 'nslookup tenco.info.americansdyg.com>nul 2>nul'
-    - SetTempPath:
-        # Fill SetTempPath value as sys temp in the installer before install.
-        Group: 'SetTempPath'
-        Mark: '___tskDrive'
-        Option: '@set tskDrive='
-        Value: null
-    - OptionalHint:
-        Group: 'Combined'
-        Mark: '___optionalHint'
-        Option: ''
-        Value: ''
-    - TskNetScriptName:
-        Group: 'Combined'
-        Mark: '___subScript'
-        Option: '@'
-        Value: 'tsk_report-obfs4.cmd'
-    - Comment:
-        Group: 'Comment'
-        Mark: '___Comment'
-        Option: ''
-        Value: ''
-#
-TskNet_ProgramScript:
-    Encoding: 'mbcs'
-    RelativeSource: 'Templates\TskNet_ProgramScript.template'
-    FullSource: null
-    RelativeOutput: 'tsk_report-Intl-zhCN-AIO\tsk_report-obfs4.cmd'
-    FullOutput: null
-    Config:
-    - EncodingConvert:
-        Group: 'Combined'
-        Mark: '___EncodingConvert'
-        Option: ''
-        Value: ''
-    - Comment:
-        Group: 'Comment'
-        Mark: '___Comment'
-        Option: ''
-        Value: ''
-#
 TskNet_Account:
     Encoding: 'utf8'
     RelativeSource: 'Templates\TskNet_Account.template'
     FullSource: null
-    RelativeOutput: 'tsk_report-Intl-zhCN-AIO\config.yaml'
+    RelativeOutput: 'tsk_net\config.yaml'
     FullOutput: null
     Config:
     - TencoAccount:

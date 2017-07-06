@@ -1,0 +1,6 @@
+DebugMode: false
+
+# This feature already stopped support. It's just affect installer GUI drawing.
+# Even if you enable debug options, temp path won't save to disk.
+# The source code about edit temp path are removed.
+StepBasic_ShowTempOption: true

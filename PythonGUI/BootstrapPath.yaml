@@ -7,6 +7,7 @@ Files:
     Bin:
         7za: 7za.exe
     Config:
+        DebugOptions: DebugOptions.yaml
         Archive: Archive.yaml
         Games: Games.yaml
         Templates: Templates.yaml

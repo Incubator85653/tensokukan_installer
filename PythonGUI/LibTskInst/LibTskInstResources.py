@@ -22,6 +22,7 @@ class Language:
 class Resources:
     class Config:
         # Add yamls read from disk after bootstrap.
+        DebugYaml = None
         ArchiveYaml = None
         GamesYaml = None
         TemplatesYaml = None
@@ -33,8 +34,25 @@ class Resources:
             def GetDict():
 
                 return Resources.Config.StructureYaml
+
             class Program:
-                doNothing = None#TODO
+                def GetDict():
+
+                    return Resources.Methods.Structure.GetDict()['Program']
+
+                class Tsk:
+                    def GetDict():
+
+                        return Resources.Methods.Structure.Program.GetDict()['Tsk']
+
+                    class Bin:
+                        def GetDict():
+
+                            return Resources.Methods.Structure.Program.Tsk.GetDict()['Bin']
+
+                        def DefaultInstallFolder():
+
+                            return Resources.Methods.Structure.Program.Tsk.Bin.GetDict()['DefaultInstallFolder']
             class Shortcuts:
                 def GetDict():
 
@@ -49,6 +67,19 @@ class Resources:
                 def Config():
 
                     return Resources.Methods.Structure.Shortcuts.GetDict()['Config']
+        class DebugOptions:
+            def GetDict():
+
+                return Resources.Config.DebugYaml
+
+            def LoadDebugOptions():
+                import LibTskInstDebug as LibBug
+                debugYaml = Resources.Methods.DebugOptions.GetDict()
+                debugMode = debugYaml['DebugMode']
+                if debugMode:
+                    LibBug.DebugMode = debugMode
+                    LibBug.StepBasic_ShowTempOption = debugYaml['StepBasic_ShowTempOption']
+                return
 class Methods:
     # Call these methods AFTER you fill the config!
     class Basic:

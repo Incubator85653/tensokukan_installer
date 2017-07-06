@@ -2,7 +2,9 @@ import TskInstTheWizard as Wizard
 import LibTskInstTkinter as LibTk
 import LibTskInstPython as LibPy
 import LibTskInstResources as LibRes
+import LibTskInstDebug as LibBug
 from tkinter import *
+from LibTskInstPython import UnitConversion as unit
 
 wizardCfg = LibRes.Resources.Config.StringYaml.get('TskInstStepBasic')
 
@@ -15,16 +17,13 @@ class Widgets():
     # Widgets
     labelDisplaySelectedAdvancedMode = None
     labelDisplayTskInstallPath = None
-    labelDisplayTskTempPath = None
 
     radioDisplayNewInstall = None
     radioDisplayUpgrade = None
 
     entryDisplayTskInstallPath = None
-    entryDisplayTskTempPath = None
 
     buttonDisplayBrowseTskInstallPath = None
-    buttonDisplayBrowseTskTempPath = None
 
     buttonTutorial = None
     buttonDisplayNextStep = None
@@ -45,11 +44,12 @@ class Methods():
 
         # if is upgrade mode, in upgrade mode don't need these steps.
         if(Widgets.radioStorageTskInstallType.get() == 2):
-            LibTk.Window.StrNotice('Feature not available.')
+            doNothing = None
             #TODO
+            Wizard.WizardConditions.Modules.TskInstStepUpgrade = False
         # if is new install, disable data import.
         else:
-            Wizard.WizardConditions.Modules.TskInstStepDataImport = True
+            Wizard.WizardConditions.Modules.TskInstStepUpgrade = True
 
         Methods.MarkAsDone()
         Wizard.TimeLine.BackFromAnyModule()
@@ -66,8 +66,6 @@ class Methods():
             LibTk.Window.StrNotice(wizardCfg.get('errorTempPathEmpty'))
         elif(installTypeBool is False) :
             LibTk.Window.StrNotice(wizardCfg.get('errorInstallTypeNotSelected'))
-        elif(Widgets.radioStorageTskInstallType.get() == 2):
-            LibTk.Window.StrNotice(wizardCfg.get('errorUpgradeNotAvailable'))
         else:
             Methods.CopyBack()
         return
@@ -77,10 +75,12 @@ class Methods():
         Widgets.labelDisplaySelectedInstallMethod.place_forget()
         if result == 1 :
             Widgets.labelDisplaySelectedInstallMethod = Label(window,
-                                                  text = wizardCfg.get('labelTextSelectedNewInstall'))
+                                                  text = unit.StrAddNextLine(wizardCfg['labelTextSelectedNewInstall']),
+                                                  justify = LEFT)
         elif result == 2 :
             Widgets.labelDisplaySelectedInstallMethod = Label(window,
-                                                  text = wizardCfg.get('labelTextSelectedUpgrade2'))
+                                                  text = unit.StrAddNextLine(wizardCfg['labelTextSelectedUpgrade2']),
+                                                  justify = LEFT)
         Widgets.labelDisplaySelectedInstallMethod.place(x = 25, y = 210)
         return
     def DisplayTutorial():
@@ -96,19 +96,7 @@ class Methods():
         result = LibTk.FileDialog.AskDirectoryName(options)
 
         if bool(result):
-            Widgets.entryStorageTskInstallPath.set(normpath(result + '/TensokukanI18N'))
-        return
-    def AskTempDirName():
-        from os.path import normpath
-
-        options = LibRes.Resources.Config.TkinterYaml.get('BrowseTskTempPath')
-        result = LibTk.FileDialog.AskDirectoryName(options)
-
-        if bool(result):
-            Widgets.entryStorageTskTempPath.set(normpath(result + '/TensokukanTemp'))
-        else:
-            LibTk.Window.StrNotice(LibPy.UnitConversion.FormatArray2String(wizardCfg.get('errorCancelledSelectTemp')))
-            Widgets.entryStorageTskTempPath.set(Methods.GetDefaultTskTempPath())
+            Widgets.entryStorageTskInstallPath.set(normpath(result + '\\' + LibRes.Resources.Methods.Structure.Program.Tsk.Bin.DefaultInstallFolder()))
         return
     def ConfigureWidgets(window):
         # lables
@@ -116,8 +104,6 @@ class Methods():
                                      text = wizardCfg.get('labelTextSelectedAdvancedMode'))
         Widgets.labelDisplayTskInstallPath = Label(window,
                                         text = wizardCfg.get('labelTextTskInstallPath'))
-        Widgets.labelDisplayTskTempPath = Label(window,
-                                     text = wizardCfg.get('labelTextTskTempPath'))
     
         # radio
         Widgets.radioDisplayNewInstall = Radiobutton(window,
@@ -134,17 +120,11 @@ class Methods():
         Widgets.entryDisplayTskInstallPath = Entry(window,
                                              textvariable = Widgets.entryStorageTskInstallPath,
                                              width = 50)
-        Widgets.entryDisplayTskTempPath = Entry(window,
-                                          textvariable = Widgets.entryStorageTskTempPath,
-                                          width = 50)
         Widgets.entryStorageTskTempPath.set(Methods.GetDefaultTskTempPath())
         # button, two browse
         Widgets.buttonDisplayBrowseTskInstallPath = Button(window,
                                                text = wizardCfg.get('buttonTextBrowseTskInstallPath'),
                                                command = lambda : Methods.AskTskInstallDirName())
-        Widgets.buttonDisplayBrowseTskTempPath = Button(window,
-                                            text = wizardCfg.get('buttonTextBrowseTskTempPath'),
-                                            command = lambda : Methods.AskTempDirName())
         # button, next step and tutorial
         Widgets.buttonDisplayNextStep = Button(window,
                                 text = wizardCfg.get('buttonTextNextStep'),
@@ -167,16 +147,12 @@ class Methods():
         # place GUI objects
         Widgets.labelDisplaySelectedAdvancedMode.place(x = 25, y = 25)
 
-        Widgets.labelDisplayTskInstallPath.place(x = 25, y = 105)
-        Widgets.entryDisplayTskInstallPath.place(x = 125, y = 105)
-        Widgets.buttonDisplayBrowseTskInstallPath.place(x = 500, y = 105)
+        Widgets.radioDisplayNewInstall.place(x = 25, y = 105)
+        Widgets.radioDisplayUpgrade.place(x = 160, y = 105)
 
-        Widgets.labelDisplayTskTempPath.place(x = 25, y = 140)
-        Widgets.entryDisplayTskTempPath.place(x = 125, y = 140)
-        Widgets.buttonDisplayBrowseTskTempPath.place(x = 500, y = 140)
-
-        Widgets.radioDisplayNewInstall.place(x = 25, y = 175)
-        Widgets.radioDisplayUpgrade.place(x = 160, y = 175)
+        Widgets.labelDisplayTskInstallPath.place(x = 25, y = 175)
+        Widgets.entryDisplayTskInstallPath.place(x = 125, y = 175)
+        Widgets.buttonDisplayBrowseTskInstallPath.place(x = 500, y = 175)
 
         LibTk.Window.UnivWizardController_Place(window, Widgets.buttonDisplayNextStep)
         LibTk.Window.UnivWizardHint_Place(window, Widgets.buttonTutorial)

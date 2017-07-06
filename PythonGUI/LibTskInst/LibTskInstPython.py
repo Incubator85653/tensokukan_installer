@@ -14,6 +14,10 @@ class UnitConversion:
     def Str2Unicode(input):
         text = u"{0}".format(input)
         return text
+    def StrAddNextLine(input):
+        # This method replace {0} in a string...by "\n"
+        # seems A string readed from yaml won't add next line.
+        return input.format("\n")
 class Process:
     def DoLaunchAndWait(command, useShell):
         p = subprocess.Popen(command, shell = useShell)
@@ -164,14 +168,6 @@ class InputOutput:
                     result = AddOption(wizardCfg.Basic.GameExePath())
                 if groupName == 'TskNetExePath':
                     result = AddOption(wizardCfg.Installer.Optional.ProgramStructure.TskNet.Bin.TskNetMainExe())
-
-                # TskNet_LauncherScript
-                if groupName == 'SetTempPath':
-                    result = AddOption(wizardCfg.Basic.TempPath())
-
-                # TskNet_ProgramScript
-
-                # No action available / required.
 
                 # TskNet_Account
                 if groupName == 'TencoAccount':
