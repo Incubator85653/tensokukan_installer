@@ -1,5 +1,6 @@
 import yaml
 import subprocess
+from LibTskInstError import ErrPython as LibErr
 
 class UnitConversion:
     def Second2Millisecond(input):
@@ -53,30 +54,54 @@ class Environment:
 
             return normpath(winshell.desktop())
     class Path:
-        def AddWorkingDirToRelativePath(RelativePath):
+        class Complement:
+            def MergeManually(first, second):
+                # This method is prevent a crash on some Ghost systems.
+                # On these systems, os.path.join will fail.
+
+                # It almost do the same thing just like os.path.join, but Windows platform specified.
+
+                # first path must be "slash removed" path.
+                # the second one can be a folder or a file with extension, but no slash.
+                result = r"{0}\{1}".format(first, second)
+                return result
+            def Merge(first, second):
+                import os
+
+                result = None
+                try:
+                    result = os.path.join(first, second)
+                except:
+                    print()
+                    result = MergeManually(first, second)
+
+                return result
+        def GetWorkDir():
             import os
-            from LibTskInstPython import Environment
+
+            result = None
+            try:
+                result = os.getcwd()
+            except:
+                result = False
+                LibErr.OsGetCwdFailed()
+
+            return result
+        def GetWorkDirFull(RelativePath):
+            import os
             
+            result = None
+
             # pwd come from a Linux CLI command.
-            pwd = os.getcwd()
-            return Environment.Path.OsPathJoinSimulator(pwd, RelativePath)
-        def GetWorkingDirectory():
-            # Please use os.getcwd() in code.
-            # This is just a sample, do not use in the code.
-            import os
-            return os.getcwd()
-        def GetInstallPath():
-            from LibTskInstResources import InstallationProfile
-            return InstallationProfile['Basic']['InstallPath']
-        def OsPathJoinSimulator(first, second):
-            # This method is prevent a crash on some Ghost systems.
-            # On these systems, os.path.join will fail.
+            pwd = GetWorkDir()
 
-            # It almost do the same thing just like os.path.join, but Windows platform specified.
+            if pwd is not False:
+                try:
+                    result = Merge(pwd, RelativePath)
+            else:
+                result = False
+                LibErr.OsGetCwdFailed()
 
-            # first path must be "slash removed" path.
-            # the second one can be a folder or a file with extension.
-            result = r"{0}\{1}".format(first, second)
             return result
 class InputOutput:
     class Yaml:
@@ -121,8 +146,8 @@ class InputOutput:
             # Decode basic object properties
 
             installPath = wizardCfg.Basic.InstallPath()
-            perFileDict['FullSource'] = Environment.Path.OsPathJoinSimulator(installPath, perFileDict['RelativeSource'])
-            perFileDict['FullOutput'] = Environment.Path.OsPathJoinSimulator(installPath, perFileDict['RelativeOutput'])
+            perFileDict['FullSource'] = Environment.Path.Complement.Merge(installPath, perFileDict['RelativeSource'])
+            perFileDict['FullOutput'] = Environment.Path.Complement.Merge(installPath, perFileDict['RelativeOutput'])
 
             # Get replace information.
 
