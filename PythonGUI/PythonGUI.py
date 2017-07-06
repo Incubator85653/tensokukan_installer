@@ -4,6 +4,9 @@
 # have some fun with the powershell!
 # (gci -include *py -recurse | select-string .).Count
 
+# Install references:
+# pip install pyyaml winshell pypiwin32
+
 # I have to remember, put anything path in "os.path.normpath".
 
 # Debug Codes
