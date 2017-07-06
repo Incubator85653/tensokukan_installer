@@ -1,9 +1,6 @@
 import yaml
 import subprocess
 
-class MoHa:
-    def Add1S():
-        return
 class UnitConversion:
     def Second2Millisecond(input):
 
