@@ -15,7 +15,7 @@ class Methods:
             installPath = wizardCfg.Basic.InstallPath()
 
             for archiveName in archivesCollection:
-                archiveFullPath = Environment.Path.OsPathJoinSimulator(archivesPath, archiveName)
+                archiveFullPath = Environment.Path.Complement.Merge(archivesPath, archiveName)
                 InputOutput.Zip.DoUnpack(archiveFullPath, installPath)
 
             return
@@ -82,7 +82,7 @@ class Methods:
                 if manageDesktop:
                     environmentPath = winshell.desktop()
                     
-                    lnkFileLocation = Environment.Path.OsPathJoinSimulator(environmentPath, lnkName)
+                    lnkFileLocation = Environment.Path.Complement.Merge(environmentPath, lnkName)
 
                     createSwitch = False
                     InputOutput.Shortcut.CreateShortcut(lnkFileLocation, targetFullPath,targetWorkingDir)
@@ -90,9 +90,9 @@ class Methods:
                     environmentPath = winshell.programs()
 
                     tskSmGroupName = wizardCfg.Basic.StartMenuGroup()
-                    tskSmGroupPath = Environment.Path.OsPathJoinSimulator(environmentPath, tskSmGroupName)
+                    tskSmGroupPath = Environment.Path.Complement.Merge(environmentPath, tskSmGroupName)
 
-                    lnkFileLocation = Environment.Path.OsPathJoinSimulator(tskSmGroupPath, lnkName)
+                    lnkFileLocation = Environment.Path.Complement.Merge(tskSmGroupPath, lnkName)
 
                     # Create shortcut menu for base library.
                     if not os.path.exists(tskSmGroupPath):

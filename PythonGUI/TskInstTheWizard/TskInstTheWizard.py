@@ -78,7 +78,7 @@ class TimeLine():
             desktop = winshell.desktop()
             yamlName = RootVar.wizardCfg['Debug_InstProfileDump']
 
-            writeOutPath = Environment.Path.OsPathJoinSimulator(desktop, yamlName)
+            writeOutPath = Environment.Path.Complement.Merge(desktop, yamlName)
             InputOutput.Yaml.WriteYaml(InstallationProfile, writeOutPath)
 
             # Display ReadyToInstall interface.

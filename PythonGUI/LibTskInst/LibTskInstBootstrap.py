@@ -100,28 +100,28 @@ class Methods:
 
             # Get root resources directory name.
             resourcesDirName = foldersDict.get('Resources')
-            workingResourcesPath = LibPy.Environment.Path.OsPathJoinSimulator(os.getcwd(), resourcesDirName)
+            workingResourcesPath = LibPy.Environment.Path.Complement.Merge(os.getcwd(), resourcesDirName)
 
             # Generage language based root resource path(full path).
-            langBasedRootResourcesPath = LibPy.Environment.Path.OsPathJoinSimulator(workingResourcesPath, LibRes.Language.WizardDevLanguage)
+            langBasedRootResourcesPath = LibPy.Environment.Path.Complement.Merge(workingResourcesPath, LibRes.Language.WizardDevLanguage)
 
-            langBasedWizardResPath = LibPy.Environment.Path.OsPathJoinSimulator(workingResourcesPath, LibRes.Language.WizardDevLanguage)
-            langBasedWizardBinPath = LibPy.Environment.Path.OsPathJoinSimulator(workingResourcesPath, LibRes.Language.WizardBinLanguage)
-            langBasedTskResPath = LibPy.Environment.Path.OsPathJoinSimulator(workingResourcesPath, LibRes.Language.TskDevLanguage)
+            langBasedWizardResPath = LibPy.Environment.Path.Complement.Merge(workingResourcesPath, LibRes.Language.WizardDevLanguage)
+            langBasedWizardBinPath = LibPy.Environment.Path.Complement.Merge(workingResourcesPath, LibRes.Language.WizardBinLanguage)
+            langBasedTskResPath = LibPy.Environment.Path.Complement.Merge(workingResourcesPath, LibRes.Language.TskDevLanguage)
 
             # Generate language based sub resource folder name and path by root resource path(full path).
             archiveDirName = foldersDict.get('Archive')
             binDirName = foldersDict.get('Bin')
             configDirName = foldersDict.get('Config')
         
-            langBasedArchiveDirPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedTskResPath, archiveDirName)
-            langBasedBinDirPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedWizardBinPath, binDirName)
-            langBasedConfigDirPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedWizardResPath, configDirName)
+            langBasedArchiveDirPath = LibPy.Environment.Path.Complement.Merge(langBasedTskResPath, archiveDirName)
+            langBasedBinDirPath = LibPy.Environment.Path.Complement.Merge(langBasedWizardBinPath, binDirName)
+            langBasedConfigDirPath = LibPy.Environment.Path.Complement.Merge(langBasedWizardResPath, configDirName)
 
             # Generate binary file path by language based sub resource path(full path).
             zipBinName = filesDict.get('Bin').get('7za')
 
-            langBasedzipBinName = LibPy.Environment.Path.OsPathJoinSimulator(langBasedBinDirPath, zipBinName)
+            langBasedzipBinName = LibPy.Environment.Path.Complement.Merge(langBasedBinDirPath, zipBinName)
 
             # Generate installer configs file path by language based...
             debugOptionsName = filesDict.get('Config').get('DebugOptions')
@@ -132,13 +132,13 @@ class Methods:
             stringYamlName = filesDict.get('Config').get('String')
             tkinterYamlName = filesDict.get('Config').get('Tkinter')
 
-            langBasedDebugOptionsYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, debugOptionsName)
-            langBasedArchiveYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, archiveYamlName)
-            langBasedGamesYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, gamesYamlName)
-            langBasedTemplatesYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, templatesYamlName)
-            langBasedStructureYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, structureYamlName)
-            langBasedStringYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, stringYamlName)
-            langBasedTkinterYamlPath = LibPy.Environment.Path.OsPathJoinSimulator(langBasedConfigDirPath, tkinterYamlName)
+            langBasedDebugOptionsYamlPath = LibPy.Environment.Path.Complement.Merge(langBasedConfigDirPath, debugOptionsName)
+            langBasedArchiveYamlPath = LibPy.Environment.Path.Complement.Merge(langBasedConfigDirPath, archiveYamlName)
+            langBasedGamesYamlPath = LibPy.Environment.Path.Complement.Merge(langBasedConfigDirPath, gamesYamlName)
+            langBasedTemplatesYamlPath = LibPy.Environment.Path.Complement.Merge(langBasedConfigDirPath, templatesYamlName)
+            langBasedStructureYamlPath = LibPy.Environment.Path.Complement.Merge(langBasedConfigDirPath, structureYamlName)
+            langBasedStringYamlPath = LibPy.Environment.Path.Complement.Merge(langBasedConfigDirPath, stringYamlName)
+            langBasedTkinterYamlPath = LibPy.Environment.Path.Complement.Merge(langBasedConfigDirPath, tkinterYamlName)
 
             # Fill final results back to LibRes.
 

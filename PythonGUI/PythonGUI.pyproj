@@ -25,6 +25,9 @@
     <Compile Include="LibTskInst\LibTskInstDebug.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LibTskInst\LibTskInstError.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="TestCode.py">
       <SubType>Code</SubType>
     </Compile>
@@ -87,6 +90,9 @@
     <Folder Include="LibTskInst\" />
     <Folder Include="TskInstTheWizard\TskInstWizardModules\" />
     <Folder Include="TskInstTheWizard\LibTskInstWizardModules\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="requirements.txt" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
