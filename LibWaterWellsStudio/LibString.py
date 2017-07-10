@@ -1,4 +1,4 @@
-﻿import LibTskInstPython as TheCfg
+﻿import LibPython as TheCfg
 stringDict = TheCfg.yaml_loader(r'Resources\zh-CN\Config\String.yaml')
 class TskInstStringTheWizard:
     yaml = stringDict.get('TskInstStringTheWizard')
@@ -6,8 +6,8 @@ class TskInstStringTheWizard:
     InstallerTitle = yaml.get('InstallerTitle')
     InstallerGeometry = yaml.get('InstallerGeometry')
 
-class LibTskInstStepWizardMode:
-    yaml = stringDict.get('LibTskInstStepWizardMode')
+class LibStepWizardMode:
+    yaml = stringDict.get('LibStepWizardMode')
 
     labelTextStartInstall = yaml.get('labelTextStartInstall')
     labelTextWizardModeSelect = yaml.get('labelTextWizardModeSelect')
@@ -25,7 +25,7 @@ class LibTskInstStepWizardMode:
     # Wizard mode and radiobutton
     wizardModeNovice = 1
     wizardModeDebug = 2
-class LibTskInstStringTkinter:
+class LibStringTkinter:
         # ext = extension
         # these line are sample, not in use, and don't remove
         # tskCfg is the characteristic you can change
@@ -36,7 +36,7 @@ class LibTskInstStringTkinter:
         tskCfgBrowseFileTypeExt = '.yaml'
 
         tskCfgBrowseDialogTitle = 'Select your ID yaml'
-class LibTskInstStringStepId:
+class LibStringStepId:
     labelTextTencoID = 'Tenco ID:'
     radioTextTypeIn = '稍后手动输入ID和密码。'
     radioTextFromYaml = '从旧版的config.yaml导入。'

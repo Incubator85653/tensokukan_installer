@@ -49,7 +49,7 @@ class Window:
         from tkinter import messagebox
         mBox = messagebox.showinfo(message = str)
     def ArrayNotice(array):
-        from LibTskInstPython import UnitConversion
+        from LibPython import UnitConversion
         
         line = UnitConversion.FormatArray2String(array)
         Window.StrNotice(line)
@@ -59,7 +59,7 @@ class Window:
         sys.exit()
         return
     def UnivWizardController_Place(window, widgetNextButton):
-        from LibTskInstResources import Resources as Res
+        from LibResources import Resources as Res
         exitLocale = Res.Config.StringYaml['TskInstTheWizard']['Exit']
         # 1 width = 8 px
         # Default height is 30 px.

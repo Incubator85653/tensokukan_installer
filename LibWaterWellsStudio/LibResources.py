@@ -1,4 +1,4 @@
-from LibTskInstPython import Environment
+from LibPython import Environment
 
 # Fill these lovely yaml at very beginning...
 BootstrapLanguage = None
@@ -73,7 +73,7 @@ class Resources:
                 return Resources.Config.DebugYaml
 
             def LoadDebugOptions():
-                import LibTskInstDebug as LibBug
+                import LibDebug as LibBug
                 debugYaml = Resources.Methods.DebugOptions.GetDict()
                 debugMode = debugYaml['DebugMode']
                 if debugMode:
@@ -173,7 +173,7 @@ class Methods:
                             installedPath = Methods.Basic.InstallPath()
                             exePath = Methods.Installer.Optional.ProgramStructure.Tsk.Bin.GetDict()['TskMainExe']
 
-                            result = Environment.Path.Complement.Merge(installedPath, exePath)
+                            result = Environment.Path.Complement.merge_system(installedPath, exePath)
 
                             return result
                     class Config:
@@ -182,7 +182,7 @@ class Methods:
                             return Methods.Installer.Optional.ProgramStructure.Tsk.GetDict()['Config']
                         
                         def TskMainIni():
-                            result = Environment.Path.Complement.Merge(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.Tsk.Config.GetDict()['TskMainIni'])
+                            result = Environment.Path.Complement.merge_system(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.Tsk.Config.GetDict()['TskMainIni'])
                             return result
                     class Templates:
                         def GetDict():
@@ -190,7 +190,7 @@ class Methods:
                             return Methods.Installer.Optional.ProgramStructure.Tsk.GetDict()['Templates']
 
                         def TskMainIniTemplate():
-                            result = Environment.Path.Complement.Merge(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.Tsk.Templates.GetDict()['TskMainIni'])
+                            result = Environment.Path.Complement.merge_system(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.Tsk.Templates.GetDict()['TskMainIni'])
                             return result
                 class TskNet:
                     def GetDict():
@@ -202,7 +202,7 @@ class Methods:
                         return Methods.Installer.Optional.ProgramStructure.TskNet.GetDict()['RelativePath']
                     def FullPath():
                         installPath = Methods.Basic.InstallPath()
-                        result = Environment.Path.Complement.Merge(installPath, Methods.Installer.Optional.ProgramStructure.TskNet.RelativePath())
+                        result = Environment.Path.Complement.merge_system(installPath, Methods.Installer.Optional.ProgramStructure.TskNet.RelativePath())
                         
                         return result
                     class Bin:
@@ -211,13 +211,13 @@ class Methods:
                             return Methods.Installer.Optional.ProgramStructure.TskNet.GetDict()['Bin']
 
                         def TskNetMainExe():
-                            result = Environment.Path.Complement.Merge(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Bin.GetDict()['TskNetMainExe'])
+                            result = Environment.Path.Complement.merge_system(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Bin.GetDict()['TskNetMainExe'])
                             return result
                         def TskNetLauncherScript():
-                            result = Environment.Path.Complement.Merge(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Bin.GetDict()['TskNetLauncherScript'])
+                            result = Environment.Path.Complement.merge_system(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Bin.GetDict()['TskNetLauncherScript'])
                             return result
                         def TskNetProgramScript():
-                            result = Environment.Path.Complement.Merge(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Bin.GetDict()['TskNetProgramScript'])
+                            result = Environment.Path.Complement.merge_system(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Bin.GetDict()['TskNetProgramScript'])
                             return result
                     class Config:
                         def GetDict():
@@ -225,17 +225,17 @@ class Methods:
                             return Methods.Installer.Optional.ProgramStructure.TskNet.GetDict()['Config']
 
                         def Account():
-                            result = Environment.Path.Complement.Merge(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Config.GetDict()['Account'])
+                            result = Environment.Path.Complement.merge_system(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Config.GetDict()['Account'])
                             return result
                     class Templates:
                         def GetDict():
 
                             return Methods.Installer.Optional.ProgramStructure.TskNet.GetDict()['Templates']
                         def TskNetLauncherScript():
-                            result = Environment.Path.Complement.Merge(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Templates.GetDict()['TskNetLauncherScript'])
+                            result = Environment.Path.Complement.merge_system(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Templates.GetDict()['TskNetLauncherScript'])
                             return result
                         def TskNetProgramScript():
-                            result = Environment.Path.Complement.Merge(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Templates.GetDict()['TskNetProgramScript'])
+                            result = Environment.Path.Complement.merge_system(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Templates.GetDict()['TskNetProgramScript'])
                             return result
             def Templates():
 
@@ -301,7 +301,7 @@ class Methods:
             return InstallationProfile['UserData']
 
         def SWRSAddr7z():
-            from LibTskInstPython import Environment
+            from LibPython import Environment
 
             archiveSource = Methods.Installer.Archive.Source()
             swrsaddr = Methods.UserData.GetDict()['SWRSAddr7z']
@@ -309,7 +309,7 @@ class Methods:
             if swrsaddr == False:
                 result = False
             else:
-                result = Environment.Path.Complement.Merge(archiveSource, swrsaddr)
+                result = Environment.Path.Complement.merge_system(archiveSource, swrsaddr)
 
             return result
         def TencoAccount():

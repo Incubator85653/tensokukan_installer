@@ -1,6 +1,6 @@
-import LibTskInstPython as LibPy
-import LibTskInstTkinter as LibTk
-import LibTskInstResources as LibRes
+import LibPython as LibPy
+import LibTkinter as LibTk
+import LibResources as LibRes
 
 from tkinter import *
 from tkinter import ttk
@@ -51,14 +51,14 @@ class Methods:
 
             return bootString
         def InitalizeBootRes():
-            from LibTskInstPython import InputOutput as LibIO
+            from LibPython import InputOutput as LibOperate
 
-            LibRes.BootstrapLanguage = LibIO.Yaml.ReadYaml('BootstrapLanguage.yaml')
-            LibRes.BootstrapLocale = LibIO.Yaml.ReadYaml('BootstrapLocale.yaml')
-            LibRes.BootstrapPath = LibIO.Yaml.ReadYaml('BootstrapPath.yaml')
-            LibRes.BootstrapString = LibIO.Yaml.ReadYaml('BootstrapString.yaml')
+            LibRes.BootstrapLanguage = LibOperate.Yaml.ReadYaml('BootstrapLanguage.yaml')
+            LibRes.BootstrapLocale = LibOperate.Yaml.ReadYaml('BootstrapLocale.yaml')
+            LibRes.BootstrapPath = LibOperate.Yaml.ReadYaml('BootstrapPath.yaml')
+            LibRes.BootstrapString = LibOperate.Yaml.ReadYaml('BootstrapString.yaml')
 
-            LibRes.InstallationProfile = LibIO.Yaml.ReadYaml('BootstrapBlankProfile.yaml')
+            LibRes.InstallationProfile = LibOperate.Yaml.ReadYaml('BootstrapBlankProfile.yaml')
             return
         def InitalizeSelf():
             # Set bootstrap gui string dictionary, based on language.
@@ -100,28 +100,28 @@ class Methods:
 
             # Get root resources directory name.
             resourcesDirName = foldersDict.get('Resources')
-            workingResourcesPath = LibPy.Environment.Path.Complement.Merge(os.getcwd(), resourcesDirName)
+            workingResourcesPath = LibPy.Environment.Path.Complement.merge_system(os.getcwd(), resourcesDirName)
 
             # Generage language based root resource path(full path).
-            langBasedRootResourcesPath = LibPy.Environment.Path.Complement.Merge(workingResourcesPath, LibRes.Language.WizardDevLanguage)
+            langBasedRootResourcesPath = LibPy.Environment.Path.Complement.merge_system(workingResourcesPath, LibRes.Language.WizardDevLanguage)
 
-            langBasedWizardResPath = LibPy.Environment.Path.Complement.Merge(workingResourcesPath, LibRes.Language.WizardDevLanguage)
-            langBasedWizardBinPath = LibPy.Environment.Path.Complement.Merge(workingResourcesPath, LibRes.Language.WizardBinLanguage)
-            langBasedTskResPath = LibPy.Environment.Path.Complement.Merge(workingResourcesPath, LibRes.Language.TskDevLanguage)
+            langBasedWizardResPath = LibPy.Environment.Path.Complement.merge_system(workingResourcesPath, LibRes.Language.WizardDevLanguage)
+            langBasedWizardBinPath = LibPy.Environment.Path.Complement.merge_system(workingResourcesPath, LibRes.Language.WizardBinLanguage)
+            langBasedTskResPath = LibPy.Environment.Path.Complement.merge_system(workingResourcesPath, LibRes.Language.TskDevLanguage)
 
             # Generate language based sub resource folder name and path by root resource path(full path).
             archiveDirName = foldersDict.get('Archive')
             binDirName = foldersDict.get('Bin')
             configDirName = foldersDict.get('Config')
         
-            langBasedArchiveDirPath = LibPy.Environment.Path.Complement.Merge(langBasedTskResPath, archiveDirName)
-            langBasedBinDirPath = LibPy.Environment.Path.Complement.Merge(langBasedWizardBinPath, binDirName)
-            langBasedConfigDirPath = LibPy.Environment.Path.Complement.Merge(langBasedWizardResPath, configDirName)
+            langBasedArchiveDirPath = LibPy.Environment.Path.Complement.merge_system(langBasedTskResPath, archiveDirName)
+            langBasedBinDirPath = LibPy.Environment.Path.Complement.merge_system(langBasedWizardBinPath, binDirName)
+            langBasedConfigDirPath = LibPy.Environment.Path.Complement.merge_system(langBasedWizardResPath, configDirName)
 
             # Generate binary file path by language based sub resource path(full path).
             zipBinName = filesDict.get('Bin').get('7za')
 
-            langBasedzipBinName = LibPy.Environment.Path.Complement.Merge(langBasedBinDirPath, zipBinName)
+            langBasedzipBinName = LibPy.Environment.Path.Complement.merge_system(langBasedBinDirPath, zipBinName)
 
             # Generate installer configs file path by language based...
             debugOptionsName = filesDict.get('Config').get('DebugOptions')
@@ -132,13 +132,13 @@ class Methods:
             stringYamlName = filesDict.get('Config').get('String')
             tkinterYamlName = filesDict.get('Config').get('Tkinter')
 
-            langBasedDebugOptionsYamlPath = LibPy.Environment.Path.Complement.Merge(langBasedConfigDirPath, debugOptionsName)
-            langBasedArchiveYamlPath = LibPy.Environment.Path.Complement.Merge(langBasedConfigDirPath, archiveYamlName)
-            langBasedGamesYamlPath = LibPy.Environment.Path.Complement.Merge(langBasedConfigDirPath, gamesYamlName)
-            langBasedTemplatesYamlPath = LibPy.Environment.Path.Complement.Merge(langBasedConfigDirPath, templatesYamlName)
-            langBasedStructureYamlPath = LibPy.Environment.Path.Complement.Merge(langBasedConfigDirPath, structureYamlName)
-            langBasedStringYamlPath = LibPy.Environment.Path.Complement.Merge(langBasedConfigDirPath, stringYamlName)
-            langBasedTkinterYamlPath = LibPy.Environment.Path.Complement.Merge(langBasedConfigDirPath, tkinterYamlName)
+            langBasedDebugOptionsYamlPath = LibPy.Environment.Path.Complement.merge_system(langBasedConfigDirPath, debugOptionsName)
+            langBasedArchiveYamlPath = LibPy.Environment.Path.Complement.merge_system(langBasedConfigDirPath, archiveYamlName)
+            langBasedGamesYamlPath = LibPy.Environment.Path.Complement.merge_system(langBasedConfigDirPath, gamesYamlName)
+            langBasedTemplatesYamlPath = LibPy.Environment.Path.Complement.merge_system(langBasedConfigDirPath, templatesYamlName)
+            langBasedStructureYamlPath = LibPy.Environment.Path.Complement.merge_system(langBasedConfigDirPath, structureYamlName)
+            langBasedStringYamlPath = LibPy.Environment.Path.Complement.merge_system(langBasedConfigDirPath, stringYamlName)
+            langBasedTkinterYamlPath = LibPy.Environment.Path.Complement.merge_system(langBasedConfigDirPath, tkinterYamlName)
 
             # Fill final results back to LibRes.
 
@@ -222,7 +222,7 @@ class Methods:
             Widgets.buttonExit.place(x = 540, y = 430)
             return
         def SetLangAndCopyBack():
-            from LibTskInstResources import BootstrapLocale
+            from LibResources import BootstrapLocale
 
             wizardLang = Widgets.comboboxStorageWizardLang.get()
             tskLang = Widgets.comboboxStorageTskLang.get()
@@ -254,9 +254,9 @@ class Methods:
             return
     class LoadingScreen:
         def ReadConfigFromDisk():
-            from LibTskInstPython import InputOutput as IO
-            from LibTskInstResources import InstallationProfile as Profile
-            from LibTskInstResources import Resources
+            from LibPython import InputOutput as IO
+            from LibResources import InstallationProfile as Profile
+            from LibResources import Resources
 
             # ConfigInRam
             Resources.Config.DebugYaml = IO.Yaml.ReadYaml(Profile['Installer']['ConfigPath']['DebugOptions'])
@@ -268,8 +268,8 @@ class Methods:
             Resources.Config.TkinterYaml = IO.Yaml.ReadYaml(Profile['Installer']['ConfigPath']['Tkinter'])
             return
         def FillVarFromConfig():
-            from LibTskInstResources import InstallationProfile
-            from LibTskInstResources import Resources
+            from LibResources import InstallationProfile
+            from LibResources import Resources
 
             # Add Archive Collection Array
             # This Array will be use in a "for" method,
@@ -282,20 +282,20 @@ class Methods:
             InstallationProfile['Installer']['Optional']['Templates'] = Resources.Config.TemplatesYaml
             return
         def DoLoadConfig(window):
-            import LibTskInstResources as LibRes
+            import LibResources as LibRes
             Methods.LoadingScreen.ReadConfigFromDisk()
             Methods.LoadingScreen.FillVarFromConfig()
             LibRes.Resources.Methods.DebugOptions.LoadDebugOptions()
 
             # End bootstrap and loading screen.
-            from LibTskInstTkinter import Window as LibTkWin
+            from LibTkinter import Window as LibTkWin
             LibTkWin.SafeDestroy(window)
             return
 
         def TheLoadingScreen():
             import tkinter
-            import LibTskInstTkinter as LibTk
-            from LibTskInstPython import UnitConversion as Unit
+            import LibTkinter as LibTk
+            from LibPython import UnitConversion as Unit
 
             TkLoadingScreen = tkinter.Tk()
             propDict = {'Geometry':'400x100',    'Title':'Tensokukan Tsk Installer'}
