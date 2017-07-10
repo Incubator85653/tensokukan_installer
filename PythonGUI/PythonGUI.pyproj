@@ -22,37 +22,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="LibTskInst\LibTskInstDebug.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LibTskInst\LibTskInstError.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="TestCode.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LibTskInst\LibTskInstBootstrap.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="PythonGUI.py" />
-    <Compile Include="LibTskInst\LibTskInstResources.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LibTskInst\LibTskInstLoadingScreen.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LibTskInst\LibTskInstPython.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LibTskInst\LibTskInstSetup.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LibTskInst\LibTskInstString.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LibTskInst\LibTskInstTkinter.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="TskInstTheWizard\LibTskInstWizardModules\LibTskInstStepId.py">
       <SubType>Code</SubType>
     </Compile>
@@ -74,9 +47,6 @@
     <Compile Include="TskInstTheWizard\LibTskInstWizardModules\LibTskInstStepWizardMode.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LibTskInst\LibTskInstMoHa.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="TskInstTheWizard\TskInstTheWizard.py">
       <SubType>Code</SubType>
     </Compile>
@@ -86,13 +56,35 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Resources\en-US\" />
+    <Folder Include="Resources\en-US\Config\" />
+    <Folder Include="Resources\zh-CN\" />
+    <Folder Include="Resources\zh-CN\Archive\" />
+    <Folder Include="Resources\zh-CN\Archive\TskTemplates_7z\" />
+    <Folder Include="Resources\zh-CN\Archive\TskTemplates_7z\Templates\" />
+    <Folder Include="Resources\zh-CN\Config\" />
     <Folder Include="TskInstTheWizard\" />
-    <Folder Include="LibTskInst\" />
     <Folder Include="TskInstTheWizard\TskInstWizardModules\" />
     <Folder Include="TskInstTheWizard\LibTskInstWizardModules\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="requirements.txt" />
+    <Content Include="Resources\en-US\Config\Archive.yaml" />
+    <Content Include="Resources\en-US\Config\Games.yaml" />
+    <Content Include="Resources\en-US\Config\String.yaml" />
+    <Content Include="Resources\en-US\Config\Structure.yaml" />
+    <Content Include="Resources\en-US\Config\Templates.yaml" />
+    <Content Include="Resources\en-US\Config\Tkinter.yaml" />
+    <Content Include="Resources\zh-CN\Archive\TskTemplates_7z\Templates\TskNet_Account.template" />
+    <Content Include="Resources\zh-CN\Archive\TskTemplates_7z\Templates\TskVersion.txt" />
+    <Content Include="Resources\zh-CN\Archive\TskTemplates_7z\Templates\Tsk_MainConfig.template" />
+    <Content Include="Resources\zh-CN\Config\Archive.yaml" />
+    <Content Include="Resources\zh-CN\Config\DebugOptions.yaml" />
+    <Content Include="Resources\zh-CN\Config\Games.yaml" />
+    <Content Include="Resources\zh-CN\Config\String.yaml" />
+    <Content Include="Resources\zh-CN\Config\Structure.yaml" />
+    <Content Include="Resources\zh-CN\Config\Templates.yaml" />
+    <Content Include="Resources\zh-CN\Config\Tkinter.yaml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

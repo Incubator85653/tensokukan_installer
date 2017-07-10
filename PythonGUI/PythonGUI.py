@@ -29,19 +29,15 @@ import subprocess
 # Shortcuts
 import winshell
 import win32com
+# Water wells studio code library
+from LibPython import Environment
 
-# This method has another copy in LibTskInstPython.
+
+# This method has another copy in LibPython.
 # It used to add search path for startup script.
-def OsPathJoinSimulator(first, second):
-    # This method is prevent a crash on some Ghost systems.
-    # On these systems, os.path.join will fail.
 
-    # It almost do the same thing just like os.path.join, but Windows platform specified.
-
-    # first path must be "slash removed" path.
-    # the second one can be a folder or a file with extension.
-    result = r"{0}\{1}".format(first, second)
-    return result
+def AddSearchPaths2():
+    Environment.Path.merge_path_with_work_dir
 def AddSearchPaths():
     from os import path
     # pwd come from a Linux CLI command.
@@ -50,13 +46,13 @@ def AddSearchPaths():
     pathImport = {}
     pathImport['pathTheInstallWizard'] = OsPathJoinSimulator(pwd, 'TskInstTheWizard')
     pathImport['pathTskInstModules'] = OsPathJoinSimulator(pathImport.get('pathTheInstallWizard'), 'TskInstWizardModules')
-    pathImport['pathLibTskInstModules'] = OsPathJoinSimulator(pathImport.get('pathTheInstallWizard'), 'LibTskInstWizardModules')
-    pathImport['pathLibTskInst'] = OsPathJoinSimulator(pwd, 'LibTskInst')
+    pathImport['pathLibModules'] = OsPathJoinSimulator(pathImport.get('pathTheInstallWizard'), 'LibWizardModules')
+    pathImport['pathLib'] = OsPathJoinSimulator(pwd, 'Lib')
 
     sys.path.append(pathImport.get('pathTheInstallWizard'))
     sys.path.append(pathImport.get('pathTskInstModules'))
-    sys.path.append(pathImport.get('pathLibTskInstModules'))
-    sys.path.append(pathImport.get('pathLibTskInst'))
+    sys.path.append(pathImport.get('pathLibModules'))
+    sys.path.append(pathImport.get('pathLib'))
 
     #for p in sys.path:
     #    print(p)
@@ -68,7 +64,7 @@ AddSearchPaths()
 
 
 # GUI Bootstrap
-import LibTskInstBootstrap as LibBoot
+import LibBootstrap as LibBoot
 LibBoot.Wrapper()
 
 # Start to initalize wizard
