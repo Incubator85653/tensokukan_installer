@@ -1,7 +1,7 @@
-import LibTskInstTkinter as LibTk
+import LibTkinter as LibTk
 
 from tkinter import *
-from LibTskInstTkinter import Window as LibTkWin
+from LibTkinter import Window as LibTkWin
 
 class RootVar:
     # Define the default window (root window) of entire installer
@@ -10,14 +10,14 @@ class RootVar:
 
 # Step means methods to control each step's interface
 class WizardSteps():
-    def LibTskInstStepWizardMode(window):
+    def LibStepWizardMode(window):
         LibTkWin.CleanWidgets(window)
-        import LibTskInstStepWizardMode as TheStep
+        import LibStepWizardMode as TheStep
         TheStep.Wrapper(window)
         return
-    def LibTskInstStepId(window):
+    def LibStepId(window):
         LibTkWin.CleanWidgets(window)
-        import LibTskInstStepId as TheStep
+        import LibStepId as TheStep
         TheStep.Wrapper(window)
         return
     def TskInstStepBasic(window):
@@ -55,8 +55,8 @@ class WizardSteps():
 # I'm in chapter select, do I have watched one of the videos?
 class TimeLine():
     def BackFromAnyModule():
-        if(WizardConditions.Modules.LibTskInstStepModeDecision is False):
-            WizardSteps.LibTskInstStepWizardMode(RootVar.TheInstaller)
+        if(WizardConditions.Modules.LibStepModeDecision is False):
+            WizardSteps.LibStepWizardMode(RootVar.TheInstaller)
         elif(WizardConditions.Modules.TskInstStepBasic is False):
             WizardSteps.TskInstStepBasic(RootVar.TheInstaller)
         elif(WizardConditions.Modules.TskInstStepUpgrade is False):
@@ -71,14 +71,14 @@ class TimeLine():
             # Dump settings to desktop for debug.
             import winshell
             import os
-            from LibTskInstResources import InstallationProfile
-            from LibTskInstPython import InputOutput
-            from LibTskInstPython import Environment
+            from LibResources import InstallationProfile
+            from LibPython import InputOutput
+            from LibPython import Environment
 
             desktop = winshell.desktop()
             yamlName = RootVar.wizardCfg['Debug_InstProfileDump']
 
-            writeOutPath = Environment.Path.Complement.Merge(desktop, yamlName)
+            writeOutPath = Environment.Path.Complement.merge(desktop, yamlName)
             InputOutput.Yaml.WriteYaml(InstallationProfile, writeOutPath)
 
             # Display ReadyToInstall interface.
@@ -116,8 +116,8 @@ class WizardConditions():
     # In this case after Step B is True, step process method will
     # find that Step C is False, then call Step C, etc.
     class Modules:
-        LibTskInstStepModeDecision = False
-        LibTskInstStepId = False
+        LibStepModeDecision = False
+        LibStepId = False
 
         TskInstStepBasic = False
         TskInstStepId = False
@@ -135,8 +135,8 @@ class WizardConditions():
     autoTutorial = None
 
 def InitializeSelf():
-    import LibTskInstTkinter as LibTk
-    import LibTskInstResources as LibRes
+    import LibTkinter as LibTk
+    import LibResources as LibRes
 
     # Create a tkinter root window.
     RootVar.wizardCfg = LibRes.Resources.Config.StringYaml.get('TskInstTheWizard')

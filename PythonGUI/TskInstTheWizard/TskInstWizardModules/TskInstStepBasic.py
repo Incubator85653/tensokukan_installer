@@ -1,10 +1,10 @@
 import TskInstTheWizard as Wizard
-import LibTskInstTkinter as LibTk
-import LibTskInstPython as LibPy
-import LibTskInstResources as LibRes
-import LibTskInstDebug as LibBug
+import LibTkinter as LibTk
+import LibPython as LibPy
+import LibResources as LibRes
+import LibDebug as LibBug
 from tkinter import *
-from LibTskInstPython import UnitConversion as unit
+from LibPython import UnitConversion as unit
 
 wizardCfg = LibRes.Resources.Config.StringYaml.get('TskInstStepBasic')
 

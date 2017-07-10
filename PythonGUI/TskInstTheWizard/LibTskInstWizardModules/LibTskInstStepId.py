@@ -1,10 +1,10 @@
 import TskInstTheWizard as Wizard
-import LibTskInstTkinter as LibTk
-import LibTskInstResources as LibRes
-import LibTskInstPython as LibPy
+import LibTkinter as LibTk
+import LibResources as LibRes
+import LibPython as LibPy
 from tkinter import *
 
-wizardCfg = LibRes.Resources.Config.StringYaml.get('LibTskInstStringStepId')
+wizardCfg = LibRes.Resources.Config.StringYaml.get('LibStringStepId')
 
 class Widgets:
     # local variable
@@ -36,7 +36,7 @@ class Methods:
         return
     # Tell processor this module has been done
     def MarkAsDone():
-        Wizard.WizardConditions.Modules.LibTskInstStepId = True
+        Wizard.WizardConditions.Modules.LibStepId = True
         return
     def PassedCheck(case):
         # 1 means type in manually.

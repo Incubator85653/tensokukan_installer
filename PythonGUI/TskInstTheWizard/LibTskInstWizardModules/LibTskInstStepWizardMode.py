@@ -1,11 +1,11 @@
-import LibTskInstTkinter as LibTk
-import LibTskInstPython as LibPy
-import LibTskInstResources as LibRes
+import LibTkinter as LibTk
+import LibPython as LibPy
+import LibResources as LibRes
 import TskInstTheWizard as Wizard
 
 from tkinter import *
 
-wizardCfg = LibRes.Resources.Config.StringYaml['LibTskInstStepWizardMode']
+wizardCfg = LibRes.Resources.Config.StringYaml['LibStepWizardMode']
 
 class Widgets:
     # Local variables
@@ -26,7 +26,7 @@ class Widgets:
     exitButton = None
 class Methods:
     def MarkAsDone():
-        Wizard.WizardConditions.Modules.LibTskInstStepModeDecision = True
+        Wizard.WizardConditions.Modules.LibStepModeDecision = True
         return
     def CopyBack():
         Wizard.WizardConditions.wizardMode = Widgets.radioStorageWizardMode.get()

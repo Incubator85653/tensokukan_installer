@@ -1,6 +1,6 @@
 import TskInstTheWizard as Wizard
-import LibTskInstResources as LibRes
-import LibTskInstTkinter as LibTk
+import LibResources as LibRes
+import LibTkinter as LibTk
 from tkinter import *
 
 wizardCfg = LibRes.Resources.Config.StringYaml.get('TskInstStepInstall')
@@ -20,7 +20,7 @@ class Methods:
         LibTk.Window.ExitWizard()
         return
     def StartInstall(window):
-        import LibTskInstSetup as LibSetup
+        import LibSetup as LibSetup
         
         # Display Installing hint.
         Widgets.labelStorageInstalling.set(wizardCfg['labelTextInstalling'])

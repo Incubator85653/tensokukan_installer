@@ -1,10 +1,10 @@
 import TskInstTheWizard as Wizard
-import LibTskInstTkinter as LibTk
-import LibTskInstResources as LibRes
-import LibTskInstPython as LibPy
+import LibTkinter as LibTk
+import LibResources as LibRes
+import LibPython as LibPy
 
-from LibTskInstResources import Resources
-from LibTskInstResources import InstallationProfile
+from LibResources import Resources
+from LibResources import InstallationProfile
 from tkinter import *
 
 wizardCfg = Resources.Config.StringYaml.get('TskInstStepId')
@@ -133,10 +133,10 @@ def Wrapper(window):
     # This step require a reference step the following.
     # Once all the reference step were ture,
     #   the step will run. Ohterwize just move to the reference step.
-    if(Wizard.WizardConditions.Modules.LibTskInstStepId is not True):
+    if(Wizard.WizardConditions.Modules.LibStepId is not True):
         from TskInstTheWizard import WizardSteps
 
-        WizardSteps.LibTskInstStepId(window)
+        WizardSteps.LibStepId(window)
     else:
         Methods.DetectIdReference(window)
         idInstallMode = Wizard.WizardConditions.idInstallMode

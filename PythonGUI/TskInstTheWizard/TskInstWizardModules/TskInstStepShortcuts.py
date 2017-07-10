@@ -1,7 +1,7 @@
 import TskInstTheWizard as Wizard
-import LibTskInstResources as LibRes
-import LibTskInstTkinter as LibTk
-import LibTskInstPython as LibPy
+import LibResources as LibRes
+import LibTkinter as LibTk
+import LibPython as LibPy
 
 from tkinter import *
 

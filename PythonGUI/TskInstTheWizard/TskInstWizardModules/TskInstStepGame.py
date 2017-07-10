@@ -1,6 +1,6 @@
 import TskInstTheWizard as Wizard
-import LibTskInstResources as LibRes
-import LibTskInstTkinter as LibTk
+import LibResources as LibRes
+import LibTkinter as LibTk
 
 from tkinter import *
 from os.path import normpath

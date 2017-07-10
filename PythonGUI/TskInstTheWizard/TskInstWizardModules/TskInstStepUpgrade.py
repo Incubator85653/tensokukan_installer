@@ -1,6 +1,6 @@
 from tkinter import *
-from LibTskInstString import TskInstStringStepDataImport as wizardCfg
-import LibTskInstResources as LibRes
+from LibString import TskInstStringStepDataImport as wizardCfg
+import LibResources as LibRes
 import TskInstTheWizard as wizard
 
 DataImportYaml = LibRes.GuiYaml.get('TskInstStepUpgrade')
@@ -73,7 +73,7 @@ class Methods:
                                         y = Part1Yaml.get('buttonDisplayExit').get('y'))
         return
     def SaveButtonPart1(window):
-        from LibTskInstString import TskInstStringErrors as errors
+        from LibString import TskInstStringErrors as errors
         def CopyBack():
             wizard.WizardConditions.Upgrade.TskIniPath = Widgets.entryStorageTskIniPath.get()
             wizard.WizardConditions.Unattended.UpgradeTskIni = True
@@ -133,7 +133,7 @@ class Methods:
 
         return
     def SaveButtonPart2():
-        from LibTskInstString import TskInstStringErrors as errors
+        from LibString import TskInstStringErrors as errors
         def CopyBack(SwrsUpgradeMode):
             if(bool(Widgets.checkbuttonStorageDntManageDb.get()) is False):
                 wizard.WizardConditions.Unattended.UpgradeDatabase = True
