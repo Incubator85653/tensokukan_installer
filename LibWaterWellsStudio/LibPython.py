@@ -1,6 +1,5 @@
 import yaml
 import subprocess
-from LibError import ErrPython as LibErr
 
 class UnitConversion:
     def Second2Millisecond(input):
@@ -59,52 +58,73 @@ class Environment:
     class Path:
         # This class do path combined job.
         class Complement:
-            # os.path.join is detected failed and crash on some Windows 7 system
-            # The reason is unknown.
-            # So write this manually method for tempoary solution.
             def merge_manually(first, second):
-                # This method is prevent a crash on some Ghost systems.
-                # On these systems, os.path.join will fail.
+                """Usage:
+                Both two path must be "slash removed" path.
+                the second one can be a folder or a file with extension.
 
-                # It almost do the same thing just like os.path.join, but Windows platform specified.
+                This method is prevent a crash on some Ghost systems.
+                On these systems, os.path.join will fail, reason unknown.
+                It almost do the same thing just like os.path.join, but Windows platform specified.
+                Return a path just like os.path.join.
+                """
 
-                # first path must be "slash removed" path.
-                # the second one can be a folder or a file with extension, but no slash.
                 result = "{0}\\{1}".format(first, second)
                 return result
 
-            # Use os.path.join to combined two path.
             def merge_system(first, second):
+                """
+                Use os.path.join to combined two path.
+                """
                 import os
 
+                success = False # Use this to confirm if os.path.join is success.
                 result = None
                 try:
+                    print("Auto merging path:\n\t{}, {}".format(first, second))
+
                     result = os.path.join(first, second)
-                except:
-                    LibErr.OsPathJoinFailed()
-                    result = merge_manually(first, second)
+
+                    print("Auto merged path: {}".format(result))
+                    success = True # Set success var to true once os.path.join is success.
+                except Exception as e:
+                    print(e)
+                    print("\nAuto merge path failed.\n")
+                
+                # Try manually combined if system method is failed.
+                if success is not True:
+                    try:
+                        print("Manually merging path:\n\t{}, {}".format(first, second))
+                        
+                        result = merge_manually(first, second)
+                        
+                        print("Manually merged path: {}".format(result))
+                    except Exception as e:
+                        print(e)
 
                 return result
 
-        # Return current working directory,
-        # If can't get current working directory(for any reason),
-        # Return False instead.
         def get_full_work_dir():
+            """Return current working directory,
+            If can't get current working directory(for any reason),
+            print error message and return False instead.
+            """
             import os
 
             result = None
             try:
                 result = os.getcwd()
-            except:
+            except Exception as e:
+                print(e)
                 result = False
-                LibErr.OsGetCwdFailed()
-
+                
             return result
 
-        # Return a path, current working directory with specified name
-        # If can't get current working directory(for any reason),
-        # Return False instead.
-        def merge_path_with_work_dir(path_name):            
+        def merge_path_with_work_dir(path_name): 
+            """Return a path with working dir.
+            Give a name, use this method to get a full path with current working directory.
+            <Dirve>:\<workingDir>\<path_name>
+            """           
             result = None
 
             # pwd come from a Linux CLI command.
@@ -114,6 +134,5 @@ class Environment:
                 result = Environment.Path.Complement.merge_system(pwd, path_name)
             else:
                 result = False
-                LibErr.OsGetCwdFailed()
 
             return result
