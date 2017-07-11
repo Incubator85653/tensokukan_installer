@@ -1,6 +1,6 @@
 import yaml
 
-class Yaml:
+class WaterWellsYaml:
     def read_yaml_from_disk(filePath):
         result = False
 
