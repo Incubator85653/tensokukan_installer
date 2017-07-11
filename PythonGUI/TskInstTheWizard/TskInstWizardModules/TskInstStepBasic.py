@@ -2,11 +2,11 @@ import TskInstTheWizard as Wizard
 import LibTkinter as LibTk
 import LibPython as LibPy
 import LibResources as LibRes
-import LibDebug as LibBug
+
 from tkinter import *
 from LibPython import UnitConversion as unit
 
-wizardCfg = LibRes.Resources.Config.StringYaml.get('TskInstStepBasic')
+wizardCfg = LibRes.Resources.Config.StringYaml['TskInstStepBasic']
 
 class Widgets():
     # Local variable
@@ -53,7 +53,7 @@ class Methods():
 
         Methods.MarkAsDone()
         Wizard.TimeLine.BackFromAnyModule()
-        return
+
     def SaveSettings():
         tskPathBool = bool(Widgets.entryStorageTskInstallPath.get())
         tempPathBool = bool(Widgets.entryStorageTskTempPath.get())
@@ -61,11 +61,13 @@ class Methods():
         installTypeInt = Widgets.radioStorageTskInstallType.get()
         
         if(tskPathBool is False):
-            LibTk.Window.StrNotice(wizardCfg.get('errorInstallPathEmpty'))
+            LibTk.Window.StrNotice(wizardCfg['errorInstallPathEmpty'])
         elif(tempPathBool is False):
-            LibTk.Window.StrNotice(wizardCfg.get('errorTempPathEmpty'))
+            LibTk.Window.StrNotice(wizardCfg['errorTempPathEmpty'])
         elif(installTypeBool is False) :
-            LibTk.Window.StrNotice(wizardCfg.get('errorInstallTypeNotSelected'))
+            LibTk.Window.StrNotice(wizardCfg['errorInstallTypeNotSelected'])
+        elif(installTypeInt == 2):
+            LibTk.Window.StrNotice(wizardCfg['errorUpgradeNotAvailable'])
         else:
             Methods.CopyBack()
         return
@@ -84,37 +86,47 @@ class Methods():
         Widgets.labelDisplaySelectedInstallMethod.place(x = 25, y = 210)
         return
     def DisplayTutorial():
-        LibTk.Window.ArrayNotice(wizardCfg.get('tutorialDialog'))
+        LibTk.Window.ArrayNotice(wizardCfg['tutorialDialog'])
         return
     def GetDefaultTskTempPath():
 
         return LibPy.Environment.System.GetSysTempPath() + r'\TensokukanTemp'
     def AskTskInstallDirName():
+        import traceback
+        from LibPython import Process
+        from LibPython import Environment as Env
         from os.path import normpath
         
-        options = LibRes.Resources.Config.TkinterYaml.get('BrowseTskInstallPath')
+        options = LibRes.Resources.Config.TkinterYaml['BrowseTskInstallPath']
         result = LibTk.FileDialog.AskDirectoryName(options)
 
         if bool(result):
-            Widgets.entryStorageTskInstallPath.set(normpath(result + '\\' + LibRes.Resources.Methods.Structure.Program.Tsk.Bin.DefaultInstallFolder()))
+            try:
+                Widgets.entryStorageTskInstallPath.set(
+                    Env.Path.Complement.merge_system(
+                        result, LibRes.Resources.Methods.Structure.Program.Tsk.Bin.DefaultInstallFolder()
+                        )
+                    )
+            except Exception as err:
+                traceback.print_tb(err.__traceback__)
         return
     def ConfigureWidgets(window):
         # lables
         Widgets.labelDisplaySelectedAdvancedMode = Label(window,
-                                     text = wizardCfg.get('labelTextSelectedAdvancedMode'))
+                                     text = wizardCfg['labelTextSelectedAdvancedMode'])
         Widgets.labelDisplayTskInstallPath = Label(window,
-                                        text = wizardCfg.get('labelTextTskInstallPath'))
+                                        text = wizardCfg['labelTextTskInstallPath'])
     
         # radio
         Widgets.radioDisplayNewInstall = Radiobutton(window,
                                              variable = Widgets.radioStorageTskInstallType,
                                              value = 1,
-                                             text = wizardCfg.get('radioTextNewInstall'),
+                                             text = wizardCfg['radioTextNewInstall'],
                                              command = lambda : Methods.RefreshInstallMode(window, 1))
         Widgets.radioDisplayUpgrade = Radiobutton(window,
                                                  variable = Widgets.radioStorageTskInstallType,
                                                  value = 2,
-                                                 text = wizardCfg.get('radioTextUpgrade'),
+                                                 text = wizardCfg['radioTextUpgrade'],
                                                  command = lambda : Methods.RefreshInstallMode(window, 2))
         # entry
         Widgets.entryDisplayTskInstallPath = Entry(window,
@@ -123,11 +135,11 @@ class Methods():
         Widgets.entryStorageTskTempPath.set(Methods.GetDefaultTskTempPath())
         # button, two browse
         Widgets.buttonDisplayBrowseTskInstallPath = Button(window,
-                                               text = wizardCfg.get('buttonTextBrowseTskInstallPath'),
+                                               text = wizardCfg['buttonTextBrowseTskInstallPath'],
                                                command = lambda : Methods.AskTskInstallDirName())
         # button, next step and tutorial
         Widgets.buttonDisplayNextStep = Button(window,
-                                text = wizardCfg.get('buttonTextNextStep'),
+                                text = wizardCfg['buttonTextNextStep'],
                                 command = lambda : Methods.SaveSettings(),
                                 width = 10)
         Widgets.buttonTutorial = Button(window,
@@ -136,7 +148,7 @@ class Methods():
                                         width = 10)
         # Generate this object but do not show immediately
         Widgets.labelDisplaySelectedInstallMethod = Label(window,
-                                              text = wizardCfg.get('labelTextSelectedNewInstall'))
+                                              text = wizardCfg['labelTextSelectedNewInstall'])
 
         # Set default install type as new install, var 1.
         # But do not set right now, this is a foolproof - design
@@ -162,6 +174,6 @@ def Wrapper(window):
     Methods.ConfigureWidgets(window)
     # Detect if auto display tutorial is true
     if Wizard.WizardConditions.autoTutorial:
-        LibTk.Window.ArrayNotice(wizardCfg.get('tutorialDialog'))
+        LibTk.Window.ArrayNotice(wizardCfg['tutorialDialog'])
     LibTk.Window.ShowWindow(window)
     return

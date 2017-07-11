@@ -12,12 +12,12 @@ class RootVar:
 class WizardSteps():
     def LibStepWizardMode(window):
         LibTkWin.CleanWidgets(window)
-        import LibStepWizardMode as TheStep
+        import LibTskInstStepWizardMode as TheStep
         TheStep.Wrapper(window)
         return
     def LibStepId(window):
         LibTkWin.CleanWidgets(window)
-        import LibStepId as TheStep
+        import LibTskInstStepId as TheStep
         TheStep.Wrapper(window)
         return
     def TskInstStepBasic(window):
@@ -72,17 +72,18 @@ class TimeLine():
             import winshell
             import os
             from LibResources import InstallationProfile
-            from LibPython import InputOutput
+            from LibOperate import WaterWellsYaml as wwYaml
             from LibPython import Environment
 
             desktop = winshell.desktop()
             yamlName = RootVar.wizardCfg['Debug_InstProfileDump']
 
-            writeOutPath = Environment.Path.Complement.merge(desktop, yamlName)
-            InputOutput.Yaml.WriteYaml(InstallationProfile, writeOutPath)
+            writeOutPath = Environment.Path.Complement.merge_system(desktop, yamlName)
+            wwYaml.write_yaml_to_disk(InstallationProfile, writeOutPath)
 
             # Display ReadyToInstall interface.
-            WizardSteps.TskInstStepSetup(RootVar.TheInstaller)
+            # Debugging, don't actually run installer.
+            #WizardSteps.TskInstStepSetup(RootVar.TheInstaller)
         return
 
 # Conditions means the variables should be changed by GUI,
@@ -139,7 +140,7 @@ def InitializeSelf():
     import LibResources as LibRes
 
     # Create a tkinter root window.
-    RootVar.wizardCfg = LibRes.Resources.Config.StringYaml.get('TskInstTheWizard')
+    RootVar.wizardCfg = LibRes.Resources.Config.StringYaml['TskInstTheWizard']
     RootVar.TheInstaller = Tk()
     LibTk.Window.InitializeWindow(RootVar.TheInstaller, RootVar.wizardCfg)
 
