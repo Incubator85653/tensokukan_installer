@@ -1,6 +1,15 @@
+import sys
 import yaml
 import subprocess
 
+class Console:
+    def ansi_print(print_object):
+        """ANSI print method.
+        As its name, you just use the console as a ANSI console.
+        Fuck Windows."""
+        sys_encoding = sys.stdin.encoding
+
+        print(print_object.encode(sys_encoding,errors='replace').decode(sys_encoding, 'ignore'))
 class UnitConversion:
     def Second2Millisecond(input):
 
@@ -20,6 +29,45 @@ class Process:
         p = subprocess.Popen(command, shell = useShell)
         p.wait()
         return
+    def pauseMe():
+        programPause = input(r"Press the <ENTER> key to continue...")
+    def print_traceback(err_object):
+        """Universal error print & log method.
+        Catch an exception and throw it away here.
+        Give a exit code and close the program in your code if you give up.
+        No matter, we're not a user-friendly software.
+        JUST DO IT.
+
+        # Log feature is not competed in this version.
+        # TODO
+        """
+        import traceback
+        Console.ansi_print("\nERROR BEGIN\n")
+
+        Console.ansi_print("LAST STACK:\n")
+        traceback.print_stack()
+
+        Console.ansi_print("\nLAST TRACEBACK:\n")
+        traceback.print_tb(err_object.__traceback__)
+
+        print ("\nERROR MESSAGE:\n")
+        Console.ansi_print(err_object)
+
+        Console.ansi_print("\nERROR END\n")
+    def i_give_up(error_code, give_up_string):
+        """Error code is a number from Doc\ErrorCode.
+        Give up string is you tell your user you can't keep execute the program.
+        The string should base on language so the string provide by you.
+        And remember to put a {} in string to combined error code into string.
+
+        Example:
+            i_give_up(-2, "I give up... exit program now. Error code is {}.")
+        """
+        import LibTkinter as LibTk
+        import sys
+
+        LibTk.Window.StrNotice(give_up_string.format(error_code))
+        sys.exit(error_code)
 class Environment:
     class System:
         def GetSysTempPath():
@@ -77,30 +125,40 @@ class Environment:
                 Use os.path.join to combined two path.
                 """
                 import os
+                import sys
+                from os.path import normpath
 
+                result = None # This is result.
                 success = False # Use this to confirm if os.path.join is success.
-                result = None
+                                
                 try:
-                    print("Auto merging path:\n\t{}, {}".format(first, second))
+                    Console.ansi_print("Auto merging path:\n\t{}, {}".format(first, second))
 
-                    result = os.path.join(first, second)
-
-                    print("Auto merged path: {}".format(result))
+                    result = normpath(
+                        os.path.join(first, second)
+                        )
                     success = True # Set success var to true once os.path.join is success.
-                except Exception as e:
-                    print(e)
-                    print("\nAuto merge path failed.\n")
+
+                    Console.ansi_print("Auto merged path:\n\t{}".format(result))
+                except Exception as err:
+                    from LibPython import Process
+                    Process.print_traceback(err)
+                    Console.ansi_print("\nAuto merge path failed.\n")
+
+                    
+                
                 
                 # Try manually combined if system method is failed.
                 if success is not True:
                     try:
-                        print("Manually merging path:\n\t{}, {}".format(first, second))
+                        Console.ansi_print("Manually merging path:\n\t{}, {}".format(first, second))
                         
-                        result = merge_manually(first, second)
+                        result = Environment.Path.Complement.merge_manually(first, second)
+                        result = normpath(result)
                         
-                        print("Manually merged path: {}".format(result))
-                    except Exception as e:
-                        print(e)
+                        Console.ansi_print("Manually merged path: {}".format(result))
+                    except Exception as err:
+                        Process.print_traceback(err)
 
                 return result
 
@@ -115,7 +173,7 @@ class Environment:
             try:
                 result = os.getcwd()
             except Exception as e:
-                print(e)
+                Console.ansi_print(e)
                 result = False
                 
             return result
@@ -128,7 +186,7 @@ class Environment:
             result = None
 
             # pwd come from a Linux CLI command.
-            pwd = get_full_work_dir()
+            pwd = Environment.Path.get_full_work_dir()
 
             if pwd is not False:
                 result = Environment.Path.Complement.merge_system(pwd, path_name)
