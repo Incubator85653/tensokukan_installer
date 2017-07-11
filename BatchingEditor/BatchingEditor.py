@@ -7,24 +7,25 @@ import LibEditor
 import sys
 sys.path.append("..\LibWaterWellsStudio")
 # import shared library
-from LibOperate import Yaml as libYaml
+from LibOperate import WaterWellsYaml as libYaml
+from LibPython import Console
 
 # Create argument parser
 parser = argparse.ArgumentParser()
-parser.add_argument("yaml", help="Specify a yaml file edited by installer.")
-parser.add_argument("folder", help = "Specify a folder contains the source and target file. A path without slash, typically is installed folder.")
+parser.add_argument("yaml_path", help="Specify a yaml file edited by installer.")
+parser.add_argument("resouce_folder", help = "Specify a folder contains the source and target file. A path without slash, typically is installed folder.")
 
 # Put arguments into variables
 args = parser.parse_args()
-config_path = args.yaml
-config_is_exist = os.path.isfile(config_path)
+str_config_path = args.yaml
+bool_config_exist = os.path.isfile(str_config_path)
 
 # The file exist, then start file processing
-if config_is_exist:
-    config_file_readed = libYaml.read_yaml_from_disk(config_path)
+if bool_config_exist:
+    config_dict = libYaml.read_yaml_from_disk(str_config_path)
 
-    LibEditor.Parser.do_edit(config_file_readed, args)
+    LibEditor.Parser.do_edit(config_dict, args)
 # Otherwize return -1 as exit value and put a hint.
 else:
-    print("The specified yaml config file is not vailed.")
+    Console.ansi_print("The specified yaml config file is not vailed.")
     sys.exit(-1)

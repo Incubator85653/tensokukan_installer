@@ -1,6 +1,6 @@
 import sys
 sys.path.append("..\LibWaterWellsStudio")
-from LibOperate import Yaml
+from LibOperate import WaterWellsYaml as libYaml
 
 class Variable:
     firstTimeEdit = None
@@ -23,7 +23,7 @@ class Parser:
     # Under the dict, there're also Group, Mark, Option, Value
     def get_undecoded_option_dict():
         for option_group_name in Variable.OptionArrayContents.OptionGroupDict:
-            undecodedOption = Yaml.get_yaml_content_by_its_name(
+            undecodedOption = libYaml.get_yaml_content_by_its_name(
                 option_group_name, Variable.OptionArrayContents.OptionGroupDict)
 
             Variable.OptionArrayContents.DecodedOption.Group = undecodedOption['Group']
@@ -51,7 +51,7 @@ class Parser:
         Variable.Source = per_file_dictionary['Source'].format(args.folder)
         Variable.Target = per_file_dictionary['Target'].format(args.folder)
         Variable.OptionArray = per_file_dictionary['OptionArray']
-        #print("Encoding: {}\nSource: {}\nTarget: {}\nObject:".format(
+        #Console.ansi_print("Encoding: {}\nSource: {}\nTarget: {}\nObject:".format(
         #    encoding, source,
         #    target))
         Parser.decode_option_array_contents()
@@ -60,7 +60,7 @@ class Parser:
     # Example: Tsk_MainConfig
     def decode_per_file_dictionary(master_dictionary, args):
         for dictName in master_dictionary:
-            per_file_dict = Yaml.get_yaml_content_by_its_name(dictName, master_dictionary)
+            per_file_dict = libYaml.get_yaml_content_by_its_name(dictName, master_dictionary)
             
             Parser.analysis_file_properties(per_file_dict, args)
             # Make first time edit condition as true at the end of the for loop,
