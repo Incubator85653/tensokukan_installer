@@ -1,5 +1,9 @@
 # Tensokukan installer ignore
 
+# A special folder called "Exclude344".
+# Used to store test files generated during development.
+Exclude344/
+
 # GUI design resource
 PSD/
 *.psd
