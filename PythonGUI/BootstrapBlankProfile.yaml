@@ -11,6 +11,7 @@ Installer:
     Source: null
   Bin:
     7-zip: null
+    BatchEditor: null
   ConfigPath:
     Archive: null
     Games: null

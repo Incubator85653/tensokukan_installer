@@ -1,5 +1,5 @@
 TskInstTheWizard:
-    Title: '天则观安装程序 / 测试版 / Build 8'
+    Title: '天则观安装程序 / 测试版 / Build 11'
     Geometry: '640x480'
     Exit: '直接退出'
     Debug_InstProfileDump: '天则观安装log.yaml'

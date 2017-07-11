@@ -24,17 +24,10 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="LibBootstrap.py" />
-    <Compile Include="LibError.py" />
     <Compile Include="LibOperate.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LibLoadingScreen.py" />
     <Compile Include="LibPython.py" />
-    <Compile Include="LibResources.py" />
-    <Compile Include="LibSetup.py" />
-    <Compile Include="LibString.py" />
-    <Compile Include="LibTkinter.py" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

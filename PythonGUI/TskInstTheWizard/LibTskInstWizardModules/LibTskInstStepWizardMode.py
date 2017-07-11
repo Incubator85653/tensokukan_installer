@@ -1,7 +1,8 @@
-import LibTkinter as LibTk
-import LibPython as LibPy
 import LibResources as LibRes
 import TskInstTheWizard as Wizard
+import LibTkinter as LibTk
+
+from LibPython import UnitConversion as Unit
 
 from tkinter import *
 
@@ -49,7 +50,7 @@ class Methods:
         Widgets.whoAmI = Label(window,
                       text = wizardCfg.get('labelTextWizardModeSelect'))
         Widgets.warn1 = Label(window,
-                      text = LibPy.UnitConversion.FormatArray2String(wizardCfg.get('labelTextDebugWarn')),
+                      text = Unit.FormatArray2String(wizardCfg.get('labelTextDebugWarn')),
                       justify = LEFT)
 
         # radio and radio variable
