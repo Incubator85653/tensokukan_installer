@@ -1,0 +1,3 @@
+PythonGUI:
+	-2	Can't get workingResourcesPath during bootstrap.
+	-3	Can't complete bootstrap for any reason.
