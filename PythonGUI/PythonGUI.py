@@ -24,44 +24,22 @@ import tkinter.ttk
 import yaml
 import sys
 import os
+import traceback
 # Process
 import subprocess
 # Shortcuts
 import winshell
 import win32com
+# Search path
+import sys
+
 # Water wells studio code library
-from LibPython import Environment
-
-
-# This method has another copy in LibPython.
-# It used to add search path for startup script.
-
-def AddSearchPaths2():
-    Environment.Path.merge_path_with_work_dir
-def AddSearchPaths():
-    from os import path
-    # pwd come from a Linux CLI command.
-    pwd = os.getcwd()
-    # define some library path and add them to system.path.
-    pathImport = {}
-    pathImport['pathTheInstallWizard'] = OsPathJoinSimulator(pwd, 'TskInstTheWizard')
-    pathImport['pathTskInstModules'] = OsPathJoinSimulator(pathImport.get('pathTheInstallWizard'), 'TskInstWizardModules')
-    pathImport['pathLibModules'] = OsPathJoinSimulator(pathImport.get('pathTheInstallWizard'), 'LibWizardModules')
-    pathImport['pathLib'] = OsPathJoinSimulator(pwd, 'Lib')
-
-    sys.path.append(pathImport.get('pathTheInstallWizard'))
-    sys.path.append(pathImport.get('pathTskInstModules'))
-    sys.path.append(pathImport.get('pathLibModules'))
-    sys.path.append(pathImport.get('pathLib'))
-
-    #for p in sys.path:
-    #    print(p)
-    return
-
-# Add search path and start installer disk I/O.
-AddSearchPaths()
-
-
+sys.path.append(r"..\LibWaterWellsStudio")
+from LibPython import Environment as Env
+# Installer code files
+sys.path.append("TskInstTheWizard")
+sys.path.append(r"TskInstTheWizard\TskInstWizardModules")
+sys.path.append(r"TskInstTheWizard\LibTskInstWizardModules")
 
 # GUI Bootstrap
 import LibBootstrap as LibBoot

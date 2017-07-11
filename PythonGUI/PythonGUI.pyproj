@@ -6,8 +6,7 @@
     <ProjectGuid>a9a6c346-8f34-4ab2-b9b1-183c789f01ce</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>PythonGUI.py</StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <SearchPath>..\LibWaterWellsStudio\;TskInstTheWizard\;TskInstTheWizard\LibTskInstWizardModules\;TskInstTheWizard\TskInstWizardModules\</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>PythonGUI</Name>
@@ -22,9 +21,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="TestCode.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="LibBootstrap.py" />
+    <Compile Include="LibLoadingScreen.py" />
+    <Compile Include="LibResources.py" />
+    <Compile Include="LibSetup.py" />
+    <Compile Include="LibString.py" />
+    <Compile Include="LibTkinter.py" />
     <Compile Include="PythonGUI.py" />
     <Compile Include="TskInstTheWizard\LibTskInstWizardModules\LibTskInstStepId.py">
       <SubType>Code</SubType>
@@ -55,6 +57,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Doc\" />
     <Folder Include="Resources\" />
     <Folder Include="Resources\en-US\" />
     <Folder Include="Resources\en-US\Config\" />
@@ -68,6 +71,12 @@
     <Folder Include="TskInstTheWizard\LibTskInstWizardModules\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BootstrapBlankProfile.yaml" />
+    <Content Include="BootstrapLanguage.yaml" />
+    <Content Include="BootstrapLocale.yaml" />
+    <Content Include="BootstrapPath.yaml" />
+    <Content Include="BootstrapString.yaml" />
+    <Content Include="Doc\ErrorCode.txt" />
     <Content Include="requirements.txt" />
     <Content Include="Resources\en-US\Config\Archive.yaml" />
     <Content Include="Resources\en-US\Config\Games.yaml" />
