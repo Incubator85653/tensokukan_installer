@@ -1,26 +1,22 @@
-from LibPython import InputOutput
-from LibPython import Environment
+from LibOperate import Zip
+from LibOperate import Shortcut
+from LibPython import Environment as Env
 from LibInstallProfile import Methods as wizardCfg
 from LibInstallProfile import Profile
 
 class Methods:
     class CopyFiles:
         def UnpackArchives():
-            import os
-            from LibPython import Environment
-
             archivesPath = wizardCfg.Installer.Archive.Source()
             archivesCollection = wizardCfg.Installer.Archive.Collection()
 
             installPath = wizardCfg.Basic.InstallPath()
 
             for archiveName in archivesCollection:
-                archiveFullPath = Environment.Path.Complement.merge(archivesPath, archiveName)
-                InputOutput.Zip.DoUnpack(archiveFullPath, installPath)
+                archiveFullPath = Env.Path.Complement.merge(archivesPath, archiveName)
+                Zip.DoUnpack(archiveFullPath, installPath)
 
-            return
         def UnpackSWRSAddr():
-            from os import path
             archiveName = wizardCfg.UserData.SWRSAddr7z()
             installPath = wizardCfg.Basic.InstallPath()
 
@@ -29,12 +25,10 @@ class Methods:
 
             # If archiveName is not False(added an archive name),
             # Unpack that archive to install folder.
-
             if bool(archiveName) != False:
-                InputOutput.Zip.DoUnpack(archiveName, installPath)
-            return
+                Zip.DoUnpack(archiveName, installPath)
 
-        def DoCopy():
+        def wrapper_do_copy():
             Methods.CopyFiles.UnpackArchives()
             Methods.CopyFiles.UnpackSWRSAddr()
             return
@@ -47,13 +41,13 @@ class Methods:
 
             for fileName in editorDict:
                 perFileDict = editorDict[fileName]
-                InputOutput.Templates.DoModify(perFileDict)
+                Templates.DoModify(perFileDict)
+                #TODO
             return
     class Shortcuts:
         def ShortcutRules(Action, FileName, Args):
             import winshell
             import os
-            from LibPython import Environment
 
             # These codes used python sequential execution characteristics.
 
@@ -82,24 +76,24 @@ class Methods:
                 if manageDesktop:
                     environmentPath = winshell.desktop()
                     
-                    lnkFileLocation = Environment.Path.Complement.merge(environmentPath, lnkName)
+                    lnkFileLocation = Env.Path.Complement.merge(environmentPath, lnkName)
 
                     createSwitch = False
-                    InputOutput.Shortcut.CreateShortcut(lnkFileLocation, targetFullPath,targetWorkingDir)
+                    Shortcut.CreateShortcut(lnkFileLocation, targetFullPath,targetWorkingDir)
                 if manageStartMenu:
                     environmentPath = winshell.programs()
 
                     tskSmGroupName = wizardCfg.Basic.StartMenuGroup()
-                    tskSmGroupPath = Environment.Path.Complement.merge(environmentPath, tskSmGroupName)
+                    tskSmGroupPath = Env.Path.Complement.merge(environmentPath, tskSmGroupName)
 
-                    lnkFileLocation = Environment.Path.Complement.merge(tskSmGroupPath, lnkName)
+                    lnkFileLocation = Env.Path.Complement.merge(tskSmGroupPath, lnkName)
 
                     # Create shortcut menu for base library.
                     if not os.path.exists(tskSmGroupPath):
                         os.makedirs(tskSmGroupPath)
 
                     createSwitch = False
-                    InputOutput.Shortcut.CreateShortcut(lnkFileLocation, targetFullPath,targetWorkingDir)
+                    Shortcut.CreateShortcut(lnkFileLocation, targetFullPath,targetWorkingDir)
 
             if Action == 'UploadNow':
 
@@ -111,7 +105,7 @@ class Methods:
                 createSwitch = False
 
             if createSwitch:
-                InputOutput.Shortcut.CreateShortcut(lnkFileLocation, targetFullPath,targetWorkingDir)
+                Shortcut.CreateShortcut(lnkFileLocation, targetFullPath,targetWorkingDir)
             return
         def DoCreate_FillArguments():
             # Get batch shortcut config
@@ -134,7 +128,7 @@ class Methods:
             return
 
 def Wrapper_NewInstall():
-    Methods.CopyFiles.DoCopy()
+    Methods.CopyFiles.wrapper_do_copy()
     Methods.EditConfigs.DoEdit_FillArguments()
     Methods.Shortcuts.DoCreate_FillArguments()
     return
