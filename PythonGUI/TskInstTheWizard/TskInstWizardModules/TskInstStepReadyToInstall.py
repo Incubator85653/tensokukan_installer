@@ -3,7 +3,7 @@ import LibInstallProfile as LibProfile
 import LibTkinter as LibTk
 from tkinter import *
 
-wizardCfg = LibProfile.Resources.Config.StringYaml.get('TskInstStepInstall')
+wizardCfg = LibProfile.Profile.Config.StringYaml.get('TskInstStepInstall')
 
 class Widgets:
     # local variables
@@ -30,7 +30,7 @@ class Methods:
         # Set dump location
         desktop = winshell.desktop()
         # Get yaml file name
-        yamlName = LibProfile.Resources.Config.StringYaml['TskInstTheWizard']['Debug_InstProfileDump']
+        yamlName = LibProfile.Profile.Config.StringYaml['TskInstTheWizard']['Debug_InstProfileDump']
         # Generate file full path
         writeOutPath = Env.Path.Complement.merge_system(desktop, yamlName)
         # Dump settings to disk

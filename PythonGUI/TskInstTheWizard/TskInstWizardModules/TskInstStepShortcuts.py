@@ -5,10 +5,10 @@ import LibPython as LibPy
 
 from tkinter import *
 
-wizardStr = LibProfile.Resources.Config.StringYaml.get('TskInstStepShortcuts')
+wizardStr = LibProfile.Profile.Config.StringYaml.get('TskInstStepShortcuts')
 
-defaultTskStartMenuGroupName = LibProfile.Resources.Methods.Structure.Shortcuts.StartupMenuGroup()
-defaultTskMainShortcutName = LibProfile.Resources.Methods.Structure.Shortcuts.TskMainLnk()
+defaultTskStartMenuGroupName = LibProfile.Profile.Methods.Structure.Shortcuts.StartupMenuGroup()
+defaultTskMainShortcutName = LibProfile.Profile.Methods.Structure.Shortcuts.TskMainLnk()
 
 class Widgets:
     # local variables

@@ -19,13 +19,12 @@ class Language:
     # language.
     # Only change it if necessary.
     WizardBinLanguage = 'en-US'
-class Resources:
+class Profile:
     class Config:
         # Add yamls read from disk after bootstrap.
         DebugYaml = None
         ArchiveYaml = None
         GamesYaml = None
-        TemplatesYaml = None
         StructureYaml = None
         StringYaml = None
         TkinterYaml = None
@@ -33,40 +32,40 @@ class Resources:
         class Structure:
             def GetDict():
 
-                return Resources.Config.StructureYaml
+                return Profile.Config.StructureYaml
 
             class Program:
                 def GetDict():
 
-                    return Resources.Methods.Structure.GetDict()['Program']
+                    return Profile.Methods.Structure.GetDict()['Program']
 
                 class Tsk:
                     def GetDict():
 
-                        return Resources.Methods.Structure.Program.GetDict()['Tsk']
+                        return Profile.Methods.Structure.Program.GetDict()['Tsk']
 
                     class Bin:
                         def GetDict():
 
-                            return Resources.Methods.Structure.Program.Tsk.GetDict()['Bin']
+                            return Profile.Methods.Structure.Program.Tsk.GetDict()['Bin']
 
                         def DefaultInstallFolder():
 
-                            return Resources.Methods.Structure.Program.Tsk.Bin.GetDict()['DefaultInstallFolder']
+                            return Profile.Methods.Structure.Program.Tsk.Bin.GetDict()['DefaultInstallFolder']
             class Shortcuts:
                 def GetDict():
 
-                    return Resources.Methods.Structure.GetDict()['Shortcuts']
+                    return Profile.Methods.Structure.GetDict()['Shortcuts']
 
                 def StartupMenuGroup():
 
-                    return Resources.Methods.Structure.Shortcuts.GetDict()['StartupMenuGroup']
+                    return Profile.Methods.Structure.Shortcuts.GetDict()['StartupMenuGroup']
                 def TskMainLnk():
 
-                    return Resources.Methods.Structure.Shortcuts.GetDict()['TskMainLnk']
+                    return Profile.Methods.Structure.Shortcuts.GetDict()['TskMainLnk']
                 def Config():
 
-                    return Resources.Methods.Structure.Shortcuts.GetDict()['Config']
+                    return Profile.Methods.Structure.Shortcuts.GetDict()['Config']
 class Methods:
     # Call these methods AFTER you fill the config!
     class Basic:
@@ -130,9 +129,6 @@ class Methods:
             def String():
 
                 return Methods.Installer.ConfigPath.GetDict()['String']
-            def Templates():
-
-                return Methods.Installer.ConfigPath.GetDict()['Templates']
             def Tkinter():
 
                 return Methods.Installer.ConfigPath.GetDict()['Tkinter']
@@ -224,9 +220,6 @@ class Methods:
                         def TskNetProgramScript():
                             result = Environment.Path.Complement.merge_system(Methods.Installer.Optional.ProgramStructure.TskNet.FullPath(), Methods.Installer.Optional.ProgramStructure.TskNet.Templates.GetDict()['TskNetProgramScript'])
                             return result
-            def Templates():
-
-                return Methods.Installer.Optional.GetDict()['Templates']
     class Unattended:
         def GetDict():
 

@@ -1,7 +1,7 @@
 from LibPython import InputOutput
 from LibPython import Environment
 from LibInstallProfile import Methods as wizardCfg
-from LibInstallProfile import Resources
+from LibInstallProfile import Profile
 
 class Methods:
     class CopyFiles:
@@ -115,7 +115,7 @@ class Methods:
             return
         def DoCreate_FillArguments():
             # Get batch shortcut config
-            shortcutsProfile = Resources.Methods.Structure.Shortcuts.Config()
+            shortcutsProfile = Profile.Methods.Structure.Shortcuts.Config()
 
             # Get per shortcut config group dictionary.
             for perLnkDict in shortcutsProfile:
