@@ -45,9 +45,9 @@ class WizardSteps():
         import TskInstStepShortcuts as TheStep
         TheStep.Wrapper(window)
         return
-    def TskInstStepSetup(window):
+    def TskInstStepReadyToInstall(window):
         LibTkWin.CleanWidgets(window)
-        import TskInstStepSetup as TheStep
+        import TskInstStepReadyToInstall as TheStep
         TheStep.Wrapper(window)
         return
 
@@ -68,22 +68,8 @@ class TimeLine():
         elif(WizardConditions.Modules.TskInstStepShortcuts is False):
             WizardSteps.TskInstStepShortcuts(RootVar.TheInstaller)
         else:
-            # Dump settings to desktop for debug.
-            import winshell
-            import os
-            from LibResources import InstallationProfile
-            from LibOperate import WaterWellsYaml as wwYaml
-            from LibPython import Environment
-
-            desktop = winshell.desktop()
-            yamlName = RootVar.wizardCfg['Debug_InstProfileDump']
-
-            writeOutPath = Environment.Path.Complement.merge_system(desktop, yamlName)
-            wwYaml.write_yaml_to_disk(InstallationProfile, writeOutPath)
-
             # Display ReadyToInstall interface.
-            # Debugging, don't actually run installer.
-            #WizardSteps.TskInstStepSetup(RootVar.TheInstaller)
+            WizardSteps.TskInstStepReadyToInstall(RootVar.TheInstaller)
         return
 
 # Conditions means the variables should be changed by GUI,

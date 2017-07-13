@@ -31,7 +31,7 @@
     <Compile Include="TskInstTheWizard\LibTskInstWizardModules\LibTskInstStepId.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TskInstTheWizard\TskInstWizardModules\TskInstStepSetup.py">
+    <Compile Include="TskInstTheWizard\TskInstWizardModules\TskInstStepReadyToInstall.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TskInstTheWizard\TskInstWizardModules\TskInstStepBasic.py">
