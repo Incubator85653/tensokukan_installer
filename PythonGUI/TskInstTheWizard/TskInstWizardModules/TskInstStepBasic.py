@@ -1,12 +1,12 @@
 import TskInstTheWizard as Wizard
 import LibTkinter as LibTk
 import LibPython as LibPy
-import LibResources as LibRes
+import LibInstallProfile as LibProfile
 
 from tkinter import *
 from LibPython import UnitConversion as unit
 
-wizardCfg = LibRes.Resources.Config.StringYaml['TskInstStepBasic']
+wizardCfg = LibProfile.Resources.Config.StringYaml['TskInstStepBasic']
 
 class Widgets():
     # Local variable
@@ -35,9 +35,9 @@ class Methods():
     def CopyBack():
         from os.path import normpath
 
-        LibRes.InstallationProfile['Basic']['InstallPath'] = normpath(Widgets.entryStorageTskInstallPath.get())
-        LibRes.InstallationProfile['Basic']['TempPath'] = normpath(Widgets.entryStorageTskTempPath.get())
-        LibRes.InstallationProfile['Unattended']['UnattendedMode'] = Widgets.radioStorageTskInstallType.get()
+        LibProfile.InstallationProfile['Basic']['InstallPath'] = normpath(Widgets.entryStorageTskInstallPath.get())
+        LibProfile.InstallationProfile['Basic']['TempPath'] = normpath(Widgets.entryStorageTskTempPath.get())
+        LibProfile.InstallationProfile['Unattended']['UnattendedMode'] = Widgets.radioStorageTskInstallType.get()
 
         # Confirm install type.
         Wizard.WizardConditions.installType = Widgets.radioStorageTskInstallType.get()
@@ -97,14 +97,14 @@ class Methods():
         from LibPython import Environment as Env
         from os.path import normpath
         
-        options = LibRes.Resources.Config.TkinterYaml['BrowseTskInstallPath']
+        options = LibProfile.Resources.Config.TkinterYaml['BrowseTskInstallPath']
         result = LibTk.FileDialog.AskDirectoryName(options)
 
         if bool(result):
             try:
                 Widgets.entryStorageTskInstallPath.set(
                     Env.Path.Complement.merge_system(
-                        result, LibRes.Resources.Methods.Structure.Program.Tsk.Bin.DefaultInstallFolder()
+                        result, LibProfile.Resources.Methods.Structure.Program.Tsk.Bin.DefaultInstallFolder()
                         )
                     )
             except Exception as err:

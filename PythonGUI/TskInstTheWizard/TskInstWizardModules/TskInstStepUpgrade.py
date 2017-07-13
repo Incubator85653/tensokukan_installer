@@ -1,13 +1,13 @@
 from tkinter import *
 from LibString import TskInstStringStepDataImport as wizardCfg
-import LibResources as LibRes
+import LibInstallProfile as LibProfile
 import TskInstTheWizard as wizard
 
-DataImportYaml = LibRes.GuiYaml.get('TskInstStepUpgrade')
+DataImportYaml = LibProfile.GuiYaml.get('TskInstStepUpgrade')
 Part1Yaml = DataImportYaml.get('Part1')
 Part2Yaml = DataImportYaml.get('Part2')
 class ConstVars:
-    installedPath = LibRes.Methods.Basic.InstallPath()
+    installedPath = LibProfile.Methods.Basic.InstallPath()
 
 class Widgets:
     # Local variable
@@ -92,7 +92,7 @@ class Methods:
         return
 
     def PlaceWidgetsPart2():
-        import LibRes as cfg
+        import LibProfile as cfg
         Widgets.labelDisplayImportDataPart2.place(x = Part2Yaml.get('labelDisplayImportData').get('x'),
                                              y = Part2Yaml.get('labelDisplayImportData').get('y'))
 

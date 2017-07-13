@@ -23,7 +23,7 @@
   <ItemGroup>
     <Compile Include="LibBootstrap.py" />
     <Compile Include="LibLoadingScreen.py" />
-    <Compile Include="LibResources.py" />
+    <Compile Include="LibInstallProfile.py" />
     <Compile Include="LibSetup.py" />
     <Compile Include="LibString.py" />
     <Compile Include="LibTkinter.py" />

@@ -1,10 +1,10 @@
 import TskInstTheWizard as Wizard
 import LibTkinter as LibTk
-import LibResources as LibRes
+import LibInstallProfile as LibProfile
 import LibPython as LibPy
 from tkinter import *
 
-wizardCfg = LibRes.Resources.Config.StringYaml.get('LibStringStepId')
+wizardCfg = LibProfile.Resources.Config.StringYaml.get('LibStringStepId')
 
 class Widgets:
     # local variable
@@ -29,7 +29,7 @@ class Methods:
         from os.path import normpath
 
         LibTk.InitializeLibTkinter()
-        options = LibRes.Resources.Config.TkinterYaml.get('BrowseIdYaml')
+        options = LibProfile.Resources.Config.TkinterYaml.get('BrowseIdYaml')
         result = LibTk.FileDialog.AskFileName(options)
         if bool(result):
             Widgets.entryStorageIdYamlPath.set(normpath(result))
@@ -43,7 +43,7 @@ class Methods:
         if case == 1:
             Wizard.WizardConditions.idInstallMode = Widgets.radioStorageIdInstallType.get()
 
-            LibRes.InstallationProfile['Unattended']['ManageId'] = True
+            LibProfile.InstallationProfile['Unattended']['ManageId'] = True
 
             Methods.MarkAsDone()
             Wizard.TimeLine.BackFromAnyModule()
@@ -52,7 +52,7 @@ class Methods:
         elif case == 4:
             # Not sure if this is actually needs to be set to zero.
             Wizard.WizardConditions.idInstallMode = 0
-            LibRes.InstallationProfile['Unattended']['ManageId'] = False
+            LibProfile.InstallationProfile['Unattended']['ManageId'] = False
             Methods.MarkAsDone()
             Wizard.WizardConditions.Modules.TskInstStepId = True
             Wizard.TimeLine.BackFromAnyModule()

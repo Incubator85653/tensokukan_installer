@@ -1,5 +1,5 @@
 import LibTkinter as LibTk
-import LibResources as LibRes
+import LibInstallProfile as LibProfile
 
 from tkinter import *
 from tkinter import ttk
@@ -43,23 +43,23 @@ class Methods:
         # as default language dictionary.
         def GetBootString():
             import sys
-            sysLang = Env.System.GetSysShortLang(LibRes.BootstrapLocale['CodePage2ShortLang'])
-            supportedLangArray = LibRes.BootstrapLanguage['SupportedLanguages']
+            sysLang = Env.System.GetSysShortLang(LibProfile.BootstrapLocale['CodePage2ShortLang'])
+            supportedLangArray = LibProfile.BootstrapLanguage['SupportedLanguages']
 
             if sysLang in supportedLangArray:
-                bootString = LibRes.BootstrapString.get(sysLang)
+                bootString = LibProfile.BootstrapString.get(sysLang)
             else:
-                bootString = LibRes.BootstrapString.get('en-US')
+                bootString = LibProfile.BootstrapString.get('en-US')
 
             return bootString
 
         def InitalizeBootRes():
-            LibRes.BootstrapLanguage = wwYaml.read_yaml_from_disk('BootstrapLanguage.yaml')
-            LibRes.BootstrapLocale = wwYaml.read_yaml_from_disk('BootstrapLocale.yaml')
-            LibRes.BootstrapPath = wwYaml.read_yaml_from_disk('BootstrapPath.yaml')
-            LibRes.BootstrapString = wwYaml.read_yaml_from_disk('BootstrapString.yaml')
+            LibProfile.BootstrapLanguage = wwYaml.read_yaml_from_disk('BootstrapLanguage.yaml')
+            LibProfile.BootstrapLocale = wwYaml.read_yaml_from_disk('BootstrapLocale.yaml')
+            LibProfile.BootstrapPath = wwYaml.read_yaml_from_disk('BootstrapPath.yaml')
+            LibProfile.BootstrapString = wwYaml.read_yaml_from_disk('BootstrapString.yaml')
 
-            LibRes.InstallationProfile = wwYaml.read_yaml_from_disk('BootstrapBlankProfile.yaml')
+            LibProfile.InstallationProfile = wwYaml.read_yaml_from_disk('BootstrapBlankProfile.yaml')
 
         def InitalizeSelf():
             # Set bootstrap gui string dictionary, based on language.
@@ -74,15 +74,15 @@ class Methods:
             RootVar.bootstrapGui.withdraw()
 
             # Initalize window properties.
-            RootVar.bootstrapGuiProp = LibRes.BootstrapString.get('Universal')
+            RootVar.bootstrapGuiProp = LibProfile.BootstrapString.get('Universal')
             LibTk.Window.InitializeWindow(RootVar.bootstrapGui, RootVar.bootstrapGuiProp)
 
         def ConfigureWidgets():
             Widgets.comboboxStorageWizardLang = StringVar()
-            Widgets.comboboxStorageWizardLangList = LibRes.BootstrapLanguage['WizardLanguages']
+            Widgets.comboboxStorageWizardLangList = LibProfile.BootstrapLanguage['WizardLanguages']
 
             Widgets.comboboxStorageTskLang = StringVar()
-            Widgets.comboboxStorageTskLangList = LibRes.BootstrapLanguage['TskLanguages']
+            Widgets.comboboxStorageTskLangList = LibProfile.BootstrapLanguage['TskLanguages']
 
         def Wrapper():
             Methods.Initialize.InitalizeBootRes()
@@ -90,11 +90,11 @@ class Methods:
             Methods.Initialize.ConfigureWidgets()
 
     class LanguageSelect:
-        def FillPathsBackToLibRes():
+        def FillPathsBackToLibProfile():
             import os
             # This method in bootstrap, it fill a language based resource path for installer.
-            foldersDict = LibRes.BootstrapPath['Folders']
-            filesDict = LibRes.BootstrapPath['Files']
+            foldersDict = LibProfile.BootstrapPath['Folders']
+            filesDict = LibProfile.BootstrapPath['Files']
 
             # Get root resources directory name.
             resourcesDirName = foldersDict['Resources']
@@ -102,11 +102,11 @@ class Methods:
 
             # Generage language based root resource path(full path).
             if workingResourcesPath is not False: # Cover error.
-                langBasedRootResourcesPath = Env.Path.Complement.merge_system(workingResourcesPath, LibRes.Language.WizardDevLanguage)
+                langBasedRootResourcesPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.WizardDevLanguage)
 
-                langBasedWizardResPath = Env.Path.Complement.merge_system(workingResourcesPath, LibRes.Language.WizardDevLanguage)
-                langBasedWizardBinPath = Env.Path.Complement.merge_system(workingResourcesPath, LibRes.Language.WizardBinLanguage)
-                langBasedTskResPath = Env.Path.Complement.merge_system(workingResourcesPath, LibRes.Language.TskDevLanguage)
+                langBasedWizardResPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.WizardDevLanguage)
+                langBasedWizardBinPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.WizardBinLanguage)
+                langBasedTskResPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.TskDevLanguage)
 
                 # Generate language based sub resource folder name and path by root resource path(full path).
                 archiveDirName = foldersDict.get('Archive')
@@ -139,39 +139,39 @@ class Methods:
                 langBasedStringYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, stringYamlName)
                 langBasedTkinterYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, tkinterYamlName)
 
-                # Fill final results back to LibRes.
+                # Fill final results back to LibProfile.
 
-                LibRes.InstallationProfile['Installer']['Archive']['Source'] = langBasedArchiveDirPath
+                LibProfile.InstallationProfile['Installer']['Archive']['Source'] = langBasedArchiveDirPath
 
-                LibRes.InstallationProfile['Installer']['Bin']['7-zip'] = langBasedzipBinName
+                LibProfile.InstallationProfile['Installer']['Bin']['7-zip'] = langBasedzipBinName
 
-                LibRes.InstallationProfile['Installer']['ConfigPath']['DebugOptions'] = langBasedDebugOptionsYamlPath
-                LibRes.InstallationProfile['Installer']['ConfigPath']['Archive'] = langBasedArchiveYamlPath
-                LibRes.InstallationProfile['Installer']['ConfigPath']['Games'] = langBasedGamesYamlPath
-                LibRes.InstallationProfile['Installer']['ConfigPath']['Templates'] = langBasedTemplatesYamlPath
-                LibRes.InstallationProfile['Installer']['ConfigPath']['Structure'] = langBasedStructureYamlPath
-                LibRes.InstallationProfile['Installer']['ConfigPath']['String'] = langBasedStringYamlPath
-                LibRes.InstallationProfile['Installer']['ConfigPath']['Tkinter'] = langBasedTkinterYamlPath
+                LibProfile.InstallationProfile['Installer']['ConfigPath']['DebugOptions'] = langBasedDebugOptionsYamlPath
+                LibProfile.InstallationProfile['Installer']['ConfigPath']['Archive'] = langBasedArchiveYamlPath
+                LibProfile.InstallationProfile['Installer']['ConfigPath']['Games'] = langBasedGamesYamlPath
+                LibProfile.InstallationProfile['Installer']['ConfigPath']['Templates'] = langBasedTemplatesYamlPath
+                LibProfile.InstallationProfile['Installer']['ConfigPath']['Structure'] = langBasedStructureYamlPath
+                LibProfile.InstallationProfile['Installer']['ConfigPath']['String'] = langBasedStringYamlPath
+                LibProfile.InstallationProfile['Installer']['ConfigPath']['Tkinter'] = langBasedTkinterYamlPath
                 # Plz run Yaml loader(loading screen) after fill language based resources path.
             else:
                 sys.exit(-2)
             
         def DetectSupportedLang():
             import sys
-            convertDict = LibRes.BootstrapLocale['CodePage2ShortLang']
-            supportedLangArray = LibRes.BootstrapLanguage['SupportedLanguages']
+            convertDict = LibProfile.BootstrapLocale['CodePage2ShortLang']
+            supportedLangArray = LibProfile.BootstrapLanguage['SupportedLanguages']
             sysDevLang = convertDict.get(sys.stdin.encoding)
         
             if sysDevLang in supportedLangArray:
                 LibTk.Window.SafeDestroy(RootVar.bootstrapGui)
-                LibRes.Language.WizardDevLanguage = sysDevLang
-                LibRes.Language.TskDevLanguage = sysDevLang
+                LibProfile.Language.WizardDevLanguage = sysDevLang
+                LibProfile.Language.TskDevLanguage = sysDevLang
 
                 # Code to force enable such language, for debug use.
-                #LibRes.Language.WizardDevLanguage = 'zh-CN'
-                #LibRes.Language.TskDevLanguage = 'zh-CN'
+                #LibProfile.Language.WizardDevLanguage = 'zh-CN'
+                #LibProfile.Language.TskDevLanguage = 'zh-CN'
                 
-                Methods.LanguageSelect.FillPathsBackToLibRes()
+                Methods.LanguageSelect.FillPathsBackToLibProfile()
             else:
                 Methods.LanguageSelect.ConfigureWidgets(RootVar.bootstrapGui)
                 RootVar.bootstrapGui.deiconify()
@@ -223,7 +223,7 @@ class Methods:
             Widgets.buttonExit.place(x = 540, y = 430)
             return
         def SetLangAndCopyBack():
-            from LibResources import BootstrapLocale
+            from LibInstallProfile import BootstrapLocale
 
             wizardLang = Widgets.comboboxStorageWizardLang.get()
             tskLang = Widgets.comboboxStorageTskLang.get()
@@ -232,11 +232,11 @@ class Methods:
             wizardDevLang = convertDict[wizardLang]
             tskDevLang = convertDict[tskLang]
 
-            LibRes.Language.WizardDevLanguage = wizardDevLang
-            LibRes.Language.TskDevLanguage = tskDevLang
+            LibProfile.Language.WizardDevLanguage = wizardDevLang
+            LibProfile.Language.TskDevLanguage = tskDevLang
 
             RootVar.bootstrapGui.destroy()
-            Methods.LanguageSelect.FillPathsBackToLibRes()
+            Methods.LanguageSelect.FillPathsBackToLibProfile()
             return
         def NextStep_SaveSettings():
             boolWizardLang = bool(Widgets.comboboxStorageWizardLang.get())
@@ -256,8 +256,8 @@ class Methods:
     class LoadingScreen:
         def ReadConfigFromDisk():
             from LibOperate import WaterWellsYaml as wwYaml
-            from LibResources import InstallationProfile as Profile
-            from LibResources import Resources
+            from LibInstallProfile import InstallationProfile as Profile
+            from LibInstallProfile import Resources
 
             # ConfigInRam
             Resources.Config.DebugYaml = wwYaml.read_yaml_from_disk(Profile['Installer']['ConfigPath']['DebugOptions'])
@@ -269,8 +269,8 @@ class Methods:
             Resources.Config.TkinterYaml = wwYaml.read_yaml_from_disk(Profile['Installer']['ConfigPath']['Tkinter'])
             return
         def FillVarFromConfig():
-            from LibResources import InstallationProfile
-            from LibResources import Resources
+            from LibInstallProfile import InstallationProfile
+            from LibInstallProfile import Resources
 
             # Add Archive Collection Array
             # This Array will be use in a "for" method,
@@ -285,7 +285,7 @@ class Methods:
         def DoLoadConfig(window):
             from LibPython import Process
 
-            import LibResources as LibRes
+            import LibInstallProfile as LibProfile
             Methods.LoadingScreen.ReadConfigFromDisk()
             Methods.LoadingScreen.FillVarFromConfig()
 

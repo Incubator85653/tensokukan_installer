@@ -1,4 +1,4 @@
-import LibResources as LibRes
+import LibInstallProfile as LibProfile
 import TskInstTheWizard as Wizard
 import LibTkinter as LibTk
 
@@ -6,7 +6,7 @@ from LibPython import UnitConversion as Unit
 
 from tkinter import *
 
-wizardCfg = LibRes.Resources.Config.StringYaml['LibStepWizardMode']
+wizardCfg = LibProfile.Resources.Config.StringYaml['LibStepWizardMode']
 
 class Widgets:
     # Local variables

@@ -1,7 +1,7 @@
 from LibPython import InputOutput
 from LibPython import Environment
-from LibResources import Methods as wizardCfg
-from LibResources import Resources
+from LibInstallProfile import Methods as wizardCfg
+from LibInstallProfile import Resources
 
 class Methods:
     class CopyFiles:

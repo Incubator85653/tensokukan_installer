@@ -1,10 +1,10 @@
 import TskInstTheWizard as Wizard
 import LibTkinter as LibTk
-import LibResources as LibRes
+import LibInstallProfile as LibProfile
 import LibPython as LibPy
 
-from LibResources import Resources
-from LibResources import InstallationProfile
+from LibInstallProfile import Resources
+from LibInstallProfile import InstallationProfile
 from tkinter import *
 
 wizardCfg = Resources.Config.StringYaml.get('TskInstStepId')
@@ -50,10 +50,10 @@ class Methods:
             return
         def CopyBack():
             # Copy data from local to conditions
-            LibRes.InstallationProfile['UserData']['TencoID'] = Widgets.TypeIn.entryStorageTencoId.get()
-            LibRes.InstallationProfile['UserData']['TencoPassword'] = Widgets.TypeIn.entryStorageTencoPassword.get()
+            LibProfile.InstallationProfile['UserData']['TencoID'] = Widgets.TypeIn.entryStorageTencoId.get()
+            LibProfile.InstallationProfile['UserData']['TencoPassword'] = Widgets.TypeIn.entryStorageTencoPassword.get()
 
-            LibRes.InstallationProfile['Unattended']['ManageId'] = True
+            LibProfile.InstallationProfile['Unattended']['ManageId'] = True
 
             Methods.MarkAsDone()
             # and I'm home

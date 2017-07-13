@@ -1,9 +1,9 @@
 import TskInstTheWizard as Wizard
-import LibResources as LibRes
+import LibInstallProfile as LibProfile
 import LibTkinter as LibTk
 from tkinter import *
 
-wizardCfg = LibRes.Resources.Config.StringYaml.get('TskInstStepInstall')
+wizardCfg = LibProfile.Resources.Config.StringYaml.get('TskInstStepInstall')
 
 class Widgets:
     # local variables
@@ -23,14 +23,14 @@ class Methods:
 
         import winshell
         import os
-        from LibResources import InstallationProfile
+        from LibInstallProfile import InstallationProfile
         from LibOperate import WaterWellsYaml as wwYaml
         from LibPython import Environment as Env
 
         # Set dump location
         desktop = winshell.desktop()
         # Get yaml file name
-        yamlName = LibRes.Resources.Config.StringYaml['TskInstTheWizard']['Debug_InstProfileDump']
+        yamlName = LibProfile.Resources.Config.StringYaml['TskInstTheWizard']['Debug_InstProfileDump']
         # Generate file full path
         writeOutPath = Env.Path.Complement.merge_system(desktop, yamlName)
         # Dump settings to disk

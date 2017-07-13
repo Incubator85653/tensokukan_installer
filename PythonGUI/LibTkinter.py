@@ -59,7 +59,7 @@ class Window:
         sys.exit()
         return
     def UnivWizardController_Place(window, widgetNextButton):
-        from LibResources import Resources as Res
+        from LibInstallProfile import Resources as Res
         exitLocale = Res.Config.StringYaml['TskInstTheWizard']['Exit']
         # 1 width = 8 px
         # Default height is 30 px.

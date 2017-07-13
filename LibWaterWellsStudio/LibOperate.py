@@ -21,7 +21,7 @@ class WaterWellsYaml:
 
 class Zip:
     def GenerateCommand(file, targetPath):
-            from LibResources import Methods as binCfg
+            from LibInstallProfile import Methods as binCfg
 
             # Example:
             # 7za x "Archive.7z" -o"C:\Unpack" -y

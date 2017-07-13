@@ -1,14 +1,14 @@
 import TskInstTheWizard as Wizard
-import LibResources as LibRes
+import LibInstallProfile as LibProfile
 import LibTkinter as LibTk
 import LibPython as LibPy
 
 from tkinter import *
 
-wizardStr = LibRes.Resources.Config.StringYaml.get('TskInstStepShortcuts')
+wizardStr = LibProfile.Resources.Config.StringYaml.get('TskInstStepShortcuts')
 
-defaultTskStartMenuGroupName = LibRes.Resources.Methods.Structure.Shortcuts.StartupMenuGroup()
-defaultTskMainShortcutName = LibRes.Resources.Methods.Structure.Shortcuts.TskMainLnk()
+defaultTskStartMenuGroupName = LibProfile.Resources.Methods.Structure.Shortcuts.StartupMenuGroup()
+defaultTskMainShortcutName = LibProfile.Resources.Methods.Structure.Shortcuts.TskMainLnk()
 
 class Widgets:
     # local variables
@@ -50,12 +50,12 @@ class Methods:
         tskStartMenuGroupName = Widgets.entryStorageStartMenuName.get()
         tskDesktopName = Widgets.entryStorageTskMainName.get()
 
-        LibRes.InstallationProfile['Basic']['StartMenuGroup'] = tskStartMenuGroupName
-        LibRes.InstallationProfile['Basic']['DesktopShortcut'] = tskDesktopName + '.lnk'
+        LibProfile.InstallationProfile['Basic']['StartMenuGroup'] = tskStartMenuGroupName
+        LibProfile.InstallationProfile['Basic']['DesktopShortcut'] = tskDesktopName + '.lnk'
 
         # GUI shows "Do not create", so use the not keyword.
-        LibRes.InstallationProfile['Unattended']['ManageStartMenuShortcut'] = not bool(Widgets.checkbuttonStorageDntStartMenu.get())
-        LibRes.InstallationProfile['Unattended']['ManageDesktopShortcut'] = not bool(Widgets.checkbuttonStorageDntDesktop.get())
+        LibProfile.InstallationProfile['Unattended']['ManageStartMenuShortcut'] = not bool(Widgets.checkbuttonStorageDntStartMenu.get())
+        LibProfile.InstallationProfile['Unattended']['ManageDesktopShortcut'] = not bool(Widgets.checkbuttonStorageDntDesktop.get())
 
         Methods.MarkAsDone()
         Wizard.TimeLine.BackFromAnyModule()

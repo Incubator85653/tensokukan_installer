@@ -123,10 +123,10 @@ class WizardConditions():
 
 def InitializeSelf():
     import LibTkinter as LibTk
-    import LibResources as LibRes
+    import LibInstallProfile as LibProfile
 
     # Create a tkinter root window.
-    RootVar.wizardCfg = LibRes.Resources.Config.StringYaml['TskInstTheWizard']
+    RootVar.wizardCfg = LibProfile.Resources.Config.StringYaml['TskInstTheWizard']
     RootVar.TheInstaller = Tk()
     LibTk.Window.InitializeWindow(RootVar.TheInstaller, RootVar.wizardCfg)
 
