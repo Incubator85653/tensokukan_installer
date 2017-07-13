@@ -16,6 +16,25 @@ class Widgets:
     labelStatus = None
     buttonDisplayExit = None
 class Methods:
+    def dump_current_install_profile():
+        """Copy user settings to disk.
+        This method will write whole dictionary to disk for future debug.
+        """
+
+        import winshell
+        import os
+        from LibResources import InstallationProfile
+        from LibOperate import WaterWellsYaml as wwYaml
+        from LibPython import Environment as Env
+
+        # Set dump location
+        desktop = winshell.desktop()
+        # Get yaml file name
+        yamlName = LibRes.Resources.Config.StringYaml['TskInstTheWizard']['Debug_InstProfileDump']
+        # Generate file full path
+        writeOutPath = Env.Path.Complement.merge_system(desktop, yamlName)
+        # Dump settings to disk
+        wwYaml.write_yaml_to_disk(InstallationProfile, writeOutPath)
     def ExitButton():
         LibTk.Window.ExitWizard()
         return
@@ -60,6 +79,7 @@ class Methods:
 
 
 def Wrapper(window):
+    Methods.dump_current_install_profile()
     Methods.ConfigureWidgets(window)
     LibTk.Window.ShowWindow(window)
     return
