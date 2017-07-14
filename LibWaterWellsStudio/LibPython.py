@@ -25,10 +25,18 @@ class UnitConversion:
         # seems A string readed from yaml won't add next line.
         return input.format("\n")
 class Process:
-    def DoLaunchAndWait(command, useShell):
-        p = subprocess.Popen(command, shell = useShell)
-        p.wait()
-        return
+    def get_command_exit_code(command, useShell):
+        exit_code = -42
+
+        Console.ansi_print("Run external program:\n\t{}".format(command))
+        try:
+            p = subprocess.Popen(command, shell = useShell)
+            exit_code = p.wait()
+            Console.ansi_print("\tExternal program exit code: {}".format(exit_code))
+        except Exception as e:
+            Process.handle_exception(e, False)
+
+        return exit_code
     def pause_program():
         programPause = input(r"Press the <ENTER> key to continue...")
     def handle_exception(err_object, pause):
