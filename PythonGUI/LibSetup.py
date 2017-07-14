@@ -21,7 +21,8 @@ class Methods:
             installPath = wizardCfg.Methods.Basic.InstallPath()
 
             # If archiveName is False,
-            # that means user selected "Skip" or this version not need to unpack SWRSAddr.
+            # that means user selected "Skip" or this version not need to
+            # unpack SWRSAddr.
 
             # If archiveName is not False(added an archive name),
             # Unpack that archive to install folder.
@@ -31,16 +32,36 @@ class Methods:
         def wrapper_do_copy():
             Methods.CopyFiles.UnpackArchives()
             Methods.CopyFiles.UnpackSWRSAddr()
-            return
+
     class EditConfigs:
         # mbcs means windows system default ANSI encode, in notepad.exe .
-        # The situation is some of Tensokukan config files support only ANSI format.
+        # The situation is some of Tensokukan config files support only ANSI
+        # format.
         # They need a convert from Template(UTF-8) to Target(Local ANSI).
         def update_batching_editor_config():
-            doNothing = None
+            """Copy installer generated data to batching editor profile.
+            This crazy method will tell you sometimes ugly access path is better than nest loop."""
+            # Sumeragi Shion - Gujjo bu
+            # A tempoary variable to hold edited dictionary
+            shion = wizardCfg.Config.BatchEditorYaml
+
+            # File: Tsk_MainConfig
+            # Modify GameExePath
+            shion['Tsk_MainConfig']['OptionArray'][0]['GameExePath']['Value'] = wizardCfg.Methods.Basic.GameExePath()
+            
+            # Modify TskNetExePath
+            shion['Tsk_MainConfig']['OptionArray'][0]['TskNetExePath']['Value'] = wizardCfg.Methods.Installer.Optional.ProgramStructure.TskNet.Bin.TskNetMainExe()
+            
+            # File: TskNet_Account
+            # Account and password condition
+            if wizardCfg.Methods.Unattended.ManageId():
+                # Modify TencoAccount
+                shion['TskNet_Account']['OptionArray'][0]['TencoAccount']['Value'] = wizardCfg.Methods.UserData.TencoAccount()
+                # Modify TencoPassword
+                shion['TskNet_Account']['OptionArray'][0]['TencoPassword']['Value'] = wizardCfg.Methods.UserData.TencoPassword()
             #TODO
         def wrapper_do_edit():
-            doNothing = None
+            Methods.EditConfigs.update_batching_editor_config()
             #TODO
     class Shortcuts:
         def ShortcutRules(Action, FileName, Args):
@@ -49,7 +70,8 @@ class Methods:
 
             # These codes used python sequential execution characteristics.
 
-            # Def a switch for base library, affect create shortcut or not after fill information.
+            # Def a switch for base library, affect create shortcut or not
+            # after fill information.
             # Close it if create shortcut manually.
             createSwitch = True
 
@@ -115,7 +137,8 @@ class Methods:
                 # Get the group name, it can't be directly read.
                 for perLnkDictName in perLnkDict:
 
-                    # Use group name to receive final replace profile dictionary.
+                    # Use group name to receive final replace profile
+                    # dictionary.
                     createShortcutDict = perLnkDict[perLnkDictName]
 
                     Action = createShortcutDict['Action']
@@ -135,8 +158,9 @@ def Wrapper_NewInstall():
     all_install_success = False
     try:
         # Begin install.
-        Methods.CopyFiles.wrapper_do_copy()
         Methods.EditConfigs.wrapper_do_edit()
+        Methods.CopyFiles.wrapper_do_copy()
+        
         Methods.Shortcuts.wrapper_do_create()
         # Turn all install success var to True after all operation success.
         all_install_success = True
