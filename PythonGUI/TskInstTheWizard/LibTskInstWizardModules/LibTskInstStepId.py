@@ -1,6 +1,5 @@
 import TskInstTheWizard as Wizard
 import LibTkinter as LibTk
-import LibPython as LibPy
 from LibInstallProfile import RawProfileDict
 from LibInstallProfile import DecodedProfile
 from tkinter import *
