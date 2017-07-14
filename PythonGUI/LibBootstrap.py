@@ -6,6 +6,7 @@ from tkinter import ttk
 from LibPython import Environment as Env
 from LibPython import UnitConversion as Unit
 from LibOperate import WaterWellsYaml as wwYaml
+from LibInstallProfile import DecodedProfile
 
 class RootVar:
     # Tk()
@@ -54,12 +55,16 @@ class Methods:
             return bootString
 
         def InitalizeBootRes():
-            LibProfile.BootstrapLanguage = wwYaml.read_yaml_from_disk('BootstrapLanguage.yaml')
-            LibProfile.BootstrapLocale = wwYaml.read_yaml_from_disk('BootstrapLocale.yaml')
-            LibProfile.BootstrapPath = wwYaml.read_yaml_from_disk('BootstrapPath.yaml')
-            LibProfile.BootstrapString = wwYaml.read_yaml_from_disk('BootstrapString.yaml')
-
-            LibProfile.InstallationProfile = wwYaml.read_yaml_from_disk('BootstrapBlankProfile.yaml')
+            try:
+                LibProfile.BootstrapLanguage = wwYaml.read_yaml_from_disk('BootstrapLanguage.yaml')
+                LibProfile.BootstrapLocale = wwYaml.read_yaml_from_disk('BootstrapLocale.yaml')
+                LibProfile.BootstrapPath = wwYaml.read_yaml_from_disk('BootstrapPath.yaml')
+                LibProfile.BootstrapString = wwYaml.read_yaml_from_disk('BootstrapString.yaml')
+                LibProfile.RawProfileDict = wwYaml.read_yaml_from_disk('BootstrapBlankProfile.yaml')
+            except Exception as e:
+                from LibPython import Process
+                Process.handle_exception(e, True)
+                sys.exit(-5)
 
         def InitalizeSelf():
             # Set bootstrap gui string dictionary, based on language.
@@ -88,10 +93,8 @@ class Methods:
             Methods.Initialize.InitalizeBootRes()
             Methods.Initialize.InitalizeSelf()
             Methods.Initialize.ConfigureWidgets()
-
     class LanguageSelect:
         def FillPathsBackToLibProfile():
-            import os
             # This method in bootstrap, it fill a language based resource path for installer.
             foldersDict = LibProfile.BootstrapPath['Folders']
             filesDict = LibProfile.BootstrapPath['Files']
@@ -101,60 +104,57 @@ class Methods:
             workingResourcesPath = Env.Path.merge_path_with_work_dir(resourcesDirName)
 
             # Generage language based root resource path(full path).
-            if workingResourcesPath is not False: # Cover error.
-                langBasedRootResourcesPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.WizardDevLanguage)
+            langBasedRootResourcesPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.WizardDevLanguage)
 
-                langBasedWizardResPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.WizardDevLanguage)
-                langBasedWizardBinPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.WizardBinLanguage)
-                langBasedTskResPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.TskDevLanguage)
+            langBasedWizardResPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.WizardDevLanguage)
+            langBasedWizardBinPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.WizardBinLanguage)
+            langBasedTskResPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.TskDevLanguage)
 
-                # Generate language based sub resource folder name and path by root resource path(full path).
-                archiveDirName = foldersDict.get('Archive')
-                binDirName = foldersDict.get('Bin')
-                configDirName = foldersDict.get('Config')
+            # Generate language based sub resource folder name and path by root resource path(full path).
+            archiveDirName = foldersDict['Archive']
+            binDirName = foldersDict['Bin']
+            configDirName = foldersDict['Config']
         
-                langBasedArchiveDirPath = Env.Path.Complement.merge_system(langBasedTskResPath, archiveDirName)
-                langBasedBinDirPath = Env.Path.Complement.merge_system(langBasedWizardBinPath, binDirName)
-                langBasedConfigDirPath = Env.Path.Complement.merge_system(langBasedWizardResPath, configDirName)
+            langBasedArchiveDirPath = Env.Path.Complement.merge_system(langBasedTskResPath, archiveDirName)
+            langBasedBinDirPath = Env.Path.Complement.merge_system(langBasedWizardBinPath, binDirName)
+            langBasedConfigDirPath = Env.Path.Complement.merge_system(langBasedWizardResPath, configDirName)
 
-                # Generate binary file path by language based sub resource path(full path).
-                zipBinName = filesDict.get('Bin').get('7za')
+            # Generate binary file path by language based sub resource path(full path).
+            zipBinName = filesDict['Bin']['7za']
 
-                langBasedzipBinName = Env.Path.Complement.merge_system(langBasedBinDirPath, zipBinName)
+            langBasedzipBinName = Env.Path.Complement.merge_system(langBasedBinDirPath, zipBinName)
 
-                # Generate installer configs file path by language based...
-                debugOptionsName = filesDict.get('Config').get('DebugOptions')
-                archiveYamlName = filesDict.get('Config').get('Archive')
-                gamesYamlName = filesDict.get('Config').get('Games')
-                templatesYamlName = filesDict.get('Config').get('Templates')
-                structureYamlName = filesDict.get('Config').get('Structure')
-                stringYamlName = filesDict.get('Config').get('String')
-                tkinterYamlName = filesDict.get('Config').get('Tkinter')
+            # Generate installer configs file path by language based...
+            debugOptionsName = filesDict['Config']['DebugOptions']
+            archiveYamlName = filesDict['Config']['Archive']
+            gamesYamlName = filesDict['Config']['Games']
+            BatchEditorYamlName = filesDict['Config']['BatchEditor']
+            structureYamlName = filesDict['Config']['Structure']
+            stringYamlName = filesDict['Config']['String']
+            tkinterYamlName = filesDict['Config']['Tkinter']
 
-                langBasedDebugOptionsYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, debugOptionsName)
-                langBasedArchiveYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, archiveYamlName)
-                langBasedGamesYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, gamesYamlName)
-                langBasedTemplatesYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, templatesYamlName)
-                langBasedStructureYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, structureYamlName)
-                langBasedStringYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, stringYamlName)
-                langBasedTkinterYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, tkinterYamlName)
+            langBasedDebugOptionsYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, debugOptionsName)
+            langBasedArchiveYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, archiveYamlName)
+            langBasedGamesYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, gamesYamlName)
+            langBasedBatchEditorYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, BatchEditorYamlName)
+            langBasedStructureYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, structureYamlName)
+            langBasedStringYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, stringYamlName)
+            langBasedTkinterYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, tkinterYamlName)
 
-                # Fill final results back to LibProfile.
+            # Fill final results back to LibProfile.
 
-                LibProfile.InstallationProfile['Installer']['Archive']['Source'] = langBasedArchiveDirPath
+            LibProfile.RawProfileDict['Installer']['Archive']['Source'] = langBasedArchiveDirPath
 
-                LibProfile.InstallationProfile['Installer']['Bin']['7-zip'] = langBasedzipBinName
+            LibProfile.RawProfileDict['Installer']['Bin']['7-zip'] = langBasedzipBinName
 
-                LibProfile.InstallationProfile['Installer']['ConfigPath']['DebugOptions'] = langBasedDebugOptionsYamlPath
-                LibProfile.InstallationProfile['Installer']['ConfigPath']['Archive'] = langBasedArchiveYamlPath
-                LibProfile.InstallationProfile['Installer']['ConfigPath']['Games'] = langBasedGamesYamlPath
-                LibProfile.InstallationProfile['Installer']['ConfigPath']['Templates'] = langBasedTemplatesYamlPath
-                LibProfile.InstallationProfile['Installer']['ConfigPath']['Structure'] = langBasedStructureYamlPath
-                LibProfile.InstallationProfile['Installer']['ConfigPath']['String'] = langBasedStringYamlPath
-                LibProfile.InstallationProfile['Installer']['ConfigPath']['Tkinter'] = langBasedTkinterYamlPath
-                # Plz run Yaml loader(loading screen) after fill language based resources path.
-            else:
-                sys.exit(-2)
+            LibProfile.RawProfileDict['Installer']['ConfigPath']['DebugOptions'] = langBasedDebugOptionsYamlPath
+            LibProfile.RawProfileDict['Installer']['ConfigPath']['Archive'] = langBasedArchiveYamlPath
+            LibProfile.RawProfileDict['Installer']['ConfigPath']['Games'] = langBasedGamesYamlPath
+            LibProfile.RawProfileDict['Installer']['ConfigPath']['BatchEditor'] = langBasedBatchEditorYamlPath
+            LibProfile.RawProfileDict['Installer']['ConfigPath']['Structure'] = langBasedStructureYamlPath
+            LibProfile.RawProfileDict['Installer']['ConfigPath']['String'] = langBasedStringYamlPath
+            LibProfile.RawProfileDict['Installer']['ConfigPath']['Tkinter'] = langBasedTkinterYamlPath
+            # Plz run Yaml loader(loading screen) after fill language based resources path.
             
         def DetectSupportedLang():
             import sys
@@ -176,7 +176,7 @@ class Methods:
                 Methods.LanguageSelect.ConfigureWidgets(RootVar.bootstrapGui)
                 RootVar.bootstrapGui.deiconify()
                 LibTk.Window.ShowWindow(RootVar.bootstrapGui)
-            return
+
         def ConfigureWidgets(window):
             Widgets.labelWizardLang = Label(window,
                                             justify = LEFT,
@@ -221,7 +221,7 @@ class Methods:
 
             Widgets.buttonNext.place(x = 450, y = 430)
             Widgets.buttonExit.place(x = 540, y = 430)
-            return
+
         def SetLangAndCopyBack():
             from LibInstallProfile import BootstrapLocale
 
@@ -237,7 +237,7 @@ class Methods:
 
             RootVar.bootstrapGui.destroy()
             Methods.LanguageSelect.FillPathsBackToLibProfile()
-            return
+
         def NextStep_SaveSettings():
             boolWizardLang = bool(Widgets.comboboxStorageWizardLang.get())
             boolTskLang = bool(Widgets.comboboxStorageTskLang.get())
@@ -248,40 +248,43 @@ class Methods:
                 LibTk.Window.StrNotice(RootVar.bootStringDict['errorTskLangEmpty'])
             else:
                 Methods.LanguageSelect.SetLangAndCopyBack()
-            return
+
 
         def Wrapper():
             Methods.LanguageSelect.DetectSupportedLang()
-            return
+
     class LoadingScreen:
         def ReadConfigFromDisk():
             from LibOperate import WaterWellsYaml as wwYaml
-            from LibInstallProfile import InstallationProfile as Profile
-            from LibInstallProfile import Resources
+            from LibInstallProfile import RawProfileDict
+            from LibInstallProfile import DecodedProfile
 
-            # ConfigInRam
-            Resources.Config.DebugYaml = wwYaml.read_yaml_from_disk(Profile['Installer']['ConfigPath']['DebugOptions'])
-            Resources.Config.ArchiveYaml = wwYaml.read_yaml_from_disk(Profile['Installer']['ConfigPath']['Archive'])
-            Resources.Config.GamesYaml = wwYaml.read_yaml_from_disk(Profile['Installer']['ConfigPath']['Games'])
-            Resources.Config.TemplatesYaml = wwYaml.read_yaml_from_disk(Profile['Installer']['ConfigPath']['Templates'])
-            Resources.Config.StructureYaml = wwYaml.read_yaml_from_disk(Profile['Installer']['ConfigPath']['Structure'])
-            Resources.Config.StringYaml = wwYaml.read_yaml_from_disk(Profile['Installer']['ConfigPath']['String'])
-            Resources.Config.TkinterYaml = wwYaml.read_yaml_from_disk(Profile['Installer']['ConfigPath']['Tkinter'])
-            return
+            # Read yaml files from disk
+            try:
+                DecodedProfile.Config.DebugYaml = wwYaml.read_yaml_from_disk(RawProfileDict['Installer']['ConfigPath']['DebugOptions'])
+                DecodedProfile.Config.ArchiveYaml = wwYaml.read_yaml_from_disk(RawProfileDict['Installer']['ConfigPath']['Archive'])
+                DecodedProfile.Config.GamesYaml = wwYaml.read_yaml_from_disk(RawProfileDict['Installer']['ConfigPath']['Games'])
+                DecodedProfile.Config.BatchEditorYaml = wwYaml.read_yaml_from_disk(RawProfileDict['Installer']['ConfigPath']['BatchEditor'])
+                DecodedProfile.Config.StructureYaml = wwYaml.read_yaml_from_disk(RawProfileDict['Installer']['ConfigPath']['Structure'])
+                DecodedProfile.Config.StringYaml = wwYaml.read_yaml_from_disk(RawProfileDict['Installer']['ConfigPath']['String'])
+                DecodedProfile.Config.TkinterYaml = wwYaml.read_yaml_from_disk(RawProfileDict['Installer']['ConfigPath']['Tkinter'])
+            except Exception as e:
+                from LibPython import Process
+                Process.handle_exception(e, True)
+                sys.exit(-4)
+
         def FillVarFromConfig():
-            from LibInstallProfile import InstallationProfile
-            from LibInstallProfile import Resources
+            from LibInstallProfile import RawProfileDict
+            from LibInstallProfile import DecodedProfile
 
             # Add Archive Collection Array
             # This Array will be use in a "for" method,
             # design for shortest code to unpack the archives.
-            InstallationProfile['Installer']['Archive']['Collection'] = Resources.Config.ArchiveYaml['Collection']
+            RawProfileDict['Installer']['Archive']['Collection'] = DecodedProfile.Config.ArchiveYaml['Collection']
 
             # Add optional installer options.
-            # There is a feature require Tsk config Templates relative path.
-            InstallationProfile['Installer']['Optional']['ProgramStructure'] = Resources.Config.StructureYaml['Program']
-            InstallationProfile['Installer']['Optional']['Templates'] = Resources.Config.TemplatesYaml
-            return
+            RawProfileDict['Installer']['Optional']['ProgramStructure'] = DecodedProfile.Config.StructureYaml['Program']
+
         def DoLoadConfig(window):
             from LibPython import Process
 
@@ -296,7 +299,6 @@ class Methods:
         def TheLoadingScreen():
             import tkinter
             import LibTkinter as LibTk
-            from LibPython import UnitConversion as Unit
 
             TkLoadingScreen = tkinter.Tk()
             propDict = {'Geometry':'400x100',    'Title':'Tensokukan Tsk Installer'}
@@ -310,22 +312,17 @@ class Methods:
             TkLoadingScreen.after(Unit.Second2Millisecond(1),
                                   lambda : Methods.LoadingScreen.DoLoadConfig(TkLoadingScreen))
             LibTk.Window.ShowWindow(TkLoadingScreen)
-            return
 
         def Wrapper():
             Methods.LoadingScreen.TheLoadingScreen()
-            return
 
 
 def Wrapper():
-    import traceback
-    from LibPython import Process
     try:
         Methods.Initialize.Wrapper()
         Methods.LanguageSelect.Wrapper()
         Methods.LoadingScreen.Wrapper()
-    except Exception as err:
-        traceback.print_tb(err.__traceback__)
-        Process.pauseMe()
+    except Exception as e:
+        from LibPython import Process
+        Process.handle_exception(e, True)
         sys.exit(-3)
-    return

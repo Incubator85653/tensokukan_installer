@@ -126,7 +126,7 @@ def InitializeSelf():
     import LibInstallProfile as LibProfile
 
     # Create a tkinter root window.
-    RootVar.wizardCfg = LibProfile.Profile.Config.StringYaml['TskInstTheWizard']
+    RootVar.wizardCfg = LibProfile.DecodedProfile.Config.StringYaml['TskInstTheWizard']
     RootVar.TheInstaller = Tk()
     LibTk.Window.InitializeWindow(RootVar.TheInstaller, RootVar.wizardCfg)
 

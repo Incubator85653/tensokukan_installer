@@ -1,12 +1,11 @@
 import TskInstTheWizard as Wizard
 import LibTkinter as LibTk
-import LibPython as LibPy
-import LibInstallProfile as LibProfile
-
+from LibInstallProfile import DecodedProfile
+from LibPython import Environment as Env
+from LibPython import UnitConversion as Unit
 from tkinter import *
-from LibPython import UnitConversion as unit
 
-wizardCfg = LibProfile.Resources.Config.StringYaml['TskInstStepBasic']
+wizardCfg = DecodedProfile.Config.StringYaml['TskInstStepBasic']
 
 class Widgets():
     # Local variable
@@ -33,11 +32,11 @@ class Methods():
         Wizard.WizardConditions.Modules.TskInstStepBasic = True
         return
     def CopyBack():
-        from os.path import normpath
+        from LibInstallProfile import RawProfileDict
 
-        LibProfile.InstallationProfile['Basic']['InstallPath'] = normpath(Widgets.entryStorageTskInstallPath.get())
-        LibProfile.InstallationProfile['Basic']['TempPath'] = normpath(Widgets.entryStorageTskTempPath.get())
-        LibProfile.InstallationProfile['Unattended']['UnattendedMode'] = Widgets.radioStorageTskInstallType.get()
+        RawProfileDict['Basic']['InstallPath'] = Env.Path.sys_norm_path(Widgets.entryStorageTskInstallPath.get())
+        RawProfileDict['Basic']['TempPath'] = Env.Path.sys_norm_path(Widgets.entryStorageTskTempPath.get())
+        RawProfileDict['Unattended']['UnattendedMode'] = Widgets.radioStorageTskInstallType.get()
 
         # Confirm install type.
         Wizard.WizardConditions.installType = Widgets.radioStorageTskInstallType.get()
@@ -77,11 +76,11 @@ class Methods():
         Widgets.labelDisplaySelectedInstallMethod.place_forget()
         if result == 1 :
             Widgets.labelDisplaySelectedInstallMethod = Label(window,
-                                                  text = unit.StrAddNextLine(wizardCfg['labelTextSelectedNewInstall']),
+                                                  text = Unit.StrAddNextLine(wizardCfg['labelTextSelectedNewInstall']),
                                                   justify = LEFT)
         elif result == 2 :
             Widgets.labelDisplaySelectedInstallMethod = Label(window,
-                                                  text = unit.StrAddNextLine(wizardCfg['labelTextSelectedUpgrade2']),
+                                                  text = Unit.StrAddNextLine(wizardCfg['labelTextSelectedUpgrade2']),
                                                   justify = LEFT)
         Widgets.labelDisplaySelectedInstallMethod.place(x = 25, y = 210)
         return
@@ -90,21 +89,21 @@ class Methods():
         return
     def GetDefaultTskTempPath():
 
-        return LibPy.Environment.System.GetSysTempPath() + r'\TensokukanTemp'
+        return Env.System.GetSysTempPath() + r'\TensokukanTemp'
     def AskTskInstallDirName():
         import traceback
         from LibPython import Process
         from LibPython import Environment as Env
         from os.path import normpath
         
-        options = LibProfile.Resources.Config.TkinterYaml['BrowseTskInstallPath']
+        options = DecodedProfile.Config.TkinterYaml['BrowseTskInstallPath']
         result = LibTk.FileDialog.AskDirectoryName(options)
 
         if bool(result):
             try:
                 Widgets.entryStorageTskInstallPath.set(
                     Env.Path.Complement.merge_system(
-                        result, LibProfile.Resources.Methods.Structure.Program.Tsk.Bin.DefaultInstallFolder()
+                        result, DecodedProfile.Methods.Optional.Structure.Program.Tsk.Bin.DefaultInstallFolder()
                         )
                     )
             except Exception as err:

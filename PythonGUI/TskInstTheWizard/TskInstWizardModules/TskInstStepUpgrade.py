@@ -3,11 +3,11 @@ from LibString import TskInstStringStepDataImport as wizardCfg
 import LibInstallProfile as LibProfile
 import TskInstTheWizard as wizard
 
-DataImportYaml = LibProfile.GuiYaml.get('TskInstStepUpgrade')
+DataImportYaml = GuiYaml.get('TskInstStepUpgrade')
 Part1Yaml = DataImportYaml.get('Part1')
 Part2Yaml = DataImportYaml.get('Part2')
 class ConstVars:
-    installedPath = LibProfile.Methods.Basic.InstallPath()
+    installedPath = Methods.Basic.InstallPath()
 
 class Widgets:
     # Local variable

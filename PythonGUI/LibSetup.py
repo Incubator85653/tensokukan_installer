@@ -1,8 +1,9 @@
 from LibOperate import Zip
 from LibOperate import Shortcut
 from LibPython import Environment as Env
+from LibOperate import WaterWellsYaml as wwYaml
 from LibInstallProfile import Methods as wizardCfg
-from LibInstallProfile import Profile
+from LibInstallProfile import DecodedProfile
 
 class Methods:
     class CopyFiles:
@@ -36,14 +37,9 @@ class Methods:
         # mbcs means windows system default ANSI encode, in notepad.exe .
         # The situation is some of Tensokukan config files support only ANSI format.
         # They need a convert from Template(UTF-8) to Target(Local ANSI).
-        def DoEdit_FillArguments():
-            editorDict = wizardCfg.Installer.Optional.Templates()
-
-            for fileName in editorDict:
-                perFileDict = editorDict[fileName]
-                Templates.DoModify(perFileDict)
-                #TODO
-            return
+        def update_batching_editor_config():
+            doNothing = None
+            #TODO
     class Shortcuts:
         def ShortcutRules(Action, FileName, Args):
             import winshell
@@ -109,7 +105,7 @@ class Methods:
             return
         def DoCreate_FillArguments():
             # Get batch shortcut config
-            shortcutsProfile = Profile.Methods.Structure.Shortcuts.Config()
+            shortcutsProfile = DecodedProfile.Methods.Optional.Structure.Shortcuts.Config()
 
             # Get per shortcut config group dictionary.
             for perLnkDict in shortcutsProfile:

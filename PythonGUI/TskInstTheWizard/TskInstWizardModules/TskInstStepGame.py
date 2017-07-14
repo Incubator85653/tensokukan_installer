@@ -1,14 +1,13 @@
 import TskInstTheWizard as Wizard
-import LibInstallProfile as LibProfile
 import LibTkinter as LibTk
-
+from LibInstallProfile import RawProfileDict
+from LibInstallProfile import DecodedProfile
 from tkinter import *
-from os.path import normpath
 
-wizardCfg = LibProfile.Resources.Config.StringYaml.get('TskInstStepGame')
+wizardCfg = DecodedProfile.Config.StringYaml['TskInstStepGame']
 
-GameTitles = LibProfile.Resources.Config.GamesYaml.get('Titles')
-GameSwrs = LibProfile.Resources.Config.GamesYaml.get('SWRSAddr')
+GameTitles = DecodedProfile.Config.GamesYaml['Titles']
+GameSwrs = DecodedProfile.Config.GamesYaml['SWRSAddr']
 
 class Widgets:
     # Local variables
@@ -32,11 +31,11 @@ class Methods:
     def CopyBack():
         from os.path import normpath
 
-        LibProfile.InstallationProfile['Basic']['GameExePath'] = normpath(Widgets.entryStorageGameExePath.get())
-        LibProfile.InstallationProfile['UserData']['SWRSAddr7z'] = GameSwrs.get(Widgets.comboboxStorageGameVersionResult.get())
+        RawProfileDict['Basic']['GameExePath'] = normpath(Widgets.entryStorageGameExePath.get())
+        RawProfileDict['UserData']['SWRSAddr7z'] = GameSwrs.get(Widgets.comboboxStorageGameVersionResult.get())
 
-        LibProfile.InstallationProfile['Unattended']['ManageGameExePath'] = True
-        LibProfile.InstallationProfile['Unattended']['ManageSWRSAddr'] = True
+        RawProfileDict['Unattended']['ManageGameExePath'] = True
+        RawProfileDict['Unattended']['ManageSWRSAddr'] = True
 
         Methods.MarkAsDone()
         Wizard.TimeLine.BackFromAnyModule()
@@ -57,7 +56,7 @@ class Methods:
         from os.path import normpath
 
         LibTk.InitializeLibTkinter()
-        options = LibProfile.Resources.Config.TkinterYaml.get('BrowseGameExec')
+        options = DecodedProfile.Config.TkinterYaml.get('BrowseGameExec')
         result = LibTk.FileDialog.AskFileName(options)
 
         if bool(result):
@@ -67,7 +66,7 @@ class Methods:
         LibTk.Window.ArrayNotice(wizardCfg.get('tutorialDialog'))
         return
     def ShowWidgets(window):
-        stepMode = LibProfile.InstallationProfile.get('Unattended').get('UnattendedMode')
+        stepMode = RawProfileDict.get('Unattended').get('UnattendedMode')
 
         if(stepMode == 1):
             #place GUI objects as default layout

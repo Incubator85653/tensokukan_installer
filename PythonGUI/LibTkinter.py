@@ -25,8 +25,8 @@ class FileDialog:
         return filename
 class Window:
     def InitializeWindow(window, propDict):
-        window.geometry(propDict.get('Geometry'))
-        window.title(propDict.get('Title'))
+        window.geometry(propDict['Geometry'])
+        window.title(propDict['Title'])
 
         window.grid()
         return
@@ -59,8 +59,8 @@ class Window:
         sys.exit()
         return
     def UnivWizardController_Place(window, widgetNextButton):
-        from LibInstallProfile import Resources as Res
-        exitLocale = Res.Config.StringYaml['TskInstTheWizard']['Exit']
+        from LibInstallProfile import DecodedProfile
+        exitLocale = DecodedProfile.Config.StringYaml['TskInstTheWizard']['Exit']
         # 1 width = 8 px
         # Default height is 30 px.
 
