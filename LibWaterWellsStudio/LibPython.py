@@ -37,8 +37,11 @@ class Process:
             Process.handle_exception(e, False)
 
         return exit_code
+
     def pause_program():
+
         programPause = input(r"Press the <ENTER> key to continue...")
+    
     def handle_exception(err_object, pause):
         """Universal error print & log method.
         Catch an exception and throw it away here.
