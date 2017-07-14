@@ -128,6 +128,9 @@ def InitializeSelf():
     # Create a tkinter root window.
     RootVar.wizardCfg = LibProfile.DecodedProfile.Config.StringYaml['TskInstTheWizard']
     RootVar.TheInstaller = Tk()
+    # Bind windows close event.
+    # For current version, click exit on top right will not pop a notification.
+    RootVar.TheInstaller.protocol("WM_DELETE_WINDOW", LibTk.Window.ExitWizard)
     LibTk.Window.InitializeWindow(RootVar.TheInstaller, RootVar.wizardCfg)
 
     # Set Wizard conditions after created tkinter root window.
