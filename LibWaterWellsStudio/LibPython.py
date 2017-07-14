@@ -59,14 +59,25 @@ class Process:
 class Environment:
     class System:
         def GetSysTempPath():
-            import os
+            """MUST_SUCCESS_METHOD"""
+            from os import environ
             from os.path import normpath
-            # A user reported that "default temp" is mismatched with cmd %TEMP% environment variable.
-            # To avoid it, get this variable directly is better than use "import tempfile".
+            # A user reported that "default temp" is mismatched with cmd %TEMP%
+            # environment variable.
+            # To avoid it, get this variable directly is better than use
+            # "import tempfile".
 
-            return normpath(os.environ['TEMP'])
+            result = None
+            try:
+                result = normpath(environ['TEMP'])
+            except Exception as e:
+                Process.handle_exception(e, False)
+                sys.exit(-42)
+
+            return result
 
         def GetSysShortLang(ShortLangDict):
+            """MUST_SUCCESS_METHOD"""
             # Return a short language.
             # This is a system information.
 
@@ -77,25 +88,50 @@ class Environment:
             #   then let me know, I will use that method to get information
             #   what we
             #   need.
-            import sys
-            return ShortLangDict.get(sys.stdin.encoding)
+            result = None
+
+            try:
+                result = ShortLangDict.get(sys.stdin.encoding)
+            except Exception as e:
+                Process.handle_exception(e, False)
+                sys.exit(-42)
+            
+            return result
 
         def GetSysStartupMenuPath():
+            """MUST_SUCCESS_METHOD"""
             import winshell
             from os.path import normpath
 
-            return normpath(winshell.programs())
+            result = None
+            
+            try:
+                result = normpath(winshell.programs())
+            except Exception as e:
+                Process.handle_exception(e, False)
+                sys.exit(-42)
+
+            return result
 
         def GetSysDesktopPath():
+            """MUST_SUCCESS_METHOD"""
             import winshell
             from os.path import normpath
 
-            return normpath(winshell.desktop())
+            result = None
+            try:
+                result = normpath(winshell.desktop())
+            except Exception as e:
+                Process.handle_exception(e, False)
+                sys.exit(-42)
+
+            return result
     class Path:
         # This class do path combined job.
         class Complement:
             def merge_manually(first, second):
-                """Usage:
+                """MUST_SUCCESS_METHOD
+                Usage:
                 Both two path must be "slash removed" path.
                 the second one can be a folder or a file with extension.
 
@@ -111,49 +147,66 @@ class Environment:
             def merge_system(first, second):
                 """
                 Use os.path.join to combined two path.
+                MUST_SUCCESS_METHOD
                 """
                 import os
-                import sys
                 from os.path import normpath
-
-                result = None # This is result.
-                success = False # Use this to confirm if os.path.join is success.
-                                
+                
+                # This is result.
+                result = None 
+                # Use this to confirm if os.path.join, the system method is
+                # success.
+                success = False
+                
+                # Try merge path by system method.
                 try:
-                    Console.ansi_print("Auto merging path:\n\t{}, {}".format(first, second))
+                    Console.ansi_print("Merging path(system method):\n\t{}, {}".format(first, second))
 
-                    result = normpath(
-                        os.path.join(first, second)
-                        )
+                    result = normpath(os.path.join(first, second))
                     success = True # Set success var to true once os.path.join is success.
 
-                    Console.ansi_print("Auto merged path:\n\t{}".format(result))
+                    Console.ansi_print("\tMerge path success:\n\t{}".format(result))
                 except Exception as err:
-                    from LibPython import Process
-                    Process.print_traceback(err)
-                    Console.ansi_print("\nAuto merge path failed.\n")
-
+                    Process.handle_exception(err, False)
+                    Console.ansi_print("\nMerge path by system method failed.\n")
+                    Console.ansi_print("Try manually merge.")
                     
-                
-                
-                # Try manually combined if system method is failed.
+                # Try merge manually if system method is failed.
                 if success is not True:
                     try:
-                        Console.ansi_print("Manually merging path:\n\t{}, {}".format(first, second))
+                        Console.ansi_print("Merging path(manually method):\n\t{}, {}\n".format(first, second))
                         
                         result = Environment.Path.Complement.merge_manually(first, second)
                         result = normpath(result)
                         
-                        Console.ansi_print("Manually merged path: {}".format(result))
+                        Console.ansi_print("\tMerge path success:\n\t{}".format(result))
                     except Exception as err:
-                        Process.print_traceback(err)
+                        Process.handle_exception(err, False)
+                        sys.exit(-42)
 
                 return result
+        def sys_norm_path(path):
+            """Alternative method for os.path.normpath.
+            Yet another common system method may failed for unknown reason.
+            MUST_SUCCESS_METHOD"""
+            from os.path import normpath
+
+            result = None
+            try:
+                result = normpath(path)
+            except Exception as e:
+                Process.handle_exception(e, False)
+                sys.exit(-42)
+
+            return result
 
         def get_full_work_dir():
-            """Return current working directory,
+            """Return current working directory.
+            MUST_SUCCESS_METHOD
             If can't get current working directory(for any reason),
-            print error message and return False instead.
+            print error message and close the program for exit code -42.
+
+            The program is not able to run successfully without a vailed working directory.
             """
             import os
 
@@ -161,24 +214,21 @@ class Environment:
             try:
                 result = os.getcwd()
             except Exception as e:
-                Console.ansi_print(e)
-                result = False
+                Process.handle_exception(e, False)
+                sys.exit(-42)
                 
             return result
 
         def merge_path_with_work_dir(path_name): 
             """Return a path with working dir.
             Give a name, use this method to get a full path with current working directory.
-            <Dirve>:\<workingDir>\<path_name>
+            
+            <Dirve>:\<working_dir_path>\<path_name>
             """           
             result = None
 
             # pwd come from a Linux CLI command.
             pwd = Environment.Path.get_full_work_dir()
-
-            if pwd is not False:
-                result = Environment.Path.Complement.merge_system(pwd, path_name)
-            else:
-                result = False
+            result = Environment.Path.Complement.merge_system(pwd, path_name)
 
             return result
