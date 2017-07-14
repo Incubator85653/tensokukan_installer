@@ -1,0 +1,1 @@
+MUST_SUCCESS_METHOD		These method are the key method and can't keep running program once they're failed.

@@ -1,3 +1,7 @@
 PythonGUI:
-	-2	Can't get workingResourcesPath during bootstrap.
-	-3	Can't complete bootstrap for any reason.
+	-2	FillPathsBackToLibProfile() failed during bootstrap.
+	-3	LibBootstrap.Wrapper() failed during bootstrap.
+	-4	ReadConfigFromDisk() failed during bootstrap.
+	-5	InitalizeBootRes() failed during bootstrap.
+	-42	Some of the python system method failed for any unknown reason.
+		MUST_SUCCESS_METHOD may use this exit code.

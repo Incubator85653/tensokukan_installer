@@ -77,6 +77,7 @@
     <Content Include="BootstrapPath.yaml" />
     <Content Include="BootstrapString.yaml" />
     <Content Include="Doc\ErrorCode.txt" />
+    <Content Include="Doc\SpecialTag.txt" />
     <Content Include="requirements.txt" />
     <Content Include="Resources\en-US\Config\Archive.yaml" />
     <Content Include="Resources\en-US\Config\Games.yaml" />
@@ -92,7 +93,6 @@
     <Content Include="Resources\zh-CN\Config\Games.yaml" />
     <Content Include="Resources\zh-CN\Config\String.yaml" />
     <Content Include="Resources\zh-CN\Config\Structure.yaml" />
-    <Content Include="Resources\zh-CN\Config\Templates.yaml" />
     <Content Include="Resources\zh-CN\Config\Tkinter.yaml" />
   </ItemGroup>
   <PropertyGroup>
