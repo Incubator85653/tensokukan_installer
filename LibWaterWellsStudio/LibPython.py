@@ -29,12 +29,14 @@ class Process:
         p = subprocess.Popen(command, shell = useShell)
         p.wait()
         return
-    def pauseMe():
+    def pause_program():
         programPause = input(r"Press the <ENTER> key to continue...")
-    def print_traceback(err_object):
+    def handle_exception(err_object, pause):
         """Universal error print & log method.
         Catch an exception and throw it away here.
-        Give a exit code and close the program in your code if you give up.
+        Pause: a bool value that control if program need to pause after print error message.
+
+        After that, give a exit code and close the program in your code if you give up.
         No matter, we're not a user-friendly software.
         JUST DO IT.
 
@@ -42,32 +44,18 @@ class Process:
         # TODO
         """
         import traceback
+
         Console.ansi_print("\nERROR BEGIN\n")
 
-        Console.ansi_print("LAST STACK:\n")
-        traceback.print_stack()
-
-        Console.ansi_print("\nLAST TRACEBACK:\n")
-        traceback.print_tb(err_object.__traceback__)
-
-        print ("\nERROR MESSAGE:\n")
-        Console.ansi_print(err_object)
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        traceback.print_exception(exc_type, 
+                                  exc_value, 
+                                  exc_traceback)
 
         Console.ansi_print("\nERROR END\n")
-    def i_give_up(error_code, give_up_string):
-        """Error code is a number from Doc\ErrorCode.
-        Give up string is you tell your user you can't keep execute the program.
-        The string should base on language so the string provide by you.
-        And remember to put a {} in string to combined error code into string.
 
-        Example:
-            i_give_up(-2, "I give up... exit program now. Error code is {}.")
-        """
-        import LibTkinter as LibTk
-        import sys
-
-        LibTk.Window.StrNotice(give_up_string.format(error_code))
-        sys.exit(error_code)
+        if pause:
+            Process.pause_program()
 class Environment:
     class System:
         def GetSysTempPath():
