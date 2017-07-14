@@ -51,11 +51,14 @@ class Methods:
 
         # Hide Start Button and Do install.
         LibTk.Window.UnivWizardController_Hide(window, Widgets.buttonStartInstall)
-
-        LibSetup.Wrapper_NewInstall()
+        # Do install.
+        all_operate_success = LibSetup.Wrapper_NewInstall()
         
         # Show a short hint after install completed.
-        Widgets.labelStorageInstalling.set(wizardCfg['labelTextDone'])
+        if all_operate_success:
+            Widgets.labelStorageInstalling.set(wizardCfg['labelTextDone'])
+        else:
+            Widgets.labelStorageInstalling.set(wizardCfg['labelTextDoneButError'])
         Widgets.buttonDisplayExit.place(x = 25, y = 55)
         window.update()
         return

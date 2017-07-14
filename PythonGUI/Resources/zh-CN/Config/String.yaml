@@ -147,7 +147,8 @@ TskInstStepInstall:
     
     
     labelTextInstalling: '安装中……未响应是正常现象。'
-    labelTextDone: '安装完了。点退出。（别点标题栏上那个关闭按钮）'
+    labelTextDone: '安装完了。点退出按钮。'
+    labelTextDoneButError: '安装失败，安装过程中有操作失败，软件可能会工作不正常。请检查。'
     buttonTextExit: '退出'
 TskInstStepDataImport:
     labelTextImportDataPart1: 'Import old version Tensokukan user data(1/2).'

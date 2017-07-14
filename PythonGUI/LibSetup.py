@@ -2,24 +2,23 @@ from LibOperate import Zip
 from LibOperate import Shortcut
 from LibPython import Environment as Env
 from LibOperate import WaterWellsYaml as wwYaml
-from LibInstallProfile import Methods as wizardCfg
-from LibInstallProfile import DecodedProfile
+from LibInstallProfile import DecodedProfile as wizardCfg
 
 class Methods:
     class CopyFiles:
         def UnpackArchives():
-            archivesPath = wizardCfg.Installer.Archive.Source()
-            archivesCollection = wizardCfg.Installer.Archive.Collection()
+            archivesPath = wizardCfg.Methods.Installer.Archive.Source()
+            archivesCollection = wizardCfg.Methods.Installer.Archive.Collection()
 
-            installPath = wizardCfg.Basic.InstallPath()
+            installPath = wizardCfg.Methods.Basic.InstallPath()
 
             for archiveName in archivesCollection:
-                archiveFullPath = Env.Path.Complement.merge(archivesPath, archiveName)
-                Zip.DoUnpack(archiveFullPath, installPath)
+                archiveFullPath = Env.Path.Complement.merge_system(archivesPath, archiveName)
+                Zip.wrapper_do_unpack(archiveFullPath, installPath)
 
         def UnpackSWRSAddr():
-            archiveName = wizardCfg.UserData.SWRSAddr7z()
-            installPath = wizardCfg.Basic.InstallPath()
+            archiveName = wizardCfg.Methods.UserData.SWRSAddr7z()
+            installPath = wizardCfg.Methods.Basic.InstallPath()
 
             # If archiveName is False,
             # that means user selected "Skip" or this version not need to unpack SWRSAddr.
@@ -27,7 +26,7 @@ class Methods:
             # If archiveName is not False(added an archive name),
             # Unpack that archive to install folder.
             if bool(archiveName) != False:
-                Zip.DoUnpack(archiveName, installPath)
+                Zip.wrapper_do_unpack(archiveName, installPath)
 
         def wrapper_do_copy():
             Methods.CopyFiles.UnpackArchives()
@@ -38,6 +37,9 @@ class Methods:
         # The situation is some of Tensokukan config files support only ANSI format.
         # They need a convert from Template(UTF-8) to Target(Local ANSI).
         def update_batching_editor_config():
+            doNothing = None
+            #TODO
+        def wrapper_do_edit():
             doNothing = None
             #TODO
     class Shortcuts:
@@ -56,8 +58,8 @@ class Methods:
             lnkName = None
 
             # Get user settings.
-            manageDesktop = wizardCfg.Unattended.ManageDesktopShortcut()
-            manageStartMenu = wizardCfg.Unattended.ManageStartMenuShortcut()
+            manageDesktop = wizardCfg.Methods.Unattended.ManageDesktopShortcut()
+            manageStartMenu = wizardCfg.Methods.Unattended.ManageStartMenuShortcut()
 
             # Def shortcut information
             lnkFileLocation = None
@@ -65,24 +67,24 @@ class Methods:
             targetWorkingDir = None
 
             if Action == 'TskMainLnk':
-                lnkName = wizardCfg.Basic.MainShortcut()
-                targetFullPath = wizardCfg.Installer.Optional.ProgramStructure.Tsk.Bin.TskMainExe()
-                targetWorkingDir = wizardCfg.Basic.InstallPath()
+                lnkName = wizardCfg.Methods.Basic.MainShortcut()
+                targetFullPath = wizardCfg.Methods.Installer.Optional.ProgramStructure.Tsk.Bin.TskMainExe()
+                targetWorkingDir = wizardCfg.Methods.Basic.InstallPath()
 
                 if manageDesktop:
                     environmentPath = winshell.desktop()
                     
-                    lnkFileLocation = Env.Path.Complement.merge(environmentPath, lnkName)
+                    lnkFileLocation = Env.Path.Complement.merge_system(environmentPath, lnkName)
 
                     createSwitch = False
                     Shortcut.CreateShortcut(lnkFileLocation, targetFullPath,targetWorkingDir)
                 if manageStartMenu:
                     environmentPath = winshell.programs()
 
-                    tskSmGroupName = wizardCfg.Basic.StartMenuGroup()
-                    tskSmGroupPath = Env.Path.Complement.merge(environmentPath, tskSmGroupName)
+                    tskSmGroupName = wizardCfg.Methods.Basic.StartMenuGroup()
+                    tskSmGroupPath = Env.Path.Complement.merge_system(environmentPath, tskSmGroupName)
 
-                    lnkFileLocation = Env.Path.Complement.merge(tskSmGroupPath, lnkName)
+                    lnkFileLocation = Env.Path.Complement.merge_system(tskSmGroupPath, lnkName)
 
                     # Create shortcut menu for base library.
                     if not os.path.exists(tskSmGroupPath):
@@ -105,7 +107,7 @@ class Methods:
             return
         def DoCreate_FillArguments():
             # Get batch shortcut config
-            shortcutsProfile = DecodedProfile.Methods.Optional.Structure.Shortcuts.Config()
+            shortcutsProfile = wizardCfg.Methods.Optional.Structure.Shortcuts.Config()
 
             # Get per shortcut config group dictionary.
             for perLnkDict in shortcutsProfile:
@@ -122,9 +124,24 @@ class Methods:
 
                     Methods.Shortcuts.ShortcutRules(Action, FileName, Args)
             return
+        def wrapper_do_create():
+
+            Methods.Shortcuts.DoCreate_FillArguments()
 
 def Wrapper_NewInstall():
-    Methods.CopyFiles.wrapper_do_copy()
-    Methods.EditConfigs.DoEdit_FillArguments()
-    Methods.Shortcuts.DoCreate_FillArguments()
-    return
+    """Start install and return success status.
+    If all the operation were success, return True.
+    Else, one of the operation was failed, return False."""
+    all_install_success = False
+    try:
+        # Begin install.
+        Methods.CopyFiles.wrapper_do_copy()
+        Methods.EditConfigs.wrapper_do_edit()
+        Methods.Shortcuts.wrapper_do_create()
+        # Turn all install success var to True after all operation success.
+        all_install_success = True
+    except Exception as e:
+        from LibPython import Process
+        Process.handle_exception(e, False)
+
+    return all_install_success

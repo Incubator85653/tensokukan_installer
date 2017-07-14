@@ -20,13 +20,13 @@ class WaterWellsYaml:
         return result
 
 class Zip:
-    def GenerateCommand(file, targetPath):
-            from LibInstallProfile import Methods as binCfg
+    def generate_unpack_command(file, targetPath):
+            from LibInstallProfile import DecodedProfile as binCfg
 
             # Example:
             # 7za x "Archive.7z" -o"C:\Unpack" -y
 
-            binPath = binCfg.Installer.Bin.Zip()
+            binPath = binCfg.Methods.Installer.Bin.Zip()
 
             binArg = r'"{0}" x'.format(binPath)
             fileArg = r'"{0}"'.format(file)
@@ -35,17 +35,19 @@ class Zip:
             command = r'{0} {1} -o{2} -y'.format(binArg, fileArg, targetPathArg)
 
             return command
-    def DoUnpack(file, targetPath):
-        command = GenerateCommand(file, targetPath)
-        try:
-            Process.DoLaunchAndWait(command, True)
-        except:
-            LibErr.ZipUnpackError(command)
+    def wrapper_do_unpack(file, targetPath):
+        from LibPython import Process
+        command = Zip.generate_unpack_command(file, targetPath)
+        exit_code = Process.get_command_exit_code(command, True)
+
+        if exit_code is not 0:
+            raise ChildProcessError("7-zip unpack failed.")
 
 class Shortcut:
     def CreateShortcut(lnkFileLocation, targetFullPath, targetWorkingDir):
         #from win32com.client import Dispatch
         import winshell
+        from os import path
 
         # The shortcut icon is the same as the source exe file.
 
@@ -54,6 +56,9 @@ class Shortcut:
                                 StartIn = targetWorkingDir,
                                 Icon = (targetFullPath, 0),
                                 Description = '')
+        
+        if path.isfile(lnkFileLocation) is not True:
+            raise FileNotFoundError("Shortcut create failed:\n\t{}".format(lnkFileLocation))
 
         #shell = Dispatch('WScript.Shell')
         #shortcut = shell.CreateShortCut(uLnkFileLocation)
