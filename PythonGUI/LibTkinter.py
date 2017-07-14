@@ -1,3 +1,4 @@
+from LibPython import Environment as Env
 from tkinter import *
 
 # sample
@@ -18,11 +19,25 @@ def InitializeLibTkinter():
     return
 class FileDialog:
     def AskDirectoryName(options):
-        dirname = filedialog.askdirectory(**options)
-        return dirname
+        result = None
+        try:
+            result = filedialog.askdirectory(**options)
+            result = Env.Path.sys_norm_path(result)
+        except Exception as e:
+            from LibPython import Process
+            Process.handle_exception(e, False)
+
+        return result
     def AskFileName(options):
-        filename = filedialog.askopenfilename(**options)
-        return filename
+        result = None
+        try:
+            result = filedialog.askopenfilename(**options)
+            result = Env.Path.sys_norm_path(result)
+        except Exception as e:
+            from LibPython import Process
+            Process.handle_exception(e, False)
+        
+        return result
 class Window:
     def InitializeWindow(window, propDict):
         window.geometry(propDict['Geometry'])
