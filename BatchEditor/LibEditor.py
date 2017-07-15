@@ -48,8 +48,8 @@ class Parser:
     # Example: Encoding, Source, Target, OptionArray
     def analysis_file_properties(per_file_dictionary, args):
         Variable.Encoding = per_file_dictionary['Encoding']
-        Variable.Source = per_file_dictionary['Source'].format(args.folder)
-        Variable.Target = per_file_dictionary['Target'].format(args.folder)
+        Variable.Source = per_file_dictionary['Source'].format(args.resouce_folder)
+        Variable.Target = per_file_dictionary['Target'].format(args.resouce_folder)
         Variable.OptionArray = per_file_dictionary['OptionArray']
         #Console.ansi_print("Encoding: {}\nSource: {}\nTarget: {}\nObject:".format(
         #    encoding, source,
@@ -122,6 +122,11 @@ class Editor:
 
         # Open file, input and output.
         # Remember to close() this file at the end!
+        print("Source: {}\nTarget: {}\nEncoding: {}\n Line: {}\n\n".format(
+            Variable.Source,
+            Variable.Target,
+            Variable.Encoding,
+            Variable.OptionArrayContents.DecodedOption.Option + Variable.OptionArrayContents.DecodedOption.Value))
         templateFile = open(Variable.Source, 'r', encoding = 'utf8')
             
         # A for loop to modify config.

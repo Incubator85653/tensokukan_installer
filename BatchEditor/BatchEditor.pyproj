@@ -4,13 +4,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>81be7ce2-9462-4cdd-9242-8a2ca866cf55</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
-    <StartupFile>BatchingEditor.py</StartupFile>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>BatchEditor.py</StartupFile>
     <SearchPath>..\LibWaterWellsStudio\</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>BatchingEditor</Name>
-    <RootNamespace>BatchingEditor</RootNamespace>
+    <Name>BatchEditor</Name>
+    <RootNamespace>BatchEditor</RootNamespace>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <CommandLineArguments>.\config.yaml .</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
@@ -24,7 +25,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BatchingEditor.py" />
+    <Compile Include="BatchEditor.py" />
     <Compile Include="LibEditor.py">
       <SubType>Code</SubType>
     </Compile>

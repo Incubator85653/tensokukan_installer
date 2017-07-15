@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['BatchingEditor.py','LibEditor.py'],
+a = Analysis(['BatchEditor.py','LibEditor.py'],
              pathex=['.','..\LibWaterWellsStudio'],
              binaries=[],
              datas=[],
@@ -21,7 +21,7 @@ exe = EXE(pyz,
           a.binaries,
           a.zipfiles,
           a.datas,
-          name='BatchingEditor',
+          name='BatchEditor',
           debug=False,
           strip=False,
           upx=True,

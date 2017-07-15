@@ -17,7 +17,7 @@ parser.add_argument("resouce_folder", help = "Specify a folder contains the sour
 
 # Put arguments into variables
 args = parser.parse_args()
-str_config_path = args.yaml
+str_config_path = args.yaml_path
 bool_config_exist = os.path.isfile(str_config_path)
 
 # The file exist, then start file processing
