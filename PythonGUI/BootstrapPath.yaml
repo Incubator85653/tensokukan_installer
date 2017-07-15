@@ -6,6 +6,7 @@ Folders:
 Files:
     Bin:
         7za: 7za.exe
+        BatchEditor: BatchEditor.exe
     Config:
         DebugOptions: DebugOptions.yaml
         Archive: Archive.yaml

@@ -75,6 +75,9 @@ class DecodedProfile:
                 def Zip():
 
                     return DecodedProfile.Methods.Installer.Bin.GetDict()['7-zip']
+                def Editor():
+
+                    return DecodedProfile.Methods.Installer.Bin.GetDict()['BatchEditor']
             class ConfigPath:
                 def GetDict():
 

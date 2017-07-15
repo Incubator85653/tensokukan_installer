@@ -99,7 +99,7 @@ class Methods:
             return saved_path
         def run_batch_editor():
             inst_path = wizardCfg.Methods.Basic.InstallPath()
-            editor_exe = Env.Path.Complement.merge_system(inst_path, "Templates\BatchEditor.exe")
+            editor_exe = wizardCfg.Methods.Installer.Bin.Editor()
             editor_config = Methods.EditConfigs.get_saved_editor_config_path()
             editor_resource = inst_path
             

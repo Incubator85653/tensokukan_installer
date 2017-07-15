@@ -121,8 +121,10 @@ class Methods:
 
             # Generate binary file path by language based sub resource path(full path).
             zipBinName = filesDict['Bin']['7za']
-
+            editorBinName = filesDict['Bin']['BatchEditor']
+            
             langBasedzipBinName = Env.Path.Complement.merge_system(langBasedBinDirPath, zipBinName)
+            langBasedEditorBinName = Env.Path.Complement.merge_system(langBasedBinDirPath, editorBinName)
 
             # Generate installer configs file path by language based...
             debugOptionsName = filesDict['Config']['DebugOptions']
@@ -146,7 +148,8 @@ class Methods:
             LibProfile.RawProfileDict['Installer']['Archive']['Source'] = langBasedArchiveDirPath
 
             LibProfile.RawProfileDict['Installer']['Bin']['7-zip'] = langBasedzipBinName
-
+            LibProfile.RawProfileDict['Installer']['Bin']['BatchEditor'] = langBasedEditorBinName
+            
             LibProfile.RawProfileDict['Installer']['ConfigPath']['DebugOptions'] = langBasedDebugOptionsYamlPath
             LibProfile.RawProfileDict['Installer']['ConfigPath']['Archive'] = langBasedArchiveYamlPath
             LibProfile.RawProfileDict['Installer']['ConfigPath']['Games'] = langBasedGamesYamlPath
