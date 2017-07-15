@@ -151,7 +151,8 @@ class Environment:
                 It almost do the same thing just like os.path.join, but Windows platform specified.
                 Return a path just like os.path.join.
                 """
-
+                Console.ansi_print("WARNING: os.path.join method failed.")
+                Console.ansi_print("\tYou're using an untrusted version system.")
                 result = "{0}\\{1}".format(first, second)
                 return result
 
@@ -171,12 +172,9 @@ class Environment:
                 
                 # Try merge path by system method.
                 try:
-                    Console.ansi_print("Merging path(system method):\n\t{}, {}".format(first, second))
-
                     result = normpath(os.path.join(first, second))
-                    success = True # Set success var to true once os.path.join is success.
-
-                    Console.ansi_print("\tMerge path success:\n\t{}".format(result))
+                    # Set success var to true once os.path.join is success.
+                    success = True
                 except Exception as err:
                     Process.handle_exception(err, False)
                     Console.ansi_print("\nMerge path by system method failed.\n")
@@ -185,12 +183,8 @@ class Environment:
                 # Try merge manually if system method is failed.
                 if success is not True:
                     try:
-                        Console.ansi_print("Merging path(manually method):\n\t{}, {}\n".format(first, second))
-                        
                         result = Environment.Path.Complement.merge_manually(first, second)
                         result = normpath(result)
-                        
-                        Console.ansi_print("\tMerge path success:\n\t{}".format(result))
                     except Exception as err:
                         Process.handle_exception(err, False)
                         sys.exit(-42)
