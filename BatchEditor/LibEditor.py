@@ -122,11 +122,10 @@ class Editor:
 
         # Open file, input and output.
         # Remember to close() this file at the end!
-        print("Source: {}\nTarget: {}\nEncoding: {}\n Line: {}\n\n".format(
+        print("Editing your file...\nSource: {}\nTarget: {}\nEncoding: {} \n ".format(
             Variable.Source,
             Variable.Target,
-            Variable.Encoding,
-            Variable.OptionArrayContents.DecodedOption.Option + Variable.OptionArrayContents.DecodedOption.Value))
+            Variable.Encoding))
         templateFile = open(Variable.Source, 'r', encoding = 'utf8')
             
         # A for loop to modify config.
@@ -151,4 +150,5 @@ class Editor:
                     outputFile.write(result)
 
         templateFile.close()
+        print("Edited file: {} \n ".format(Variable.Target))
         return
