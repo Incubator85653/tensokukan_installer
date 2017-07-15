@@ -35,13 +35,15 @@ class Zip:
             command = r'{0} {1} -o{2} -y'.format(binArg, fileArg, targetPathArg)
 
             return command
+    
     def wrapper_do_unpack(file, targetPath):
         from LibPython import Process
+
         command = Zip.generate_unpack_command(file, targetPath)
-        exit_code = Process.get_command_exit_code(command, True)
+        exit_code = Process.run_command(command, True)
 
         if exit_code is not 0:
-            raise ChildProcessError("7-zip unpack failed.")
+            raise ChildProcessError(command)
 
 class Shortcut:
     def CreateShortcut(lnkFileLocation, targetFullPath, targetWorkingDir):
@@ -58,14 +60,4 @@ class Shortcut:
                                 Description = '')
         
         if path.isfile(lnkFileLocation) is not True:
-            raise FileNotFoundError("Shortcut create failed:\n\t{}".format(lnkFileLocation))
-
-        #shell = Dispatch('WScript.Shell')
-        #shortcut = shell.CreateShortCut(uLnkFileLocation)
-
-        #shortcut.Targetpath = uTragetFullPath
-        #shortcut.WorkingDirectory = uTargetWorkingDir
-        #shortcut.IconLocation = uTragetFullPath
-
-        #shortcut.save()
-        return
+            raise FileNotFoundError(lnkFileLocation)

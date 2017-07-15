@@ -7,9 +7,14 @@ class Console:
         """ANSI print method.
         As its name, you just use the console as a ANSI console.
         Fuck Windows."""
+
         sys_encoding = sys.stdin.encoding
 
-        print(print_object.encode(sys_encoding,errors='replace').decode(sys_encoding, 'ignore'))
+        converted_string = str(print_object)
+
+        encoded_string = converted_string.encode(sys_encoding,errors='replace').decode(sys_encoding, 'ignore')
+        
+        print(encoded_string)
 class UnitConversion:
     def Second2Millisecond(input):
 
@@ -25,14 +30,17 @@ class UnitConversion:
         # seems A string readed from yaml won't add next line.
         return input.format("\n")
 class Process:
-    def get_command_exit_code(command, useShell):
+    def run_command(command, useShell):
+        """Run command and get exit code.
+        Default return code is -42,
+        means error happen before command is execute.
+        """
         exit_code = -42
 
-        Console.ansi_print("Run external program:\n\t{}".format(command))
+        Console.ansi_print(command) # Print command
         try:
             p = subprocess.Popen(command, shell = useShell)
             exit_code = p.wait()
-            Console.ansi_print("\tExternal program exit code: {}".format(exit_code))
         except Exception as e:
             Process.handle_exception(e, False)
 

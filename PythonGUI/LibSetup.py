@@ -98,7 +98,7 @@ class Methods:
             
             editor_command = '"{}" "{}" "{}"'.format(editor_exe, editor_config, editor_resource)
             
-            running_result = Process.get_command_exit_code(editor_command, False)
+            running_result = Process.run_command(editor_command, False)
             if running_result is not 0:
                 raise ChildProcessError("Edit config files failed.")
 
@@ -198,6 +198,8 @@ def Wrapper_NewInstall():
     """Start install and return success status.
     If all the operation were success, return True.
     Else, one of the operation was failed, return False."""
+    import time
+    
     all_install_success = False
     try:
         # Begin install.
@@ -205,12 +207,12 @@ def Wrapper_NewInstall():
         # Wait disk cache(maybe?).
         # I don't know why if I start editor immediately,
         # tsk.ini won't be edited at all.
-        import time
         time.sleep(3)
         Methods.EditConfigs.wrapper_do_edit()
         Methods.Shortcuts.wrapper_do_create()
         # Turn all install success var to True after all operation success.
         all_install_success = True
+
         Console.ansi_print(stringDict['consoleTextInstallComplete'])
     except Exception as e:
         Process.handle_exception(e, False)
