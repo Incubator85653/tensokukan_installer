@@ -103,8 +103,8 @@ class Methods:
             editor_config = Methods.EditConfigs.get_saved_editor_config_path()
             editor_resource = inst_path
             
-            editor_command = "\"{}\" \"{}\" \"{}\"".format(editor_exe, editor_config, editor_resource)
-            Console.ansi_print(Process.get_command_exit_code(editor_command, True))
+            editor_command = [editor_exe, editor_config, editor_resource]
+            Console.ansi_print(str(Process.get_command_exit_code(editor_command, False)))
         def wrapper_do_edit():
             Methods.EditConfigs.update_batching_editor_config()
             Methods.EditConfigs.run_batch_editor()
@@ -136,7 +136,7 @@ class Methods:
 
             if Action == 'TskMainLnk':
                 lnkName = wizardCfg.Methods.Basic.MainShortcut()
-                targetFullPath = wizardCfg.Methods.Installer.Optional.ProgramStructure.Tsk.Bin.TskMainExe()
+                targetFullPath = wizardCfg.Methods.Optional.Structure.Program.Tsk.Bin.TskMainExe()
                 targetWorkingDir = wizardCfg.Methods.Basic.InstallPath()
 
                 if manageDesktop:
@@ -204,9 +204,8 @@ def Wrapper_NewInstall():
     all_install_success = False
     try:
         # Begin install.
+        #Methods.CopyFiles.wrapper_do_copy()
         Methods.EditConfigs.wrapper_do_edit()
-        Methods.CopyFiles.wrapper_do_copy()
-        
         Methods.Shortcuts.wrapper_do_create()
         # Turn all install success var to True after all operation success.
         all_install_success = True
