@@ -6,6 +6,8 @@ from LibInstallProfile import DecodedProfile as wizardCfg
 from LibPython import Process
 from LibPython import Console
 
+stringDict = wizardCfg.Config.StringYaml['LibSetup']
+
 class Methods:
     class CopyFiles:
         def UnpackArchives():
@@ -209,8 +211,7 @@ def Wrapper_NewInstall():
         Methods.Shortcuts.wrapper_do_create()
         # Turn all install success var to True after all operation success.
         all_install_success = True
-        Console.ansi_print("Install completed.")
-        Console.ansi_print("\n已安装完成！\n")
+        Console.ansi_print(stringDict['consoleTextInstallComplete'])
     except Exception as e:
         Process.handle_exception(e, False)
 

@@ -47,6 +47,8 @@ LibStringStepId:
     tutorialDialog:
     - '测试版不支持导入和注册。'
     - '已经注册过帐号，选1登陆，没有注册过选4。'
+LibSetup:
+    consoleTextInstallComplete: '安装完成！'
 #
 TskInstStepBasic:
     labelTextSelectedAdvancedMode: '选择了Debug Mode。'
