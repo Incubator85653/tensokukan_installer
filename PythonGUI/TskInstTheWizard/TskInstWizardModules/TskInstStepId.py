@@ -1,19 +1,19 @@
 import TskInstTheWizard as Wizard
-import LibTskInstTkinter as LibTk
-import LibTskInstResources as LibRes
-import LibTskInstPython as LibPy
+import LibTkinter as LibTk
+import LibInstallProfile as LibProfile
+import LibPython as LibPy
 
-from LibTskInstResources import Resources
-from LibTskInstResources import InstallationProfile
+from LibInstallProfile import DecodedProfile
+from LibInstallProfile import RawProfileDict
 from tkinter import *
 
-wizardCfg = Resources.Config.StringYaml.get('TskInstStepId')
-typeInStr = wizardCfg.get('TypeIn')
+wizardCfg = DecodedProfile.Config.StringYaml['TskInstStepId']
+typeInStr = wizardCfg['TypeIn']
 
 class Widgets:
     class TypeIn:
         # String
-        stepStr = wizardCfg.get('TypeIn')
+        stepStr = wizardCfg['TypeIn']
         # Local variables
         entryStorageTencoId = StringVar()
         entryStorageTencoPassword = StringVar()
@@ -46,21 +46,21 @@ class Methods:
                 url = url1 + str(id) + url2
                 webbrowser.open_new_tab(url)
             else:
-                LibTk.Window.StrNotice(typeInStr.get('idFirst'))
+                LibTk.Window.StrNotice(typeInStr['idFirst'])
             return
         def CopyBack():
             # Copy data from local to conditions
-            LibRes.InstallationProfile['UserData']['TencoID'] = Widgets.TypeIn.entryStorageTencoId.get()
-            LibRes.InstallationProfile['UserData']['TencoPassword'] = Widgets.TypeIn.entryStorageTencoPassword.get()
+            LibProfile.RawProfileDict['UserData']['TencoID'] = Widgets.TypeIn.entryStorageTencoId.get()
+            LibProfile.RawProfileDict['UserData']['TencoPassword'] = Widgets.TypeIn.entryStorageTencoPassword.get()
 
-            LibRes.InstallationProfile['Unattended']['ManageId'] = True
+            LibProfile.RawProfileDict['Unattended']['ManageId'] = True
 
             Methods.MarkAsDone()
             # and I'm home
             Wizard.TimeLine.BackFromAnyModule()
             return
         def DisplayTutorial():
-            LibTk.Window.ArrayNotice(typeInStr.get('tutorialDialog'))
+            LibTk.Window.ArrayNotice(typeInStr['tutorialDialog'])
             return
         def SaveButton():
             idBool = bool(Widgets.TypeIn.entryStorageTencoId.get())
@@ -69,18 +69,18 @@ class Methods:
             if(idBool and pwdBool):
                 Methods.Manually.CopyBack()
             else:
-                LibTk.Window.StrNotice(typeInStr.get('beforeSave'))
+                LibTk.Window.StrNotice(typeInStr['beforeSave'])
             return
         def ConfigureWidgets(window):
             # Labels
             Widgets.TypeIn.labelDisplayTitle = Label(window,
-                                              text = typeInStr.get('labelTextTitle'))
+                                              text = typeInStr['labelTextTitle'])
             Widgets.TypeIn.labelDisplayId = Label(window,
-                                          text = typeInStr.get('labelTextId'))
+                                          text = typeInStr['labelTextId'])
             Widgets.TypeIn.labelDisplayPassword = Label(window,
-                                                text = typeInStr.get('labelTextPassword'))
+                                                text = typeInStr['labelTextPassword'])
             Widgets.TypeIn.labelDisplaySuggest = Label(window,
-                                            text = LibPy.UnitConversion.FormatArray2String(typeInStr.get('labelTextSuggest')),
+                                            text = LibPy.UnitConversion.FormatArray2String(typeInStr['labelTextSuggest']),
                                             justify = LEFT)
 
             # Entry
@@ -90,11 +90,11 @@ class Methods:
                                             textvariable = Widgets.TypeIn.entryStorageTencoPassword)
             # Button
             Widgets.TypeIn.buttonDisplayCheck = Button(window,
-                                                text = typeInStr.get('buttonTextCheck'),
+                                                text = typeInStr['buttonTextCheck'],
                                                 command = lambda : Methods.Manually.OpenUrl(Widgets.TypeIn.entryStorageTencoId.get()),
                                                 width = 10)
             Widgets.TypeIn.buttonDisplayNextStep = Button(window,
-                                               text = typeInStr.get('buttonTextNextStep'),
+                                               text = typeInStr['buttonTextNextStep'],
                                                command = lambda : Methods.Manually.SaveButton(),
                                                width = 10)
             Widgets.TypeIn.buttonTutorial = Button(window,
@@ -115,7 +115,7 @@ class Methods:
             LibTk.Window.UnivWizardHint_Place(window, Widgets.TypeIn.buttonTutorial)
             return
     def DetectIdReference(window):
-        if(InstallationProfile.get('Unattended').get('ManageId') is False):
+        if(RawProfileDict['Unattended']['ManageId'] is False):
             Methods.MarkAsDone()
             Wizard.TimeLine.BackFromAnyModule()
 
@@ -132,18 +132,18 @@ class Methods:
 def Wrapper(window):
     # This step require a reference step the following.
     # Once all the reference step were ture,
-    #   the step will run. Ohterwize just move to the reference step.
-    if(Wizard.WizardConditions.Modules.LibTskInstStepId is not True):
+    #   the step will run.  Ohterwize just move to the reference step.
+    if(Wizard.WizardConditions.Modules.LibStepId is not True):
         from TskInstTheWizard import WizardSteps
 
-        WizardSteps.LibTskInstStepId(window)
+        WizardSteps.LibStepId(window)
     else:
         Methods.DetectIdReference(window)
         idInstallMode = Wizard.WizardConditions.idInstallMode
         if(idInstallMode == 1):
             # Detect if auto display tutorial is true
             if Wizard.WizardConditions.autoTutorial:
-                LibTk.Window.ArrayNotice(typeInStr.get('tutorialDialog'))
+                LibTk.Window.ArrayNotice(typeInStr['tutorialDialog'])
 
         LibTk.Window.ShowWindow(window)
     return

@@ -1,11 +1,10 @@
-import LibTskInstTkinter as LibTk
-import LibTskInstPython as LibPy
-import LibTskInstResources as LibRes
 import TskInstTheWizard as Wizard
-
+import LibTkinter as LibTk
+from LibInstallProfile import DecodedProfile
+from LibPython import UnitConversion as Unit
 from tkinter import *
 
-wizardCfg = LibRes.Resources.Config.StringYaml['LibTskInstStepWizardMode']
+wizardCfg = DecodedProfile.Config.StringYaml['LibStepWizardMode']
 
 class Widgets:
     # Local variables
@@ -26,7 +25,7 @@ class Widgets:
     exitButton = None
 class Methods:
     def MarkAsDone():
-        Wizard.WizardConditions.Modules.LibTskInstStepModeDecision = True
+        Wizard.WizardConditions.Modules.LibStepModeDecision = True
         return
     def CopyBack():
         Wizard.WizardConditions.wizardMode = Widgets.radioStorageWizardMode.get()
@@ -49,7 +48,7 @@ class Methods:
         Widgets.whoAmI = Label(window,
                       text = wizardCfg.get('labelTextWizardModeSelect'))
         Widgets.warn1 = Label(window,
-                      text = LibPy.UnitConversion.FormatArray2String(wizardCfg.get('labelTextDebugWarn')),
+                      text = Unit.FormatArray2String(wizardCfg.get('labelTextDebugWarn')),
                       justify = LEFT)
 
         # radio and radio variable

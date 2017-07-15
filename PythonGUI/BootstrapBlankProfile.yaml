@@ -11,16 +11,16 @@ Installer:
     Source: null
   Bin:
     7-zip: null
+    BatchEditor: null
   ConfigPath:
     Archive: null
     Games: null
-    Templates: null
+    BatchEditor: null
     Path: null
     String: null
     Tkinter: null
   Optional:
     ProgramStructure: null
-    Templates: null
 Unattended:
   ManageDesktopShortcut: null
   ManageGameExePath: null

@@ -1,3 +1,4 @@
+from LibPython import Environment as Env
 from tkinter import *
 
 # sample
@@ -18,15 +19,29 @@ def InitializeLibTkinter():
     return
 class FileDialog:
     def AskDirectoryName(options):
-        dirname = filedialog.askdirectory(**options)
-        return dirname
+        result = None
+        try:
+            result = filedialog.askdirectory(**options)
+            result = Env.Path.sys_norm_path(result)
+        except Exception as e:
+            from LibPython import Process
+            Process.handle_exception(e, False)
+
+        return result
     def AskFileName(options):
-        filename = filedialog.askopenfilename(**options)
-        return filename
+        result = None
+        try:
+            result = filedialog.askopenfilename(**options)
+            result = Env.Path.sys_norm_path(result)
+        except Exception as e:
+            from LibPython import Process
+            Process.handle_exception(e, False)
+        
+        return result
 class Window:
     def InitializeWindow(window, propDict):
-        window.geometry(propDict.get('Geometry'))
-        window.title(propDict.get('Title'))
+        window.geometry(propDict['Geometry'])
+        window.title(propDict['Title'])
 
         window.grid()
         return
@@ -49,7 +64,7 @@ class Window:
         from tkinter import messagebox
         mBox = messagebox.showinfo(message = str)
     def ArrayNotice(array):
-        from LibTskInstPython import UnitConversion
+        from LibPython import UnitConversion
         
         line = UnitConversion.FormatArray2String(array)
         Window.StrNotice(line)
@@ -59,8 +74,8 @@ class Window:
         sys.exit()
         return
     def UnivWizardController_Place(window, widgetNextButton):
-        from LibTskInstResources import Resources as Res
-        exitLocale = Res.Config.StringYaml['TskInstTheWizard']['Exit']
+        from LibInstallProfile import DecodedProfile
+        exitLocale = DecodedProfile.Config.StringYaml['TskInstTheWizard']['Exit']
         # 1 width = 8 px
         # Default height is 30 px.
 

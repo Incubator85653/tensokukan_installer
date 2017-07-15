@@ -1,10 +1,10 @@
 TskInstTheWizard:
-    Title: '天则观安装程序 / 测试版 / Build 8'
+    Title: '天则观安装程序 / 测试版 / Build 11'
     Geometry: '640x480'
     Exit: '直接退出'
     Debug_InstProfileDump: '天则观安装log.yaml'
 #
-LibTskInstStepWizardMode:
+LibStepWizardMode:
     labelTextStartInstall: '在你电脑上安装天则观。'
     labelTextWizardModeSelect: '选择：'
     labelTextNovice: "一键安装（不可用）"
@@ -19,7 +19,7 @@ LibTskInstStepWizardMode:
     errorUseDebugMode:
     - '不支持这个模式，选第二项。'
     - ''
-LibTskInstStringStepId:
+LibStringStepId:
     labelTextTencoID: '天则观帐号：'
     radioTextTypeIn: '稍后手动输入帐号和密码'
     radioTextFromYaml: '从旧版的config.yaml导入（不可用）'
@@ -146,8 +146,9 @@ TskInstStepInstall:
     buttonStartInstall: '开始安装'
     
     
-    labelTextInstalling: '安装中……未响应是正常现象。'
-    labelTextDone: '安装完了。点退出。（别点标题栏上那个关闭按钮）'
+    labelTextInstalling: '安装中……未响应是正常现象。安装进度请关注黑色窗口。'
+    labelTextDone: '安装完了，所有操作成功，可以关闭安装程序了。点退出按钮。'
+    labelTextDoneButError: '安装失败，安装过程中有操作失败，软件可能会工作不正常。请检查。'
     buttonTextExit: '退出'
 TskInstStepDataImport:
     labelTextImportDataPart1: 'Import old version Tensokukan user data(1/2).'

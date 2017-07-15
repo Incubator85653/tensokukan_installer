@@ -1,0 +1,66 @@
+# For non-commercial project, I recommend write ugly force-edit code but not automatically loop code for this file.
+# Because it's faster when you don't have many config need to take care.
+# Example:
+# object[Main][Target] = something
+
+# Things must be done before modify:
+# Fill Account and password
+# Value
+
+# _FILE_NAME
+Tsk_MainConfig:
+    # This is Target encoding but not source encoding because source is always utf8.
+    Encoding: 'mbcs'
+    # Replace {} as program installed folder during program
+    Source: '{}\Templates\Tsk_MainConfig.template'
+    Target: '{}\tsk.ini'
+    # _OPTION_ARRAY
+    # A root dictionary is a file, and Object dictionary contains all the replace information.
+    # Editor use foreach in this array to identify what to do.
+    OptionArray:
+    - GameExePath:
+        # Option group name, sometimes there is some special edit behavior.
+        # Once editor find the specified Group name, it will do a special edit for it.
+        Group: 'Combined'
+        # Option characteristics(in Templates, tell editor this line to edit)
+        # Each mark should be unique, otherwize two same mark edit as one group.
+        # Two same mark with different option group is a not defined behavior and will cause unknown result after the execute.
+        Mark: '___GamePath'
+        # Option is like "app key + equal character" in ".ini" format config files.
+        # Value is the key value. Both "option + value" is the entire line you want to replace.
+        
+        # Example:
+        # "abc=def __Mark" -> "cde=hij"
+        Option: 'Hisoutensoku.FileName='
+        Value: ''
+    - TskNetExePath:
+        Group: 'Combined'
+        Mark: '___TskNetPath'
+        Option: 'Houkokutool.FileName='
+        Value: ''
+    - Comment:
+        Group: 'Comment'
+        Mark: '___Comment'
+        Option: ''
+        Value: ''
+#
+TskNet_Account:
+    Encoding: 'utf8'
+    Source: '{}\Templates\TskNet_Account.template'
+    Target: '{}\tsk_net\config.yaml'
+    OptionArray:
+    - TencoAccount:
+        Group: 'Combined'
+        Mark: '___Account'
+        Option: '  name: '
+        Value: ''
+    - TencoPassword:
+        Group: 'Combined'
+        Mark: '___Password'
+        Option: '  password: '
+        Value: ''
+    - Comment:
+        Group: 'Comment'
+        Mark: '___Comment'
+        Option: ''
+        Value: ''

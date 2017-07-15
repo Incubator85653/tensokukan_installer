@@ -4,7 +4,7 @@ TskInstTheWizard:
     Exit: 'Exit'
     Debug_InstProfileDump: 'Tensokukan install log.yaml'
 #
-LibTskInstStepWizardMode:
+LibStepWizardMode:
     labelTextStartInstall: 'Install Tensokukan on your computer.'
     labelTextWizardModeSelect: 'I am:'
     labelTextNovice: "Novice, I don't understand how it works."
@@ -16,7 +16,7 @@ LibTskInstStepWizardMode:
     errorUseDebugMode:
     - 'Novice mode unavailable right now...'
     - 'Please use another mode to start.'
-LibTskInstStringStepId:
+LibStringStepId:
     labelTextTencoID: 'Tenco account:'
     radioTextTypeIn: 'Type in account and password manually.'
     radioTextFromYaml: 'Import from an exist yaml file. (Unavailable)'

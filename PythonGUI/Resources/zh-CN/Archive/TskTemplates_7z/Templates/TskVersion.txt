@@ -1,3 +1,3 @@
-API version: 0.04
-Branch Name: Tensokukan 2017
-Branch Version: Build 10
+API_version: 0.04
+Branch_Name: Tensokukan 2017
+Branch_Build_Version: 11

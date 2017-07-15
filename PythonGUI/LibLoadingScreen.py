@@ -1,7 +1,7 @@
 from tkinter import *
 from sys import stdin
 from os import getcwd
-import LibTskInstPython as LibPython
+import LibPython as LibPython
 
 tskInstallerBoot = Tk()
 

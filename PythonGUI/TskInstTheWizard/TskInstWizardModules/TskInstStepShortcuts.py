@@ -1,14 +1,14 @@
 import TskInstTheWizard as Wizard
-import LibTskInstResources as LibRes
-import LibTskInstTkinter as LibTk
-import LibTskInstPython as LibPy
-
+import LibTkinter as LibTk
+from LibInstallProfile import RawProfileDict
+from LibInstallProfile import DecodedProfile
+from LibPython import Environment as Env
 from tkinter import *
 
-wizardStr = LibRes.Resources.Config.StringYaml.get('TskInstStepShortcuts')
+wizardStr = DecodedProfile.Config.StringYaml['TskInstStepShortcuts']
 
-defaultTskStartMenuGroupName = LibRes.Resources.Methods.Structure.Shortcuts.StartupMenuGroup()
-defaultTskMainShortcutName = LibRes.Resources.Methods.Structure.Shortcuts.TskMainLnk()
+defaultTskStartMenuGroupName = DecodedProfile.Methods.Optional.Structure.Shortcuts.StartupMenuGroup()
+defaultTskMainShortcutName = DecodedProfile.Methods.Optional.Structure.Shortcuts.TskMainLnk()
 
 class Widgets:
     # local variables
@@ -44,18 +44,18 @@ class Methods:
     def CopyBack():
         from os import path
 
-        sysStartMenuPath = LibPy.Environment.System.GetSysStartupMenuPath()
-        sysDesktopPath = LibPy.Environment.System.GetSysDesktopPath()
+        sysStartMenuPath = Env.System.GetSysStartupMenuPath()
+        sysDesktopPath = Env.System.GetSysDesktopPath()
 
         tskStartMenuGroupName = Widgets.entryStorageStartMenuName.get()
         tskDesktopName = Widgets.entryStorageTskMainName.get()
 
-        LibRes.InstallationProfile['Basic']['StartMenuGroup'] = tskStartMenuGroupName
-        LibRes.InstallationProfile['Basic']['DesktopShortcut'] = tskDesktopName + '.lnk'
+        RawProfileDict['Basic']['StartMenuGroup'] = tskStartMenuGroupName
+        RawProfileDict['Basic']['DesktopShortcut'] = tskDesktopName + '.lnk'
 
         # GUI shows "Do not create", so use the not keyword.
-        LibRes.InstallationProfile['Unattended']['ManageStartMenuShortcut'] = not bool(Widgets.checkbuttonStorageDntStartMenu.get())
-        LibRes.InstallationProfile['Unattended']['ManageDesktopShortcut'] = not bool(Widgets.checkbuttonStorageDntDesktop.get())
+        RawProfileDict['Unattended']['ManageStartMenuShortcut'] = not bool(Widgets.checkbuttonStorageDntStartMenu.get())
+        RawProfileDict['Unattended']['ManageDesktopShortcut'] = not bool(Widgets.checkbuttonStorageDntDesktop.get())
 
         Methods.MarkAsDone()
         Wizard.TimeLine.BackFromAnyModule()

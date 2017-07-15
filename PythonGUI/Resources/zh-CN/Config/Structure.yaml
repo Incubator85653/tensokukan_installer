@@ -15,12 +15,14 @@ Program:
         
         Bin:
             TskNetMainExe: tsk_report.exe
-            TskNetLauncherScript: tsk_net.cmd
             
         Config:
             Account: config.yaml
         Templates:
             Account: Templates\TskNet_Account.template
+    BatchEditor:
+        Templates: 
+            EditedConfigPath: Templates\BatchEditor.yaml
 Shortcuts:
     TskMainLnk: 天则观2017
     StartupMenuGroup: 天则观开始菜单快捷方式组

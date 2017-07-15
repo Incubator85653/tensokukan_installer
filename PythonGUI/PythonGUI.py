@@ -4,6 +4,9 @@
 # have some fun with the powershell!
 # (gci -include *py -recurse | select-string .).Count
 
+# Install references:
+# pip install pyyaml winshell pypiwin32
+
 # I have to remember, put anything path in "os.path.normpath".
 
 # Debug Codes
@@ -21,51 +24,26 @@ import tkinter.ttk
 import yaml
 import sys
 import os
+import traceback
 # Process
 import subprocess
+import time
 # Shortcuts
 import winshell
 import win32com
+# Search path
+import sys
 
-# This method has another copy in LibTskInstPython.
-# It used to add search path for startup script.
-def OsPathJoinSimulator(first, second):
-    # This method is prevent a crash on some Ghost systems.
-    # On these systems, os.path.join will fail.
-
-    # It almost do the same thing just like os.path.join, but Windows platform specified.
-
-    # first path must be "slash removed" path.
-    # the second one can be a folder or a file with extension.
-    result = r"{0}\{1}".format(first, second)
-    return result
-def AddSearchPaths():
-    from os import path
-    # pwd come from a Linux CLI command.
-    pwd = os.getcwd()
-    # define some library path and add them to system.path.
-    pathImport = {}
-    pathImport['pathTheInstallWizard'] = OsPathJoinSimulator(pwd, 'TskInstTheWizard')
-    pathImport['pathTskInstModules'] = OsPathJoinSimulator(pathImport.get('pathTheInstallWizard'), 'TskInstWizardModules')
-    pathImport['pathLibTskInstModules'] = OsPathJoinSimulator(pathImport.get('pathTheInstallWizard'), 'LibTskInstWizardModules')
-    pathImport['pathLibTskInst'] = OsPathJoinSimulator(pwd, 'LibTskInst')
-
-    sys.path.append(pathImport.get('pathTheInstallWizard'))
-    sys.path.append(pathImport.get('pathTskInstModules'))
-    sys.path.append(pathImport.get('pathLibTskInstModules'))
-    sys.path.append(pathImport.get('pathLibTskInst'))
-
-    #for p in sys.path:
-    #    print(p)
-    return
-
-# Add search path and start installer disk I/O.
-AddSearchPaths()
-
-
+# Water wells studio code library
+sys.path.append(r"..\LibWaterWellsStudio")
+from LibPython import Environment as Env
+# Installer code files
+sys.path.append("TskInstTheWizard")
+sys.path.append(r"TskInstTheWizard\TskInstWizardModules")
+sys.path.append(r"TskInstTheWizard\LibTskInstWizardModules")
 
 # GUI Bootstrap
-import LibTskInstBootstrap as LibBoot
+import LibBootstrap as LibBoot
 LibBoot.Wrapper()
 
 # Start to initalize wizard

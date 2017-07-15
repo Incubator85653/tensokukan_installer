@@ -1,13 +1,13 @@
 from tkinter import *
-from LibTskInstString import TskInstStringStepDataImport as wizardCfg
-import LibTskInstResources as LibRes
+from LibString import TskInstStringStepDataImport as wizardCfg
+import LibInstallProfile as LibProfile
 import TskInstTheWizard as wizard
 
-DataImportYaml = LibRes.GuiYaml.get('TskInstStepUpgrade')
+DataImportYaml = GuiYaml.get('TskInstStepUpgrade')
 Part1Yaml = DataImportYaml.get('Part1')
 Part2Yaml = DataImportYaml.get('Part2')
 class ConstVars:
-    installedPath = LibRes.Methods.Basic.InstallPath()
+    installedPath = Methods.Basic.InstallPath()
 
 class Widgets:
     # Local variable
@@ -73,7 +73,7 @@ class Methods:
                                         y = Part1Yaml.get('buttonDisplayExit').get('y'))
         return
     def SaveButtonPart1(window):
-        from LibTskInstString import TskInstStringErrors as errors
+        from LibString import TskInstStringErrors as errors
         def CopyBack():
             wizard.WizardConditions.Upgrade.TskIniPath = Widgets.entryStorageTskIniPath.get()
             wizard.WizardConditions.Unattended.UpgradeTskIni = True
@@ -92,7 +92,7 @@ class Methods:
         return
 
     def PlaceWidgetsPart2():
-        import LibRes as cfg
+        import LibProfile as cfg
         Widgets.labelDisplayImportDataPart2.place(x = Part2Yaml.get('labelDisplayImportData').get('x'),
                                              y = Part2Yaml.get('labelDisplayImportData').get('y'))
 
@@ -133,7 +133,7 @@ class Methods:
 
         return
     def SaveButtonPart2():
-        from LibTskInstString import TskInstStringErrors as errors
+        from LibString import TskInstStringErrors as errors
         def CopyBack(SwrsUpgradeMode):
             if(bool(Widgets.checkbuttonStorageDntManageDb.get()) is False):
                 wizard.WizardConditions.Unattended.UpgradeDatabase = True
