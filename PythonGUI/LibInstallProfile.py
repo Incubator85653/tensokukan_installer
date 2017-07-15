@@ -268,6 +268,17 @@ class DecodedProfile:
                                 result = Environment.Path.Complement.merge_system(DecodedProfile.Methods.Optional.Structure.Program.TskNet.FullPath(), 
                                     DecodedProfile.Methods.Optional.Structure.Program.TskNet.Templates.GetDict()['TskNetProgramScript'])
                                 return result
+                    class BatchEditor:
+                        def GetDict():
+
+                            return DecodedProfile.Methods.Optional.Structure.Program.GetDict()['BatchEditor']
+
+                        def EditedConfigPath():
+                            result = Environment.Path.Complement.merge_system(
+                                DecodedProfile.Methods.Basic.InstallPath(),
+                                DecodedProfile.Methods.Optional.Structure.Program.BatchEditor.GetDict()['Templates']['EditedConfigPath']
+                                )
+                            return result
                 class Shortcuts:
                     def GetDict():
 

@@ -36,11 +36,7 @@ class Methods:
             Methods.CopyFiles.UnpackSWRSAddr()
 
     class EditConfigs:
-        # mbcs means windows system default ANSI encode, in notepad.exe .
-        # The situation is some of Tensokukan config files support only ANSI
-        # format.
-        # They need a convert from Template(UTF-8) to Target(Local ANSI).
-        def update_batching_editor_config():
+        def get_edited_batch_editor_config():
             """Return edited editor config.
             This crazy method will tell you sometimes ugly access path is faster than nest loop."""
             # Sumeragi Shion - Gujjo bu
@@ -85,30 +81,29 @@ class Methods:
                 Process.handle_exception(e, False)
 
             return shion
-        def get_saved_editor_config_path():
+        def save_editor_config():
             try:
-                inst_path = wizardCfg.Methods.Basic.InstallPath()
-                edited_yaml = Methods.EditConfigs.update_batching_editor_config()
-                saved_path = Env.Path.Complement.merge_system(inst_path, "Templates\BatchEditor.yaml")
+                edited_yaml = Methods.EditConfigs.get_edited_batch_editor_config()
+                saved_path = wizardCfg.Methods.Optional.Structure.Program.BatchEditor.EditedConfigPath()
             
                 wwYaml.write_yaml_to_disk(edited_yaml, saved_path)
             except Exception as e:
-                
                 Process.handle_exception(e, False)
-
-            return saved_path
         def run_batch_editor():
-            inst_path = wizardCfg.Methods.Basic.InstallPath()
             editor_exe = wizardCfg.Methods.Installer.Bin.Editor()
-            editor_config = Methods.EditConfigs.get_saved_editor_config_path()
-            editor_resource = inst_path
+            editor_config = wizardCfg.Methods.Optional.Structure.Program.BatchEditor.EditedConfigPath()
+            editor_resource = wizardCfg.Methods.Basic.InstallPath()
             
-            editor_command = [editor_exe, editor_config, editor_resource]
-            Console.ansi_print(str(Process.get_command_exit_code(editor_command, False)))
+            editor_command = '"{}" "{}" "{}"'.format(editor_exe, editor_config, editor_resource)
+            
+            running_result = Process.get_command_exit_code(editor_command, False)
+            if running_result is not 0:
+                raise ChildProcessError("Edit config files failed.")
+
         def wrapper_do_edit():
-            Methods.EditConfigs.update_batching_editor_config()
+            Methods.EditConfigs.get_edited_batch_editor_config()
+            Methods.EditConfigs.save_editor_config()
             Methods.EditConfigs.run_batch_editor()
-            #TODO
     class Shortcuts:
         def ShortcutRules(Action, FileName, Args):
             import winshell
@@ -204,13 +199,19 @@ def Wrapper_NewInstall():
     all_install_success = False
     try:
         # Begin install.
-        #Methods.CopyFiles.wrapper_do_copy()
+        Methods.CopyFiles.wrapper_do_copy()
+        # Wait disk cache(maybe?).
+        # I don't know why if I start editor immediately,
+        # tsk.ini won't be edited at all.
+        import time
+        time.sleep(3)
         Methods.EditConfigs.wrapper_do_edit()
         Methods.Shortcuts.wrapper_do_create()
         # Turn all install success var to True after all operation success.
         all_install_success = True
+        Console.ansi_print("Install completed.")
+        Console.ansi_print("\n已安装完成！\n")
     except Exception as e:
-        
         Process.handle_exception(e, False)
 
     return all_install_success
