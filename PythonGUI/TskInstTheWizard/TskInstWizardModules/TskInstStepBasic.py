@@ -76,11 +76,11 @@ class Methods():
         Widgets.labelDisplaySelectedInstallMethod.place_forget()
         if result == 1 :
             Widgets.labelDisplaySelectedInstallMethod = Label(window,
-                                                  text = Unit.StrAddNextLine(wizardCfg['labelTextSelectedNewInstall']),
+                                                  text = Unit.str_parse_nextline(wizardCfg['labelTextSelectedNewInstall']),
                                                   justify = LEFT)
         elif result == 2 :
             Widgets.labelDisplaySelectedInstallMethod = Label(window,
-                                                  text = Unit.StrAddNextLine(wizardCfg['labelTextSelectedUpgrade2']),
+                                                  text = Unit.str_parse_nextline(wizardCfg['labelTextSelectedUpgrade2']),
                                                   justify = LEFT)
         Widgets.labelDisplaySelectedInstallMethod.place(x = 25, y = 210)
         return
@@ -102,7 +102,7 @@ class Methods():
         if bool(result):
             try:
                 Widgets.entryStorageTskInstallPath.set(
-                    Env.Path.Complement.merge_system(
+                    Env.Path.merge_system(
                         result, DecodedProfile.Methods.Optional.Structure.Program.Tsk.Bin.DefaultInstallFolder()
                         )
                     )

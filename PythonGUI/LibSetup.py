@@ -17,7 +17,7 @@ class Methods:
             installPath = wizardCfg.Methods.Basic.InstallPath()
 
             for archiveName in archivesCollection:
-                archiveFullPath = Env.Path.Complement.merge_system(archivesPath, archiveName)
+                archiveFullPath = Env.Path.merge_system(archivesPath, archiveName)
                 Zip.wrapper_do_unpack(archiveFullPath, installPath)
 
         def UnpackSWRSAddr():
@@ -59,9 +59,6 @@ class Methods:
             
                 # Modify TskNetExePath
                 shion['Tsk_MainConfig']['OptionArray'][1]['TskNetExePath']['Value'] = wizardCfg.Methods.Optional.Structure.Program.TskNet.Bin.TskNetMainExe()
-            except Exception as e:
-                
-                Process.handle_exception(e, False)
             
             # File: TskNet_Account
             try:
@@ -78,9 +75,6 @@ class Methods:
                     shion['TskNet_Account']['OptionArray'][0]['TencoAccount']['Value'] = wizardCfg.Methods.UserData.TencoAccount()
                     # Modify TencoPassword
                     shion['TskNet_Account']['OptionArray'][1]['TencoPassword']['Value'] = wizardCfg.Methods.UserData.TencoPassword()
-            except Exception as e:
-                
-                Process.handle_exception(e, False)
 
             return shion
         def save_editor_config():
@@ -89,8 +83,7 @@ class Methods:
                 saved_path = wizardCfg.Methods.Optional.Structure.Program.BatchEditor.EditedConfigPath()
             
                 wwYaml.write_yaml_to_disk(edited_yaml, saved_path)
-            except Exception as e:
-                Process.handle_exception(e, False)
+
         def run_batch_editor():
             editor_exe = wizardCfg.Methods.Installer.Bin.Editor()
             editor_config = wizardCfg.Methods.Optional.Structure.Program.BatchEditor.EditedConfigPath()
@@ -139,7 +132,7 @@ class Methods:
                 if manageDesktop:
                     environmentPath = winshell.desktop()
                     
-                    lnkFileLocation = Env.Path.Complement.merge_system(environmentPath, lnkName)
+                    lnkFileLocation = Env.Path.merge_system(environmentPath, lnkName)
 
                     createSwitch = False
                     Shortcut.CreateShortcut(lnkFileLocation, targetFullPath,targetWorkingDir)
@@ -147,9 +140,9 @@ class Methods:
                     environmentPath = winshell.programs()
 
                     tskSmGroupName = wizardCfg.Methods.Basic.StartMenuGroup()
-                    tskSmGroupPath = Env.Path.Complement.merge_system(environmentPath, tskSmGroupName)
+                    tskSmGroupPath = Env.Path.merge_system(environmentPath, tskSmGroupName)
 
-                    lnkFileLocation = Env.Path.Complement.merge_system(tskSmGroupPath, lnkName)
+                    lnkFileLocation = Env.Path.merge_system(tskSmGroupPath, lnkName)
 
                     # Create shortcut menu for base library.
                     if not os.path.exists(tskSmGroupPath):

@@ -30,7 +30,7 @@ class Methods:
         # Get yaml file name
         yamlName = DecodedProfile.Config.StringYaml['TskInstTheWizard']['Debug_InstProfileDump']
         # Generate file full path
-        writeOutPath = Env.Path.Complement.merge_system(desktop, yamlName)
+        writeOutPath = Env.Path.merge_system(desktop, yamlName)
         # Dump settings to disk
         try:
             wwYaml.write_yaml_to_disk(RawProfileDict, writeOutPath)

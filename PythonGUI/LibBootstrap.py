@@ -104,27 +104,27 @@ class Methods:
             workingResourcesPath = Env.Path.merge_path_with_work_dir(resourcesDirName)
 
             # Generage language based root resource path(full path).
-            langBasedRootResourcesPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.WizardDevLanguage)
+            langBasedRootResourcesPath = Env.Path.merge_system(workingResourcesPath, LibProfile.Language.WizardDevLanguage)
 
-            langBasedWizardResPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.WizardDevLanguage)
-            langBasedWizardBinPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.WizardBinLanguage)
-            langBasedTskResPath = Env.Path.Complement.merge_system(workingResourcesPath, LibProfile.Language.TskDevLanguage)
+            langBasedWizardResPath = Env.Path.merge_system(workingResourcesPath, LibProfile.Language.WizardDevLanguage)
+            langBasedWizardBinPath = Env.Path.merge_system(workingResourcesPath, LibProfile.Language.WizardBinLanguage)
+            langBasedTskResPath = Env.Path.merge_system(workingResourcesPath, LibProfile.Language.TskDevLanguage)
 
             # Generate language based sub resource folder name and path by root resource path(full path).
             archiveDirName = foldersDict['Archive']
             binDirName = foldersDict['Bin']
             configDirName = foldersDict['Config']
         
-            langBasedArchiveDirPath = Env.Path.Complement.merge_system(langBasedTskResPath, archiveDirName)
-            langBasedBinDirPath = Env.Path.Complement.merge_system(langBasedWizardBinPath, binDirName)
-            langBasedConfigDirPath = Env.Path.Complement.merge_system(langBasedWizardResPath, configDirName)
+            langBasedArchiveDirPath = Env.Path.merge_system(langBasedTskResPath, archiveDirName)
+            langBasedBinDirPath = Env.Path.merge_system(langBasedWizardBinPath, binDirName)
+            langBasedConfigDirPath = Env.Path.merge_system(langBasedWizardResPath, configDirName)
 
             # Generate binary file path by language based sub resource path(full path).
             zipBinName = filesDict['Bin']['7za']
             editorBinName = filesDict['Bin']['BatchEditor']
             
-            langBasedzipBinName = Env.Path.Complement.merge_system(langBasedBinDirPath, zipBinName)
-            langBasedEditorBinName = Env.Path.Complement.merge_system(langBasedBinDirPath, editorBinName)
+            langBasedzipBinName = Env.Path.merge_system(langBasedBinDirPath, zipBinName)
+            langBasedEditorBinName = Env.Path.merge_system(langBasedBinDirPath, editorBinName)
 
             # Generate installer configs file path by language based...
             debugOptionsName = filesDict['Config']['DebugOptions']
@@ -135,13 +135,13 @@ class Methods:
             stringYamlName = filesDict['Config']['String']
             tkinterYamlName = filesDict['Config']['Tkinter']
 
-            langBasedDebugOptionsYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, debugOptionsName)
-            langBasedArchiveYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, archiveYamlName)
-            langBasedGamesYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, gamesYamlName)
-            langBasedBatchEditorYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, BatchEditorYamlName)
-            langBasedStructureYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, structureYamlName)
-            langBasedStringYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, stringYamlName)
-            langBasedTkinterYamlPath = Env.Path.Complement.merge_system(langBasedConfigDirPath, tkinterYamlName)
+            langBasedDebugOptionsYamlPath = Env.Path.merge_system(langBasedConfigDirPath, debugOptionsName)
+            langBasedArchiveYamlPath = Env.Path.merge_system(langBasedConfigDirPath, archiveYamlName)
+            langBasedGamesYamlPath = Env.Path.merge_system(langBasedConfigDirPath, gamesYamlName)
+            langBasedBatchEditorYamlPath = Env.Path.merge_system(langBasedConfigDirPath, BatchEditorYamlName)
+            langBasedStructureYamlPath = Env.Path.merge_system(langBasedConfigDirPath, structureYamlName)
+            langBasedStringYamlPath = Env.Path.merge_system(langBasedConfigDirPath, stringYamlName)
+            langBasedTkinterYamlPath = Env.Path.merge_system(langBasedConfigDirPath, tkinterYamlName)
 
             # Fill final results back to LibProfile.
 

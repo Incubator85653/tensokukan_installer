@@ -25,22 +25,24 @@ class UnitConversion:
     def FormatArray2String(inputArray):
 
         return '\n'.join(inputArray)
-    def Str2Unicode(input):
-        text = u"{0}".format(input)
-        return text
-    def StrAddNextLine(input):
-        # This method replace {0} in a string...by "\n"
-        # seems A string readed from yaml won't add next line.
+    def str_parse_nextline(input):
+        """ This method replace {0} in a string...by "\n"
+        seems A string readed from yaml won't add next line."""
+
         return input.format("\n")
 class Process:
     def run_command(command, useShell):
         """Run command and get exit code.
-        Default return code is -42,
-        means error happen before command is execute.
+        Default return code is False,
+        means external command isn't generated an exit code.
         """
-        exit_code = -42
-
-        Console.ansi_print(command) # Print command
+        exit_code = False
+        
+        # Print command
+        Console.ansi_print(
+            HintString.external_command.format(
+                command)
+            )
         try:
             p = subprocess.Popen(command, shell = useShell)
             exit_code = p.wait()
@@ -51,7 +53,7 @@ class Process:
 
     def pause_program():
 
-        programPause = input(r"Press the <ENTER> key to continue...")
+        program_pause = input(r"Press the <ENTER> key to continue...")
     
     def handle_exception(err_object, pause):
         """Universal error print & log method.
@@ -157,7 +159,7 @@ class Environment:
             return result
     class Path:
         # This class do path combined job.
-        class Complement:
+        class Alternatives:
             def merge_manually(first, second):
                 """MUST_SUCCESS_METHOD
                 Usage:
@@ -169,45 +171,44 @@ class Environment:
                 It almost do the same thing just like os.path.join, but Windows platform specified.
                 Return a path just like os.path.join.
                 """
-                Console.ansi_print("WARNING: os.path.join method failed.")
-                Console.ansi_print("\tYou're using an untrusted version system.")
+                Console.ansi_print(HintString.trying_manually_path_join)
+
                 result = "{0}\\{1}".format(first, second)
                 return result
 
-            def merge_system(first, second):
-                """
-                Use os.path.join to combined two path.
-                MUST_SUCCESS_METHOD
-                """
-                import os
-                from os.path import normpath
+        def merge_system(first, second):
+            """
+            Use os.path.join to combined two path.
+            MUST_SUCCESS_METHOD
+            """
+            import os
+            from os.path import normpath
                 
-                # This is result.
-                result = None 
-                # Use this to confirm if os.path.join, the system method is
-                # success.
-                success = False
+            # This is result.
+            result = None 
+            # Use this to confirm if os.path.join, the system method is
+            # success.
+            success = False
                 
-                # Try merge path by system method.
+            # Try merge path by system method.
+            try:
+                result = normpath(os.path.join(first, second))
+                # Set success var to true once os.path.join is success.
+                success = True
+            except Exception as err:
+                Process.handle_exception(err, False)
+                Console.ansi_print(WarnString.os_path_join_failed)
+                    
+            # Try merge manually if system method is failed.
+            if success is not True:
                 try:
-                    result = normpath(os.path.join(first, second))
-                    # Set success var to true once os.path.join is success.
-                    success = True
+                    result = Environment.Path.Alternatives.merge_manually(first, second)
+                    result = normpath(result)
                 except Exception as err:
                     Process.handle_exception(err, False)
-                    Console.ansi_print("\nMerge path by system method failed.\n")
-                    Console.ansi_print("Try manually merge.")
-                    
-                # Try merge manually if system method is failed.
-                if success is not True:
-                    try:
-                        result = Environment.Path.Complement.merge_manually(first, second)
-                        result = normpath(result)
-                    except Exception as err:
-                        Process.handle_exception(err, False)
-                        sys.exit(-42)
+                    sys.exit(-42)
 
-                return result
+            return result
         def sys_norm_path(path):
             """Alternative method for os.path.normpath.
             Yet another common system method may failed for unknown reason.
@@ -254,6 +255,6 @@ class Environment:
 
             # pwd come from a Linux CLI command.
             pwd = Environment.Path.get_full_work_dir()
-            result = Environment.Path.Complement.merge_system(pwd, path_name)
+            result = Environment.Path.merge_system(pwd, path_name)
 
             return result
