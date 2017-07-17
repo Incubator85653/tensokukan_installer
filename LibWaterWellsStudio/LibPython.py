@@ -1,6 +1,9 @@
 import sys
 import yaml
 import subprocess
+from WwPyLibString import HintString
+from WwPyLibString import WarnString
+from WwPyLibString import ErrorString
 
 class Console:
     def ansi_print(print_object):
@@ -64,27 +67,33 @@ class Process:
         """
         import traceback
 
-        Console.ansi_print("\nERROR BEGIN\n")
+        # Print error header for user.
+        Console.ansi_print(HintString.error_begin)
 
+        # Get and print most recent traceback
         exc_type, exc_value, exc_traceback = sys.exc_info()
         traceback.print_exception(exc_type, 
                                   exc_value, 
                                   exc_traceback)
 
-        Console.ansi_print("\nERROR END\n")
+        # Print error end for user.
+        Console.ansi_print(HintString.error_end)
 
         if pause:
             Process.pause_program()
 class Environment:
     class System:
         def GetSysTempPath():
-            """MUST_SUCCESS_METHOD"""
+            """Return user's temp path.
+            MUST_SUCCESS_METHOD
+            
+            A user reported that "default temp" is mismatched with cmd %TEMP%
+            environment variable for an unknown reason.
+            To avoid it, get this variable directly is better than use
+            "import tempfile".
+            """
             from os import environ
             from os.path import normpath
-            # A user reported that "default temp" is mismatched with cmd %TEMP%
-            # environment variable.
-            # To avoid it, get this variable directly is better than use
-            # "import tempfile".
 
             result = None
             try:
@@ -96,17 +105,18 @@ class Environment:
             return result
 
         def GetSysShortLang(ShortLangDict):
-            """MUST_SUCCESS_METHOD"""
-            # Return a short language.
-            # This is a system information.
+            """Return a short language.
+            MUST_SUCCESS_METHOD
+                       
+            This is a system information.
 
-            # The language detect is through user system non-unicode encoding.
-            # Or I call it "stdin".  I get the encoding by get stdin.
-            # If someone got the better or the best way to get non-unicode
-            # encoding,
-            #   then let me know, I will use that method to get information
-            #   what we
-            #   need.
+            The language detect is through user system non-unicode encoding.
+            Or I call it "stdin". I get the encoding by get stdin.
+            If someone got the better or the best way to get non-unicode
+            encoding, then let me know,
+            I will use that method to get information what we need.
+            """
+
             result = None
 
             try:
@@ -209,6 +219,7 @@ class Environment:
                 result = normpath(path)
             except Exception as e:
                 Process.handle_exception(e, False)
+                Console.ansi_print(ErrorString.os_path_normpath_failed)
                 sys.exit(-42)
 
             return result
@@ -228,6 +239,7 @@ class Environment:
                 result = os.getcwd()
             except Exception as e:
                 Process.handle_exception(e, False)
+                Console.ansi_print(ErrorString.os_getcwd_failed)
                 sys.exit(-42)
                 
             return result

@@ -1,0 +1,16 @@
+headers_dict:
+    hint_header: "提示："
+    error_header: "错误："
+    warn_header: "警告："
+    broken_system: "你目前使用的系统不是标准的 Windows 发行版。\n重装标准（原版） Windows 系统或不要使用此安装程序。"
+hint_dict:
+    
+    external_command: "运行外部命令：\n    {}"
+    error_begin: "\n记录程序错误 开始\n"
+    error_end: "\n记录程序错误 结束\n"
+    trying_manually_path_join: "尝试使用备用的 os.path.join 方法..."
+error_dict:
+    os_path_normpath_failed: "系统内置方法 os.path.normpath 无法调用。\n"
+    os_getcwd_failed: "系统内置方法 os.getcwd 无法调用。\n"
+warn_dict:
+    os_path_join_failed: "系统内置方法 os.path.join 无法调用。\n"
