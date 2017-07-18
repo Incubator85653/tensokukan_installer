@@ -1,11 +1,11 @@
 from tkinter import *
 from sys import stdin
 from os import getcwd
-import LibPython as LibPython
+from LibOperate import WaterWellsYaml as wwYaml
 
 tskInstallerBoot = Tk()
 
-bootstrapDict = LibPython.yaml_loader('Bootstrap.yaml')
+bootstrapDict = wwYaml.read_yaml_from_disk('Bootstrap.yaml')
 langArrayDict = bootstrapDict.get('Array')
 langEncodingDict = bootstrapDict.get('Encoding')
 

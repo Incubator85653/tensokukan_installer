@@ -43,14 +43,13 @@ class Methods:
         # If the system language is not supported by project, return en-US
         # as default language dictionary.
         def GetBootString():
-            import sys
-            sysLang = Env.System.GetSysShortLang(LibProfile.BootstrapLocale['CodePage2ShortLang'])
+            sysLang = Env.System.GetSysShortLang()
             supportedLangArray = LibProfile.BootstrapLanguage['SupportedLanguages']
 
             if sysLang in supportedLangArray:
                 bootString = LibProfile.BootstrapString.get(sysLang)
             else:
-                bootString = LibProfile.BootstrapString.get('en-US')
+                bootString = LibProfile.BootstrapString.get('en_US')
 
             return bootString
 
@@ -79,7 +78,7 @@ class Methods:
             RootVar.bootstrapGui.withdraw()
 
             # Initalize window properties.
-            RootVar.bootstrapGuiProp = LibProfile.BootstrapString.get('Universal')
+            RootVar.bootstrapGuiProp = LibProfile.BootstrapString['Universal']
             LibTk.Window.InitializeWindow(RootVar.bootstrapGui, RootVar.bootstrapGuiProp)
 
         def ConfigureWidgets():
@@ -93,6 +92,7 @@ class Methods:
             Methods.Initialize.InitalizeBootRes()
             Methods.Initialize.InitalizeSelf()
             Methods.Initialize.ConfigureWidgets()
+
     class LanguageSelect:
         def FillPathsBackToLibProfile():
             # This method in bootstrap, it fill a language based resource path for installer.
@@ -158,12 +158,12 @@ class Methods:
             LibProfile.RawProfileDict['Installer']['ConfigPath']['String'] = langBasedStringYamlPath
             LibProfile.RawProfileDict['Installer']['ConfigPath']['Tkinter'] = langBasedTkinterYamlPath
             # Plz run Yaml loader(loading screen) after fill language based resources path.
-            
+         
         def DetectSupportedLang():
-            import sys
-            convertDict = LibProfile.BootstrapLocale['CodePage2ShortLang']
+            from LibPython import Environment as Env
+
             supportedLangArray = LibProfile.BootstrapLanguage['SupportedLanguages']
-            sysDevLang = convertDict.get(sys.stdin.encoding)
+            sysDevLang = Env.System.GetSysShortLang()
         
             if sysDevLang in supportedLangArray:
                 LibTk.Window.SafeDestroy(RootVar.bootstrapGui)
@@ -238,7 +238,11 @@ class Methods:
             LibProfile.Language.WizardDevLanguage = wizardDevLang
             LibProfile.Language.TskDevLanguage = tskDevLang
 
+            # A safe destroy method to prevent error
+            # can't invoke "winfo" command:  application has been destroyed
+            RootVar.bootstrapGui.eval('::ttk::CancelRepeat')
             RootVar.bootstrapGui.destroy()
+
             Methods.LanguageSelect.FillPathsBackToLibProfile()
 
         def NextStep_SaveSettings():
@@ -250,8 +254,7 @@ class Methods:
             elif boolTskLang is not True:
                 LibTk.Window.StrNotice(RootVar.bootStringDict['errorTskLangEmpty'])
             else:
-                Methods.LanguageSelect.SetLangAndCopyBack()
-
+                Methods.LanguageSelect.SetLangAndCopyBack()  
 
         def Wrapper():
             Methods.LanguageSelect.DetectSupportedLang()

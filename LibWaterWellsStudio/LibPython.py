@@ -106,23 +106,21 @@ class Environment:
 
             return result
 
-        def GetSysShortLang(ShortLangDict):
-            """Return a short language.
+        def GetSysShortLang():
+            """Return system default locale.
             MUST_SUCCESS_METHOD
-                       
-            This is a system information.
+            Example: 'en-GB'
 
-            The language detect is through user system non-unicode encoding.
-            Or I call it "stdin". I get the encoding by get stdin.
-            If someone got the better or the best way to get non-unicode
-            encoding, then let me know,
-            I will use that method to get information what we need.
+            7/18/2017: Switch to locale.getdefaultlocale()[0]
+            instead of maintain a built-in list.
+            Remember this method is matched with ANSI code page and not the display language.
+            For history reason, not entire program support Unicode.
             """
 
-            result = None
+            import locale
 
             try:
-                result = ShortLangDict.get(sys.stdin.encoding)
+                result = locale.getdefaultlocale()[0]
             except Exception as e:
                 Process.handle_exception(e, False)
                 sys.exit(-42)

@@ -1,8 +1,8 @@
 Universal:
-    InstallerVersion: '0.8'
-    Title: 'Tensokukan Installer / Test Version / Build 8'
+    InstallerVersion: '0.11'
+    Title: 'Tensokukan Installer / Test Version / Build 11'
     Geometry: '640x480'
-zh-CN:
+zh_CN:
     programName: '天则观'
     labelWizardLang: '选择安装程序的语言：'
     labelWizardLangIntro:
@@ -15,7 +15,7 @@ zh-CN:
     errorTskLangEmpty: '还没有选择天则观语言。'
     nextStepButton: '下一步'
     exitButton: '直接退出'
-en-US:
+en_US:
     programName: 'Tensokukan'
     labelWizardLang: 'Select installer interface language:'
     labelWizardLangIntro:

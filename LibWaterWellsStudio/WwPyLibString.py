@@ -1,7 +1,18 @@
-import sys
+import locale
+from os import path
 from LibOperate import WaterWellsYaml as wwYaml
 
-string_dict = wwYaml.read_yaml_from_disk('{}.yaml'.format(sys.stdin.encoding))
+# Create string absolute path
+pyLocation = path.dirname(path.abspath(__file__))
+# 'lang' is the folder name of lang pack folder.
+formula = r'{0}\lang\{1}.yaml'
+# Example: r'.\lang\cp437.yaml'
+dict_path = formula.format(pyLocation, locale.getdefaultlocale()[0])
+
+# Alternative/Universal English library string if the lang is not supported.
+if path.isfile(dict_path) is not True:
+    dict_path = formula.format(pyLocation, 'cp437')
+string_dict = wwYaml.read_yaml_from_disk(dict_path)
 
 headers_dict = string_dict['headers_dict']
 hint_dict = string_dict['hint_dict']
